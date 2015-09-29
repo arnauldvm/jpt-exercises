@@ -47,20 +47,27 @@ jmpluginext_zip=JMeterPlugins-Extras-1.3.0.zip
 download http://jmeter-plugins.org/downloads/file/JMeterPlugins-Extras-1.3.0.zip "$jmpluginext_zip"
 gcviewer_jar=gcviewer-1.34.1.jar
 download http://sourceforge.net/projects/gcviewer/files/gcviewer-1.34.1.jar/download "$gcviewer_jar"
-mat_zip=MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip
-#download "http://www.eclipse.org/downloads/download.php?file=/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip&mirror_id=468" "$mat_zip"
-download "http://eclipse.mirror.kangaroot.net/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip" "$mat_zip"
+
+if [ "$(uname)" \!= "Darwin" ]; then
+  mat_zip=MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip
+  #download "http://www.eclipse.org/downloads/download.php?file=/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip&mirror_id=468" "$mat_zip"
+  download "http://eclipse.mirror.kangaroot.net/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip" "$mat_zip"
+  curl_7z=curl_X64_ssl.7z
+  download http://www.paehl.com/open_source/downloads/curl_X64_ssl.7z "$curl_7z"
+
+  #This one cannot be easily downloaded under a portable form
+  javasdk_zip=java-sdk-1.8.0_25-x64.zip
+  archive /C/javadev/tools/java/sdk/1.8.0_25-x64 "$javasdk_zip"
+      # Also includes:
+      #Visual VM
+      #Mission Control
+else
+  mat_zip=MemoryAnalyzer-1.5.0.20150527-macosx.cocoa.x86_64.zip
+  http://mirror.switch.ch/eclipse/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-macosx.cocoa.x86_64.zip
+fi
+
 threadlogic_jar=ThreadLogic-2.0.217.jar
 download https://java.net/projects/threadlogic/downloads/download/ThreadLogic-2.0.217.jar "$threadlogic_jar"
-curl_7z=curl_X64_ssl.7z
-download http://www.paehl.com/open_source/downloads/curl_X64_ssl.7z "$curl_7z"
-
-#This one cannot be easily downloaded under a portable form
-javasdk_zip=java-sdk-1.8.0_25-x64.zip
-archive /C/javadev/tools/java/sdk/1.8.0_25-x64 "$javasdk_zip"
-    # Also includes:
-    #Visual VM
-    #Mission Control
 
 popd
 
@@ -77,16 +84,21 @@ pushd apache-jmeter-*
 unzip -oq "../../../download/$jmpluginstd_zip"
 unzip -oq "../../../download/$jmpluginext_zip"
 popd
+find $jmeter_dir/bin \( -name '*.sh' -o -name 'jmeter' \) -exec chmod +x {} \;
 
-java_dir="$(echo "$javasdk_zip" | perl -pe 's/\.zip$//')"
-mkdir "$java_dir"
-pushd "$java_dir"
-unzip -q "../../../download/$javasdk_zip"
-popd
+if [ "$(uname)" \!= "Darwin" ]; then
+  java_dir="$(echo "$javasdk_zip" | perl -pe 's/\.zip$//')"
+  mkdir "$java_dir"
+  pushd "$java_dir"
+  unzip -q "../../../download/$javasdk_zip"
+  popd
+fi
 
 unzip -q "../../download/$mat_zip"
 mat_dir="$(echo mat*)"
-find $mat_dir \( -name '*.exe' -o -name '*.dll' \) -exec chmod +x {} \;
+if [ "$(uname)" \!= "Darwin" ]; then
+  find $mat_dir \( -name '*.exe' -o -name '*.dll' \) -exec chmod +x {} \;
+fi
 
 gcviewer_dir="$(echo "$gcviewer_jar" | perl -pe 's/\.jar$//')"
 mkdir "$gcviewer_dir"
@@ -96,11 +108,13 @@ threadlogic_dir="$(echo "$threadlogic_jar" | perl -pe 's/\.jar$//')"
 mkdir "$threadlogic_dir"
 cp -p "../../download/$threadlogic_jar" "$threadlogic_dir"
 
-curl_dir="$(echo "$curl_7z" | perl -pe 's/\.7z$//')"
-mkdir "$curl_dir"
-pushd "$curl_dir"
-7z x "../../../download/$curl_7z"
-popd
+if [ "$(uname)" \!= "Darwin" ]; then
+  curl_dir="$(echo "$curl_7z" | perl -pe 's/\.7z$//')"
+  mkdir "$curl_dir"
+  pushd "$curl_dir"
+  7z x "../../../download/$curl_7z"
+  popd
+fi
 
 cd ..
 echo "#!/bin/bash
@@ -111,12 +125,22 @@ if [ -z \"\$PATH_OLD\" ]; then
   PATH_OLD=\"\$PATH\"
 fi
 PATH=\"\$PATH_OLD\"
+" > setenv.sh
 
+if [ "$(uname)" \!= "Darwin" ]; then
+echo "
 JAVA_HOME=\"\$root_dir/$java_dir\"
 PATH=\"\$JAVA_HOME/bin:\$PATH\"
 
+CURL_HOME=\"\$root_dir/$curl_dir\"
+PATH=\"\$PATH:\$CURL_HOME/openssl\"
+" >> setenv.sh
+fi
+
+echo "
 JMETER_HOME=\"\$root_dir/$jmeter_dir\"
 PATH=\"\$PATH:\$JMETER_HOME/bin\"
+alias jm=jmeter
 
 MAT_HOME=\"\$root_dir/$mat_dir\"
 #PATH=\"\$PATH:\$MAT_HOME\"
@@ -128,13 +152,10 @@ alias gcviewer='javaw -jar \"\$GCVIEWER_HOME/$gcviewer_jar\"&'
 THREADLOGIC_HOME=\"\$root_dir/$threadlogic_dir\"
 alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME/$threadlogic_jar\"&'
 
-CURL_HOME=\"\$root_dir/$curl_dir\"
-PATH=\"\$PATH:\$CURL_HOME/openssl\"
-
 alias perf='typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\% Interrupt Time\" \"\\Processor(_Total)\\% User Time\" \"\\Processor(_Total)\\% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"'
 
 echo "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl, perf"
-" > setenv.sh
+" >> setenv.sh
 chmod +x setenv.sh
 
 echo "
@@ -171,5 +192,6 @@ unix2dos setenv.bat
 
 popd
 
+\rm -f jpt-env.zip
 archive install jpt-env.zip
 
