@@ -166,8 +166,8 @@ echo "
 @DOSKEY perf=typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\%% Interrupt Time\" \"\\Processor(_Total)\\%% User Time\" \"\\Processor(_Total)\\%% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"
 
 @ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl, perf"
-" > SETENV.BAT
-unix2dos SETENV.BAT
+" > setenv.bat
+unix2dos setenv.bat
 
 popd
 
