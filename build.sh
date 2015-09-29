@@ -52,6 +52,8 @@ mat_zip=MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip
 download "http://eclipse.mirror.kangaroot.net/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip" "$mat_zip"
 threadlogic_jar=ThreadLogic-2.0.217.jar
 download https://java.net/projects/threadlogic/downloads/download/ThreadLogic-2.0.217.jar "$threadlogic_jar"
+curl_7z=curl_X64_ssl.7z
+download http://www.paehl.com/open_source/downloads/curl_X64_ssl.7z "$curl_7z"
 
 #This one cannot be easily downloaded under a portable form
 javasdk_zip=java-sdk-1.8.0_25-x64.zip
@@ -94,6 +96,12 @@ threadlogic_dir="$(echo "$threadlogic_jar" | perl -pe 's/\.jar$//')"
 mkdir "$threadlogic_dir"
 cp -p "../../download/$threadlogic_jar" "$threadlogic_dir"
 
+curl_dir="$(echo "$curl_7z" | perl -pe 's/\.7z$//')"
+mkdir "$curl_dir"
+pushd "$curl_dir"
+7z x "../../../download/$curl_7z"
+popd
+
 cd ..
 echo "#!/bin/bash
 
@@ -120,7 +128,10 @@ alias gcviewer='javaw -jar \"\$GCVIEWER_HOME/$gcviewer_jar\"&'
 THREADLOGIC_HOME=\"\$root_dir/$threadlogic_dir\"
 alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME/$threadlogic_jar\"&'
 
-echo "Following tools installed: java, jm, mat, gcviewer, threadlogic"
+CURL_HOME=\"\$root_dir/$curl_dir\"
+PATH=\"\$PATH:\$CURL_HOME/openssl\"
+
+echo "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl"
 " > setenv.sh
 chmod +x setenv.sh
 
@@ -130,24 +141,27 @@ echo "
 @IF \"%PATH_OLD%\"==\"\" SET \"PATH_OLD=%PATH%\"
 @SET \"PATH=%PATH_OLD%\"
 
-@SET \"JAVA_HOME=%root_dir%\\java-sdk-1.8.0_25-x64\"
+@SET \"JAVA_HOME=%root_dir%\\$java_dir\"
 @SET \"PATH=%JAVA_HOME%\\bin;%PATH%\"
 
-@SET \"JMETER_HOME=%root_dir%\\apache-jmeter-2.13\"
+@SET \"JMETER_HOME=%root_dir%\\$jmeter_dir\"
 @SET \"PATH=%PATH%;%JMETER_HOME%\\bin\"
 @DOSKEY jm=START /MIN CMD /C jmeter
 
-@SET \"MAT_HOME=%root_dir%\\mat\"
+@SET \"MAT_HOME=%root_dir%\\$mat_dir\"
 ::@SET \"PATH=%PATH%;%MAT_HOME%\"
 @DOSKEY mat=START %MAT_HOME%\\MemoryAnalyzer -data %MAT_HOME%\\workspace -vm %JAVA_HOME%\\bin\\javaw.exe -vmargs -Xms256m -Xms4g
 
-@SET \"GCVIEWER_HOME=%root_dir%\\gcviewer-1.34.1\"
-@DOSKEY gcviewer=javaw -jar \"%GCVIEWER_HOME%\\gcviewer-1.34.1.jar\"&
+@SET \"GCVIEWER_HOME=%root_dir%\\$gcviewer_dir\"
+@DOSKEY gcviewer=javaw -jar \"%GCVIEWER_HOME%\\$gcviewer_dir.jar\"&
 
-@SET \"THREADLOGIC_HOME=%root_dir%\\ThreadLogic-2.0.217\"
-@DOSKEY threadlogic=javaw -jar \"%THREADLOGIC_HOME%\\ThreadLogic-2.0.217.jar\"&
+@SET \"THREADLOGIC_HOME=%root_dir%\\$threadlogic_dir\"
+@DOSKEY threadlogic=javaw -jar \"%THREADLOGIC_HOME%\\$threadlogic_dir.jar\"&
 
-@ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic"
+@SET \"CURL_HOME=%root_dir%\\$curl_dir\\openssl\"
+@SET \"PATH=%PATH%;%CURL_HOME%\"
+
+@ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl"
 " > SETENV.BAT
 unix2dos SETENV.BAT
 
