@@ -112,7 +112,7 @@ PATH=\"\$PATH:\$JMETER_HOME/bin\"
 
 MAT_HOME=\"\$root_dir/$mat_dir\"
 #PATH=\"\$PATH:\$MAT_HOME\"
-alias mat='$MAT_HOME/MemoryAnalyzer -vm $JAVA_HOME/bin/javaw.exe -vmargs -Xms256m -Xms4g&'
+alias mat='$MAT_HOME/MemoryAnalyzer -data $MAT_HOME/workspace -vm $JAVA_HOME/bin/javaw.exe -vmargs -Xms256m -Xms4g&'
 
 GCVIEWER_HOME=\"\$root_dir/$gcviewer_dir\"
 alias gcviewer='javaw -jar \"\$GCVIEWER_HOME/$gcviewer_jar\"&'
@@ -137,7 +137,7 @@ echo "
 
 @SET \"MAT_HOME=%root_dir%\\mat\"
 ::@SET \"PATH=%PATH%;%MAT_HOME%\"
-@DOSKEY mat=START %MAT_HOME%\\MemoryAnalyzer -vm %JAVA_HOME%\\bin\\javaw.exe -vmargs -Xms256m -Xms4g
+@DOSKEY mat=START %MAT_HOME%\\MemoryAnalyzer -data %MAT_HOME%\\workspace -vm %JAVA_HOME%\\bin\\javaw.exe -vmargs -Xms256m -Xms4g
 
 @SET \"GCVIEWER_HOME=%root_dir%\\gcviewer-1.34.1\"
 @DOSKEY gcviewer=javaw -jar \"%GCVIEWER_HOME%\\gcviewer-1.34.1.jar\"&
