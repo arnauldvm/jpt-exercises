@@ -131,7 +131,9 @@ alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME/$threadlogic_jar\"&'
 CURL_HOME=\"\$root_dir/$curl_dir\"
 PATH=\"\$PATH:\$CURL_HOME/openssl\"
 
-echo "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl"
+alias perf='typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\% Interrupt Time\" \"\\Processor(_Total)\\% User Time\" \"\\Processor(_Total)\\% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"'
+
+echo "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl, perf"
 " > setenv.sh
 chmod +x setenv.sh
 
@@ -161,7 +163,9 @@ echo "
 @SET \"CURL_HOME=%root_dir%\\$curl_dir\\openssl\"
 @SET \"PATH=%PATH%;%CURL_HOME%\"
 
-@ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl"
+@DOSKEY perf=typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\%% Interrupt Time\" \"\\Processor(_Total)\\%% User Time\" \"\\Processor(_Total)\\%% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"
+
+@ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl, perf"
 " > SETENV.BAT
 unix2dos SETENV.BAT
 
