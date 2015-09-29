@@ -147,3 +147,7 @@ echo "
 " > SETENV.BAT
 unix2dos SETENV.BAT
 
+popd
+
+archive install jpt-env.zip
+
