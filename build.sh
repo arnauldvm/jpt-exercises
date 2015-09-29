@@ -119,6 +119,8 @@ alias gcviewer='javaw -jar \"\$GCVIEWER_HOME/$gcviewer_jar\"&'
 
 THREADLOGIC_HOME=\"\$root_dir/$threadlogic_dir\"
 alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME/$threadlogic_jar\"&'
+
+echo "Following tools installed: java, jm, mat, gcviewer, threadlogic"
 " > setenv.sh
 chmod +x setenv.sh
 
@@ -144,6 +146,8 @@ echo "
 
 @SET \"THREADLOGIC_HOME=%root_dir%\\ThreadLogic-2.0.217\"
 @DOSKEY threadlogic=javaw -jar \"%THREADLOGIC_HOME%\\ThreadLogic-2.0.217.jar\"&
+
+@ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic"
 " > SETENV.BAT
 unix2dos SETENV.BAT
 
