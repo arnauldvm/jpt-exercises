@@ -37,6 +37,7 @@ import com.sun.net.httpserver.HttpHandler;
  */
 class Handler implements HttpHandler {
 
+  @Override
   public void handle(HttpExchange exchange) throws IOException {
     String requestMethod = exchange.getRequestMethod();
     if (requestMethod.equalsIgnoreCase("GET")) {
