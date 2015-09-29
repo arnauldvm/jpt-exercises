@@ -32,7 +32,7 @@ import com.sun.net.httpserver.HttpServer;
 public class Main {
 
   private static final int DEFAULT_QUEUE_SIZE = 0;
-  private static final int DEFAULT_PORT_NUMBER = 6666;
+  private static final int DEFAULT_PORT_NUMBER = 7666;
 
   public static void main(String[] args) throws IOException {
     int portNumber = DEFAULT_PORT_NUMBER;
