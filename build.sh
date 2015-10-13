@@ -12,7 +12,7 @@ cd "$tgtdir"
 mkdir download
 pushd download
 
-#! Add this to your ~/.curlrc
+#! Add this to your ~/.curlrc (UX) or ~/_curlrc (Windows)
 # proxy = <proxy_host>:<proxy_port>
 
 function download {
