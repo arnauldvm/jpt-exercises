@@ -144,7 +144,7 @@ alias jm=jmeter
 
 MAT_HOME=\"\$root_dir/$mat_dir\"
 #PATH=\"\$PATH:\$MAT_HOME\"
-alias mat='$MAT_HOME/MemoryAnalyzer -data $MAT_HOME/workspace -vm $JAVA_HOME/bin/javaw.exe -vmargs -Xms256m -Xms4g&'
+alias mat='\$MAT_HOME/MemoryAnalyzer -data \$MAT_HOME/workspace -vm \$JAVA_HOME/bin/javaw.exe -vmargs -Xms256m -Xms4g&'
 
 GCVIEWER_HOME=\"\$root_dir/$gcviewer_dir\"
 alias gcviewer='javaw -jar \"\$GCVIEWER_HOME/$gcviewer_jar\"&'
