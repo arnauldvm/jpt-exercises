@@ -77,6 +77,8 @@ popd
 # Pre-install
 #############
 
+\rm -rf install/local
+\rm -f install/setenv.*
 mkdir -p install/local
 pushd install/local
 
