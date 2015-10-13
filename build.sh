@@ -49,6 +49,7 @@ gcviewer_jar=gcviewer-1.34.1.jar
 download http://sourceforge.net/projects/gcviewer/files/gcviewer-1.34.1.jar/download "$gcviewer_jar"
 
 if [ "$(uname)" \!= "Darwin" ]; then
+  os_name="win32-x64"
   mat_zip=MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip
   #download "http://www.eclipse.org/downloads/download.php?file=/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip&mirror_id=468" "$mat_zip"
   download "http://eclipse.mirror.kangaroot.net/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip" "$mat_zip"
@@ -62,6 +63,7 @@ if [ "$(uname)" \!= "Darwin" ]; then
       #Visual VM
       #Mission Control
 else
+  os_name="osx"
   mat_zip=MemoryAnalyzer-1.5.0.20150527-macosx.cocoa.x86_64.zip
   http://mirror.switch.ch/eclipse/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-macosx.cocoa.x86_64.zip
 fi
@@ -192,6 +194,7 @@ unix2dos setenv.bat
 
 popd
 
-\rm -f jpt-env.zip
-archive install jpt-env.zip
+kit_file=jpt-kit-${os_name}.zip
+\rm -f $kit_file
+archive install $kit_file
 
