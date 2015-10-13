@@ -41,10 +41,10 @@ function archive {
 
 jmeter_zip=apache-jmeter-2.13.zip
 download http://www.eu.apache.org/dist//jmeter/binaries/apache-jmeter-2.13.zip "$jmeter_zip"
-jmpluginstd_zip=JMeterPlugins-Standard-1.3.0.zip
-download http://jmeter-plugins.org/downloads/file/JMeterPlugins-Standard-1.3.0.zip "$jmpluginstd_zip"
-jmpluginext_zip=JMeterPlugins-Extras-1.3.0.zip
-download http://jmeter-plugins.org/downloads/file/JMeterPlugins-Extras-1.3.0.zip "$jmpluginext_zip"
+jmpluginstd_zip=JMeterPlugins-Standard-1.3.1.zip
+download http://jmeter-plugins.org/downloads/file/JMeterPlugins-Standard-1.3.1.zip "$jmpluginstd_zip"
+jmpluginext_zip=JMeterPlugins-Extras-1.3.1.zip
+download http://jmeter-plugins.org/downloads/file/JMeterPlugins-Extras-1.3.1.zip "$jmpluginext_zip"
 gcviewer_jar=gcviewer-1.34.1.jar
 download http://sourceforge.net/projects/gcviewer/files/gcviewer-1.34.1.jar/download "$gcviewer_jar"
 
