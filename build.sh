@@ -124,6 +124,8 @@ cd ..
 echo "#!/bin/bash
 
 root_dir=\"\$(cd \"\$(dirname \"\$1\")\"; pwd)\"/local
+root_dir_bis=\"\$(echo \"\$root_dir\" | perl -pe 's#^/([a-zA-Z])/#\1:/#')\"
+  # java does not expect to see /C/... in the path, but C:/...
 
 if [ -z \"\$PATH_OLD\" ]; then
   PATH_OLD=\"\$PATH\"
@@ -135,6 +137,7 @@ if [ "$(uname)" \!= "Darwin" ]; then
 echo "
 JAVA_HOME=\"\$root_dir/$java_dir\"
 PATH=\"\$JAVA_HOME/bin:\$PATH\"
+JAVA_HOME_BIS=\"\$root_dir_bis/$java_dir\"
 
 CURL_HOME=\"\$root_dir/$curl_dir\"
 PATH=\"\$PATH:\$CURL_HOME/openssl\"
@@ -142,23 +145,25 @@ PATH=\"\$PATH:\$CURL_HOME/openssl\"
 fi
 
 echo "
-JMETER_HOME=\"\$root_dir/$jmeter_dir\"
-PATH=\"\$PATH:\$JMETER_HOME/bin\"
-alias jm=jmeter
+#JMETER_HOME=\"\$root_dir/$jmeter_dir\"
+#PATH=\"\$PATH:\$JMETER_HOME/bin\"
+JMETER_HOME_BIS=\"\$root_dir_bis/$jmeter_dir\"
+alias jmeter='\"\$JMETER_HOME_BIS/bin/jmeter.sh\"'
 
-MAT_HOME=\"\$root_dir/$mat_dir\"
+#MAT_HOME=\"\$root_dir/$mat_dir\"
 #PATH=\"\$PATH:\$MAT_HOME\"
-alias mat='\$MAT_HOME/MemoryAnalyzer -data \$MAT_HOME/workspace -vm \$JAVA_HOME/bin/javaw.exe -vmargs -Xms256m -Xms4g&'
+MAT_HOME_BIS=\"\$root_dir_bis/$mat_dir\"
+alias mat='\"\$MAT_HOME_BIS/MemoryAnalyzer\" -data \"\$MAT_HOME_BIS/workspace\" -vm \"\$JAVA_HOME_BIS/bin/javaw.exe\" -vmargs -Xms256m -Xms4g&'
 
-GCVIEWER_HOME=\"\$root_dir/$gcviewer_dir\"
-alias gcviewer='javaw -jar \"\$GCVIEWER_HOME/$gcviewer_jar\"&'
+GCVIEWER_HOME_BIS=\"\$root_dir_bis/$gcviewer_dir\"
+alias gcviewer='javaw -jar \"\$GCVIEWER_HOME_BIS/$gcviewer_jar\"&'
 
-THREADLOGIC_HOME=\"\$root_dir/$threadlogic_dir\"
-alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME/$threadlogic_jar\"&'
+THREADLOGIC_HOME_BIS=\"\$root_dir_bis/$threadlogic_dir\"
+alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME_BIS/$threadlogic_jar\"&'
 
 alias perf='typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\% Interrupt Time\" \"\\Processor(_Total)\\% User Time\" \"\\Processor(_Total)\\% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"'
 
-echo "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl, perf"
+echo "Following tools installed: java, jmeter, mat, gcviewer, threadlogic, curl, perf"
 " >> setenv.sh
 chmod +x setenv.sh
 
