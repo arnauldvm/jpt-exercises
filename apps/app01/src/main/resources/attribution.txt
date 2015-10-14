@@ -1,0 +1,3 @@
+Data coming from:
+https://en.wikipedia.org/wiki/Comparison_of_programming_languages
+as of 2015-10-13
