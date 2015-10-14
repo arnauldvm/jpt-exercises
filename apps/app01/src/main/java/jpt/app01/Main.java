@@ -60,6 +60,7 @@ public class Main {
     }
     HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), queueSize);
 
+    server.createContext("/", new StaticHandler());
     final ExecutorService threadPool = Executors.newFixedThreadPool(poolSize);
     server.setExecutor(threadPool);
     server.start();
