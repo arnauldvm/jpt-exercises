@@ -35,9 +35,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import jpt.app01.data.LanguageProfile;
 import jpt.app01.data.LanguagesDatabase;
+import static jpt.app01.QueryParser.getParameterValues;
 
 /**
  * Search a language profile from the database
@@ -57,10 +57,7 @@ class SearchHandler implements HttpHandler {
     LOG.info(uri.toString());
     
     String query = exchange.getRequestURI().getQuery();
-    final List<String> keyValues = Arrays.stream(query.split("&")).
-            filter(s -> s.startsWith("key")).
-            map(s -> s.replaceAll("^key=?", "")).
-            collect(Collectors.toList());
+    final List<String> keyValues = getParameterValues(query, "key");
     if (1!=keyValues.size()) {
       ErrorHandler.handle(exchange, ErrorHandler.ERR_BAD_REQUEST, "Invalid key count: actual " + keyValues.size() + " vs. 1 expected");
       return;
