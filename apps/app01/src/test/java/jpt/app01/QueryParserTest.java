@@ -126,4 +126,34 @@ public class QueryParserTest {
     assertThat(QueryParser.getFirstParameterValue(query, "name").get(), equalTo("ALGOL 68"));
   }
   
+  /**
+   * Test of getFirstParameterValue method, of class QueryParser.
+   */
+  @Test
+  public void testGetFirstParameterValuePctEncoded() {
+    System.out.println("getParameterValue");
+    String query = "name=ALGOL%2068";
+    assertThat(QueryParser.getFirstParameterValue(query, "name").get(), equalTo("ALGOL 68"));
+  }
+  
+  /**
+   * Test of getFirstParameterValue method, of class QueryParser.
+   */
+  @Test
+  public void testGetFirstParameterValueNameEncoded() {
+    System.out.println("getParameterValue");
+    String query = "language+name=Basic";
+    assertThat(QueryParser.getFirstParameterValue(query, "language name").get(), equalTo("Basic"));
+  }
+  
+ /**
+   * Test of getFirstParameterValue method, of class QueryParser.
+   */
+  @Test
+  public void testGetFirstParameterValueNamePctEncoded() {
+    System.out.println("getParameterValue");
+    String query = "language%20name=Basic";
+    assertThat(QueryParser.getFirstParameterValue(query, "language name").get(), equalTo("Basic"));
+  }
+  
 }
