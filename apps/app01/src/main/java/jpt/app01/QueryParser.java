@@ -37,12 +37,12 @@ public class QueryParser {
   
   public static List<String> getParameterValues(String query, final String parameterName) {
     return Arrays.stream(query.split("&")).
-            filter((String s) -> s.startsWith(parameterName)).
-            map((String s) -> s.replaceAll("^" + parameterName + "=?", "")).
+            filter((String s) -> s.startsWith(parameterName+"=")).
+            map((String s) -> s.replaceAll("^\\Q" + parameterName + "\\E=", "")).
             collect(Collectors.toList());
   }
   
-  public static String getParameterValue(String query, final String parameterName) throws IllegalArgumentException {
+  public static String getFirstParameterValue(String query, final String parameterName) throws IllegalArgumentException {
     final List<String> values = getParameterValues(query, parameterName);
     if (1!=values.size()) {
       throw new IllegalArgumentException("Invalid " + parameterName + " count: actual " + values.size() + " vs. 1 expected");

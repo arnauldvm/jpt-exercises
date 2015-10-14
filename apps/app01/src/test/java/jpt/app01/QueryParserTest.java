@@ -41,7 +41,6 @@ public class QueryParserTest {
   public void testGetParameterValues() {
     System.out.println("getParameterValues");
     String query = "a=b&c=d&e=f";
-    List<String> expResult = null;
     assertThat(QueryParser.getParameterValues(query, "a"), hasItems("b"));
     assertThat(QueryParser.getParameterValues(query, "c"), hasItems("d"));
     assertThat(QueryParser.getParameterValues(query, "e"), hasItems("f"));
@@ -51,42 +50,71 @@ public class QueryParserTest {
    * Test of getParameterValues method, of class QueryParser.
    */
   @Test
+  public void testGetParameterValuesMissing() {
+    System.out.println("getParameterValues multiple");
+    String query = "a=b&c=d&a=f";
+    assertThat(QueryParser.getParameterValues(query, "x"), empty());
+  }
+
+  /**
+   * Test of getParameterValues method, of class QueryParser.
+   */
+  @Test
   public void testGetParameterValuesMultiple() {
     System.out.println("getParameterValues multiple");
     String query = "a=b&c=d&a=f";
-    List<String> expResult = null;
     assertThat(QueryParser.getParameterValues(query, "a"), hasItems("b", "f"));
     assertThat(QueryParser.getParameterValues(query, "c"), hasItems("d"));
   }
 
   /**
-   * Test of getParameterValue method, of class QueryParser.
+   * Test of getParameterValues method, of class QueryParser.
    */
   @Test
-  public void testGetParameterValue() {
+  public void testGetParameterValuesTruncateName() {
+    System.out.println("getParameterValues multiple");
+    String query = "ab=c";
+    assertThat(QueryParser.getParameterValues(query, "a"), empty());
+  }
+
+  /**
+   * Test of getFirstParameterValue method, of class QueryParser.
+   */
+  @Test
+  public void testGetFirstParameterValue() {
     System.out.println("getParameterValue");
     String query = "a=b&c=d&a=f";
-    assertThat(QueryParser.getParameterValue(query, "c"), equalTo("d"));
+    assertThat(QueryParser.getFirstParameterValue(query, "c"), equalTo("d"));
   }
   
   /**
-   * Test of getParameterValue method, of class QueryParser.
+   * Test of getFirstParameterValue method, of class QueryParser.
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testGetParameterValueMissing() {
+  public void testGetFirstParameterValueTruncateName() {
     System.out.println("getParameterValue");
-    String query = "a=b&c=d&a=f";
-    QueryParser.getParameterValue(query, "x");
+    String query = "ab=c";
+    QueryParser.getFirstParameterValue(query, "a");
   }
   
   /**
-   * Test of getParameterValue method, of class QueryParser.
+   * Test of getFirstParameterValue method, of class QueryParser.
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testGetParameterValueMultiple() {
+  public void testGetFirstParameterValueMissing() {
     System.out.println("getParameterValue");
     String query = "a=b&c=d&a=f";
-    QueryParser.getParameterValue(query, "a");
+    QueryParser.getFirstParameterValue(query, "x");
+  }
+  
+  /**
+   * Test of getFirstParameterValue method, of class QueryParser.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetFirstParameterValueMultiple() {
+    System.out.println("getParameterValue");
+    String query = "a=b&c=d&a=f";
+    QueryParser.getFirstParameterValue(query, "a");
   }
   
 }

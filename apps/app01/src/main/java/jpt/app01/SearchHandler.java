@@ -36,7 +36,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import jpt.app01.data.LanguageProfile;
 import jpt.app01.data.LanguagesDatabase;
-import static jpt.app01.QueryParser.getParameterValue;
+import static jpt.app01.QueryParser.getFirstParameterValue;
 
 /**
  * Search a language profile from the database
@@ -58,7 +58,7 @@ class SearchHandler implements HttpHandler {
     String query = exchange.getRequestURI().getQuery();
     String keyValue;
     try {
-      keyValue = getParameterValue(query, "key").toLowerCase();
+      keyValue = getFirstParameterValue(query, "key").toLowerCase();
     } catch (IllegalArgumentException e) {
       ErrorHandler.handle(exchange, ErrorHandler.ERR_BAD_REQUEST, e.getMessage());
       return;
