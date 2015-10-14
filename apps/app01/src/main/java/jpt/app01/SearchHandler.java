@@ -32,9 +32,11 @@ import java.io.PrintStream;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import jpt.app01.data.LanguageProfile;
 import jpt.app01.data.LanguagesDatabase;
 import static jpt.app01.QueryParser.getFirstParameterValue;
@@ -68,27 +70,48 @@ class SearchHandler implements HttpHandler {
     }
     
     synchronized (database) {
-      final Optional<String> firstFoundLanguageName = Arrays.stream(database.getLanguageNames()).
+      final List<String> foundLanguageNames = Arrays.stream(database.getLanguageNames()).
               filter(s -> s.toLowerCase().contains(keyValue)).
-              findFirst();
-      if (!firstFoundLanguageName.isPresent()) {
+              sorted().
+              collect(Collectors.toList());
+      if (foundLanguageNames.isEmpty()) {
         ErrorHandler.handle(exchange, ErrorHandler.ERR_NOT_FOUND, "No language matching '" + keyValue + "' found.");
         return;
       }
-      final String languageName = firstFoundLanguageName.get();
-      Headers responseHeaders = exchange.getResponseHeaders();
-      responseHeaders.set("Content-Type", "text/html");
-      final String url = "/language?name=" + URLEncoder.encode(languageName, "UTF-8");
-      responseHeaders.set("Location", url);
-      exchange.sendResponseHeaders(302, 0);
-      try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
-        out.printf("<TITLE>App 01: %s</TITLE>\n", languageName);
-        out.println("<DIV>");
-        out.printf("Go to: <A href=\"%s\"><B>%s</B></A>", url, languageName);
-        out.println("</DIV>");
-      } catch (Exception e) {
-        LOG.log(Level.SEVERE, "Failed generating redirection to language page for '" + languageName + "': ", e);
-        throw(e);
+      if (1 == foundLanguageNames.size()) {
+        final String languageName = foundLanguageNames.get(0);
+        Headers responseHeaders = exchange.getResponseHeaders();
+        responseHeaders.set("Content-Type", "text/html");
+        final String url = "/language?name=" + URLEncoder.encode(languageName, "UTF-8");
+        responseHeaders.set("Location", url);
+        exchange.sendResponseHeaders(302, 0);
+        try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
+          out.printf("<TITLE>App 01: %s</TITLE>\n", languageName);
+          out.println("<DIV>");
+          out.printf("Go to: <A href=\"%s\"><B>%s</B></A>", url, languageName);
+          out.println("</DIV>");
+        } catch (Exception e) {
+          LOG.log(Level.SEVERE, "Failed generating redirection to language page for '" + languageName + "': ", e);
+          throw(e);
+        }
+      } else {
+        Headers responseHeaders = exchange.getResponseHeaders();
+        responseHeaders.set("Content-Type", "text/html");
+        exchange.sendResponseHeaders(200, 0);
+        try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
+          out.printf("<TITLE>App 01: List of languages matching '%s'</TITLE>\n", keyValue);
+          out.println("<DIV>");
+          out.printf("List of languages matching <B>%s</B>", keyValue);
+          out.println("<UL>");
+          for (String languageName: foundLanguageNames) {
+            final String url = "/language?name=" + URLEncoder.encode(languageName, "UTF-8");
+            out.printf("<LI><A href=\"%s\"><B>%s</B></A></LI>\n", url, languageName);
+          }
+          out.println("</DIV>");
+        } catch (Exception e) {
+          LOG.log(Level.SEVERE, "Failed generating list of languages matches for '" + keyValue + "': ", e);
+          throw(e);
+        }
       }
     }
   }
