@@ -33,11 +33,9 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import jpt.app01.data.LanguageProfile;
 import jpt.app01.data.LanguagesDatabase;
 import static jpt.app01.QueryParser.getFirstParameterValue;
 

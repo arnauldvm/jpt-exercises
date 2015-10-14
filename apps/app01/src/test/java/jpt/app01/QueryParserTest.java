@@ -23,7 +23,6 @@
  */
 package jpt.app01;
 
-import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
