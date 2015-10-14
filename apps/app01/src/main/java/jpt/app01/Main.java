@@ -61,6 +61,7 @@ public class Main {
     HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), queueSize);
 
     server.createContext("/", new StaticHandler());
+    server.createContext("/search", new SearchHandler());
     final ExecutorService threadPool = Executors.newFixedThreadPool(poolSize);
     server.setExecutor(threadPool);
     server.start();
