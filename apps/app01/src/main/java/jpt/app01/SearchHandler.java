@@ -58,7 +58,9 @@ class SearchHandler implements HttpHandler {
     String query = exchange.getRequestURI().getQuery();
     String keyValue;
     try {
-      keyValue = getFirstParameterValue(query, "key").toLowerCase();
+      keyValue = getFirstParameterValue(query, "key").
+              orElseThrow(() -> new IllegalArgumentException("Missing parameter 'key'")).
+              toLowerCase();
     } catch (IllegalArgumentException e) {
       ErrorHandler.handle(exchange, ErrorHandler.ERR_BAD_REQUEST, e.getMessage());
       return;

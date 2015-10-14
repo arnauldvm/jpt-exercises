@@ -25,7 +25,9 @@ package jpt.app01;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -35,19 +37,18 @@ public class QueryParser {
   
   private QueryParser() {} // Pure static
   
-  public static List<String> getParameterValues(String query, final String parameterName) {
+  private static Stream<String> getParameterValuesAsStream(String query, final String parameterName) {
     return Arrays.stream(query.split("&")).
             filter((String s) -> s.startsWith(parameterName+"=")).
-            map((String s) -> s.replaceAll("^\\Q" + parameterName + "\\E=", "")).
-            collect(Collectors.toList());
+            map((String s) -> s.replaceAll("^\\Q" + parameterName + "\\E=", ""));
   }
   
-  public static String getFirstParameterValue(String query, final String parameterName) throws IllegalArgumentException {
-    final List<String> values = getParameterValues(query, parameterName);
-    if (1!=values.size()) {
-      throw new IllegalArgumentException("Invalid " + parameterName + " count: actual " + values.size() + " vs. 1 expected");
-    }
-    return values.get(0);
+  public static List<String> getParameterValues(String query, final String parameterName) {
+    return getParameterValuesAsStream(query, parameterName).collect(Collectors.toList());
+  }
+  
+  public static Optional<String> getFirstParameterValue(String query, final String parameterName) {
+    return getParameterValuesAsStream(query, parameterName).reduce((a, b) -> a);
   }
   
 }

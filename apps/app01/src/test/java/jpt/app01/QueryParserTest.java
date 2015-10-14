@@ -84,37 +84,37 @@ public class QueryParserTest {
   public void testGetFirstParameterValue() {
     System.out.println("getParameterValue");
     String query = "a=b&c=d&a=f";
-    assertThat(QueryParser.getFirstParameterValue(query, "c"), equalTo("d"));
+    assertThat(QueryParser.getFirstParameterValue(query, "c").get(), equalTo("d"));
   }
   
   /**
    * Test of getFirstParameterValue method, of class QueryParser.
    */
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testGetFirstParameterValueTruncateName() {
     System.out.println("getParameterValue");
     String query = "ab=c";
-    QueryParser.getFirstParameterValue(query, "a");
+    assertFalse(QueryParser.getFirstParameterValue(query, "a").isPresent());
   }
   
   /**
    * Test of getFirstParameterValue method, of class QueryParser.
    */
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testGetFirstParameterValueMissing() {
     System.out.println("getParameterValue");
     String query = "a=b&c=d&a=f";
-    QueryParser.getFirstParameterValue(query, "x");
+    assertFalse(QueryParser.getFirstParameterValue(query, "x").isPresent());
   }
   
   /**
    * Test of getFirstParameterValue method, of class QueryParser.
    */
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testGetFirstParameterValueMultiple() {
     System.out.println("getParameterValue");
     String query = "a=b&c=d&a=f";
-    QueryParser.getFirstParameterValue(query, "a");
+    assertThat(QueryParser.getFirstParameterValue(query, "a").get(), equalTo("b"));
   }
   
 }
