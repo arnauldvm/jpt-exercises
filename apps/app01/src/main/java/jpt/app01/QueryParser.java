@@ -59,7 +59,7 @@ public class QueryParser {
   }
   
   public static Optional<String> getFirstParameterValue(String query, final String parameterName) {
-    return getParameterValuesAsStream(query, parameterName).reduce((a, b) -> a);
+    return getParameterValuesAsStream(query, parameterName).findFirst();
   }
   
 }
