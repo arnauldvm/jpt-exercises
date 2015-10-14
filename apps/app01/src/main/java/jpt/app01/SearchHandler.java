@@ -25,11 +25,9 @@ package jpt.app01;
 
 import com.sun.net.httpserver.Headers;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.URI;
 import java.util.Arrays;
