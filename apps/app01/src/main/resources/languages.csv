@@ -1,17 +1,17 @@
 Language;Intended use;Imperative;Object-oriented;Functional;Procedural;Generic;Reflective;Event-driven;Other paradigm(s);Standardized?;Type safety;Type expression;Type compatibility and equivalence;Type checking
-ActionScript 3.0;Application, client-side, Web;Yes;Yes;;;;;Yes;;1996, ECMA;safe;implicit with optional explicit typing;;static
-Ada;Application, embedded, realtime,system;Yes;Yes;;Yes;Yes;;;concurrent, distributed, imperative object-oriented;1983, 2005, 2012, ANSI, ISO,GOST 27831-88;safe;explicit;nominal;static
+ActionScript 3.0;Application, client-side, Web;Yes;Yes;;;;;Yes;;1996, ECMA;safe;implicit with optional explicit typing;;static
+Ada;Application, embedded, realtime,system;Yes;Yes;;Yes;Yes;;;concurrent, distributed, imperative object-oriented;1983, 2005, 2012, ANSI, ISO,GOST 27831-88;safe;explicit;nominal;static
 Aldor;Highly domain-specific, symbolic computing;Yes;Yes;Yes;;;;;;No;unsafe;implicit;;static
 ALGOL 58;Application;Yes;;;;;;;;No;safe;explicit;;static
 ALGOL 60;Application;Yes;;;;;;;;1960, IFIP WG 2.1, ISO;safe;explicit;;static
-ALGOL 68;Application;Yes;;;;;;;concurrent;1968, IFIP WG 2.1, GOST 27974-88,;safe;explicit;structural;static & tagged unions
+ALGOL 68;Application;Yes;;;;;;;concurrent;1968, IFIP WG 2.1, GOST 27974-88,;safe;explicit;structural;static & tagged unions
 Ateji PX;Parallel application;;Yes;;;;;;pi calculus;No;safe;explicit;nominal;static
 APL;Application, data processing;;;;;;;;array-oriented,tacit;1989, ISO;safe;;;dynamic
 Assembly language;General;Yes;;;;;;;any, syntax is usually highly specific, related to the target processor;No;;;;
 AutoHotkey;GUI automation (macros), highly domain-specific;Yes;;;;;;;;No;typeless;n/a;n/a;n/a
 AutoIt;GUI automation (macros), highly domain-specific;Yes;;;Yes;;;Yes;;No;;;;
 Bash;Shell, scripting;Yes;;;Yes;;;;;;?;?;?;?
-BASIC;Application, education;Yes;;;Yes;;;;;1983, ANSI, ISO;safe;explicit;nominal;static
+BASIC;Application, education;Yes;;;Yes;;;;;1983, ANSI, ISO;safe;explicit;nominal;static
 BBj;Application, business, Web;;Yes;;Yes;;;;;No;;;;
 BeanShell;Application, scripting;Yes;Yes;Yes;;;Yes;;;In progress,JCP;safe;;nominal;dynamic
 BitC;System;Yes;;Yes;;;;;;No;;;;
@@ -20,7 +20,7 @@ BlitzMax;Application, game;Yes;Yes;;Yes;;;;;No;;;;
 Blue;Education;Yes;Yes;;;Yes;;;;No;;;;
 Boo;Application;;;;;;;;;No;safe;implicit with optional explicit typing;;static with optional dynamic typing
 Bro;domain-specific, application;Yes;;;;;;Yes;;No;safe;implicit with optional explicit typing;nominal;static
-C;Application, system, general purpose, low-level operations;Yes;;;Yes;;;;;1989, ANSI C89, ISO C90, ISO C99, ISO C11;unsafe;explicit;nominal;static
+C;Application, system, general purpose, low-level operations;Yes;;;Yes;;;;;1989, ANSI C89, ISO C90, ISO C99, ISO C11;unsafe;explicit;nominal;static
 C++;Application, system;Yes;Yes;Yes;Yes;Yes;;;;1998, ISO/IEC 1998, ISO/IEC 2003, ISO/IEC 2011;unsafe;explicit;nominal;static
 C#;Application, RAD, business, client-side, general, server-side, Web;Yes;Yes;Yes;Yes;Yes;Yes;Yes;structured, concurrent;2000, ECMA, ISO;unsafe;implicit with optional explicit typing;nominal;static
 Clarion;General, business, Web;Yes;Yes;Yes;;;;;;Unknown;;;;
@@ -31,7 +31,7 @@ COBOL;Application, business;Yes;Yes;;Yes;;;;;ANSI X3.23 1968, 1974, 1985 - ISO/I
 Cobra;Application, business, general, Web;Yes;Yes;Yes;;Yes;Yes;;;No;;;;
 ColdFusion(CFML);Web;;Yes;;Yes;;;;;No;safe;implicit;;dynamic
 Common Lisp;General;Yes;Yes;Yes;Yes;Yes;Yes;Yes;extensible syntax,syntactic macros,multiple dispatch;1994, ANSI;safe;implicit with optional explicit typing;;dynamic
-COMAL 80;Education;Yes;;;Yes;;;;;No;;;;
+COMAL 80;Education;Yes;;;Yes;;;;;No;;;;
 Crystal 1.0.0;Education;Yes;;Yes;Yes;;;;;No;;;;
 Curl;;;;;;;;;;;safe;;nominal;
 Cython;Application, general, numerical computing;Yes;Yes;Yes;;;Yes;;aspect-oriented;No;safe;implicit with optional explicit typing;nominal (extension types) and structural (Python);dynamic with optional static typing
@@ -63,16 +63,16 @@ Haxe;Application, general, Web;Yes;Yes;Yes;;Yes;Yes;;;No;safe;implicit with opti
 HyperNext;Application, education;;;;Yes;;;Yes;weakly typed;No;;;;
 HyperTalk;Application, RAD, General;;Yes;;;;;Yes;weakly typed;Unknown;;;;
 Io;Application, host-driven scripting;Yes;Yes;;;;;;;No;safe;implicit;;dynamic
-ISLISP;General;Yes;Yes;Yes;;Yes;;;;1997, ISO;safe;;;dynamic
+ISLISP;General;Yes;Yes;Yes;;Yes;;;;1997, ISO;safe;;;dynamic
 J;Data processing;;;;;;;;array-oriented,function-level, tacit;No;safe;;;dynamic
 JADE;Application, distributed;Yes;Yes;;;;;;;No;;;;
-Java;Application, business, client-side, general, mobile development, server-side, Web;Yes;Yes;Yes;Yes;Yes;Yes;;concurrent;De facto standard via Java Language Specification;safe;explicit;nominal;static
+Java;Application, business, client-side, general, mobile development, server-side, Web;Yes;Yes;Yes;Yes;Yes;Yes;;concurrent;De facto standard via Java Language Specification;safe;explicit;nominal;static
 Julia;General and made for technical computing;Yes;Yes;Yes;Yes;Yes;Yes;;multiple dispatch, meta, scalar andarray-oriented, parallel, concurrent, distributed ("cloud");No;safe;implicit with optional explicit typing;;
 JavaScript;Client-side, Server-side, Web;Yes;Yes;Yes;;;Yes;;prototype-based;1997, ECMA;safe;implicit;structural;dynamic
 Joy;Research;;;Yes;;;;;stack-oriented;No;safe;;;dynamic
 K;Data processing, business;;;;;;;;array-oriented, tacit;Unknown;;;;
 Kotlin;Application, mobile development, server-sider, client-side, Web;Yes;Yes;Yes;;Yes;Yes;;;No;safe;partially implicit (local type inference);nominal;static
-LabVIEW (G);Application, industrial instrumentation-automation;;;;;;;;dataflow, visual;No;safe;;;
+LabVIEW (G);Application, industrial instrumentation-automation;;;;;;;;dataflow, visual;No;safe;;;
 Lisp;General;;;Yes;;;;;;Unknown;;;;
 Livecode;Application, RAD, General;;Yes;;;;;Yes;weakly typed;No;;;;
 Logtalk;Artificial intelligence, application;;Yes;;;;Yes;Yes;logic;No;;;;
@@ -95,7 +95,7 @@ Oxygene;Application;Yes;Yes;;;Yes;;;;No;unsafe;implicit;;static
 Oz;Application, distribution, education;Yes;Yes;Yes;;;;;concurrent, logic;No;safe;implicit;structural;dynamic
 Pascal;Application, education;Yes;;;Yes;;;;;1983, ISO;unsafe;explicit;nominal;static
 Perl;Application, scripting, text processing, Web;Yes;Yes;Yes;Yes;Yes;Yes;;;No;;;;
-Perl 5;;;;;;;;;;No;;implicit;;dynamic
+Perl 5;;;;;;;;;;No;;implicit;;dynamic
 Perl 6;;;;;;;;;;;;partially implicit;;dynamic with optional static typing
 PHP;Server-side, Web Application, Web;Yes;Yes;;Yes;;Yes;;;;;implicit;;dynamic
 PL/I;Application;Yes;Yes;;Yes;;;;;1969;;;;
@@ -112,12 +112,12 @@ Ruby;Application, scripting, Web;Yes;Yes;Yes;;;Yes;;aspect-oriented;2011(JIS X 3
 Rust;Application, system;Yes;Yes;Yes;Yes;Yes;Yes;;concurrent;No;safe;implicit with optional explicit typing;;static with optional dynamic typing
 S;Application, statistics;Yes;Yes;Yes;Yes;;;;;No;;;;dynamic
 S-Lang;Application, numerical, scripting;Yes;;;Yes;;;;;No;safe;implicit;;dynamic
-Scala;Application, distributed, Web;Yes;Yes;Yes;;Yes;Yes;Yes;;De facto standard via Scala Language Specification (SLS);safe;partially implicit (local type inference);nominal (subclassing) and structural (structural);static
+Scala;Application, distributed, Web;Yes;Yes;Yes;;Yes;Yes;Yes;;De facto standard via Scala Language Specification (SLS);safe;partially implicit (local type inference);nominal (subclassing) and structural (structural);static
 Scheme;Education, general;;;Yes;;;;;;1998, R6RS;safe;implicit;;dynamic (latent)
 Seed7;Application, general, scripting, Web;Yes;Yes;;;Yes;Yes;;multi-paradigm, extensible, structured;No;safe;explicit;nominal;static
 Simula;Education, general;Yes;Yes;;;;;Yes;discrete event simulation,multi-threaded(quasi-parallel) program execution;1968;safe;;;static
 Small Basic;Application, education, games;Yes;;;;;;Yes;component-oriented;No;;;;
-Smalltalk;Application, General, Business, Web, Artificial Intelligence, Education;Yes;Yes;;Yes;;Yes;Yes;concurrent, declarative;1998, ANSI;safe;implicit;;dynamic
+Smalltalk;Application, General, Business, Web, Artificial Intelligence, Education;Yes;Yes;;Yes;;Yes;Yes;concurrent, declarative;1998, ANSI;safe;implicit;;dynamic
 SNOBOL;Text processing;;;;;;;;;Unknown;;;;
 Standard ML;Application;Yes;;Yes;;Yes;;;;1997, SML '97;safe;implicit with optional explicit typing;structural;static
 Swift;Application, general;Yes;Yes;Yes;;Yes;Yes;Yes;concurrent;Yes;safe;partially implicit (local type inference);nominal (subclassing) and structural (structural);static
