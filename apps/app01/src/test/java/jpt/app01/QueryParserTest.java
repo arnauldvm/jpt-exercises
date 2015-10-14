@@ -156,4 +156,14 @@ public class QueryParserTest {
     assertThat(QueryParser.getFirstParameterValue(query, "language name").get(), equalTo("Basic"));
   }
   
+ /**
+   * Test of getFirstParameterValue method, of class QueryParser.
+   */
+  @Test
+  public void testGetFirstParameterValueNameOnly() {
+    System.out.println("getParameterValue");
+    String query = "name&type";
+    assertFalse(QueryParser.getFirstParameterValue(query, "name").isPresent());
+  }
+  
 }

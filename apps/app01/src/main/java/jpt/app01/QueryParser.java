@@ -50,7 +50,7 @@ public class QueryParser {
   private static Stream<String> getParameterValuesAsStream(String query, final String parameterName) {
     return Arrays.stream(query.split("&")).
             map((String s) -> Arrays.stream(s.split("=", -1)).map(u -> urlDecode(u)).collect(Collectors.toList())).
-            filter(ls -> ls.get(0).equals(parameterName)).
+            filter(ls -> (ls.size()>1) && ls.get(0).equals(parameterName)).
             map(ls -> ls.get(1));
   }
   
