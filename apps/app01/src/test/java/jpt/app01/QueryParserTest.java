@@ -117,4 +117,14 @@ public class QueryParserTest {
     assertThat(QueryParser.getFirstParameterValue(query, "a").get(), equalTo("b"));
   }
   
+  /**
+   * Test of getFirstParameterValue method, of class QueryParser.
+   */
+  @Test
+  public void testGetFirstParameterValueEncoded() {
+    System.out.println("getParameterValue");
+    String query = "name=ALGOL+68";
+    assertThat(QueryParser.getFirstParameterValue(query, "name").get(), equalTo("ALGOL 68"));
+  }
+  
 }

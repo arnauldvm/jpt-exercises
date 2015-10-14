@@ -23,9 +23,13 @@
  */
 package jpt.app01;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -37,10 +41,19 @@ public class QueryParser {
   
   private QueryParser() {} // Pure static
   
+  private static String urlDecode(String urlPart) {
+    try {
+      return URLDecoder.decode(urlPart, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("Unexpected encoding exeption", e);
+    }
+  }
+  
   private static Stream<String> getParameterValuesAsStream(String query, final String parameterName) {
     return Arrays.stream(query.split("&")).
             filter((String s) -> s.startsWith(parameterName+"=")).
-            map((String s) -> s.replaceAll("^\\Q" + parameterName + "\\E=", ""));
+            map(s -> s.replaceAll("^\\Q" + parameterName + "\\E=", "")).
+            map(s -> urlDecode(s));
   }
   
   public static List<String> getParameterValues(String query, final String parameterName) {
