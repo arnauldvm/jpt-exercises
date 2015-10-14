@@ -30,6 +30,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.PrintStream;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -75,22 +76,18 @@ class SearchHandler implements HttpHandler {
         return;
       }
       final String languageName = firstFoundLanguageName.get();
-      LanguageProfile language = database.getLanguage(languageName);
       Headers responseHeaders = exchange.getResponseHeaders();
       responseHeaders.set("Content-Type", "text/html");
-      exchange.sendResponseHeaders(200, 0);
+      final String url = "/language?name=" + URLEncoder.encode(languageName, "UTF-8");
+      responseHeaders.set("Location", url);
+      exchange.sendResponseHeaders(302, 0);
       try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
         out.printf("<TITLE>App 01: %s</TITLE>\n", languageName);
         out.println("<DIV>");
-        out.printf("<B>%s</B>", languageName);
-        out.println("<UL>");
-        for (String attributeName: language.getAttributeNames()) {
-          out.printf("<LI><U>%s</U>: %s</LI>\n", attributeName, language.getAttributeValue(attributeName));
-        }
-        out.println("</UL>");
+        out.printf("Go to: <A href=\"%s\"><B>%s</B></A>", url, languageName);
         out.println("</DIV>");
       } catch (Exception e) {
-        LOG.log(Level.SEVERE, "Failed returning HTML page for language '" + languageName + "': ", e);
+        LOG.log(Level.SEVERE, "Failed generating redirection to language page for '" + languageName + "': ", e);
         throw(e);
       }
     }
