@@ -62,6 +62,7 @@ public class Main {
 
     server.createContext("/", new StaticHandler());
     server.createContext("/search", new SearchHandler());
+    server.createContext("/language", new LanguageHandler());
     final ExecutorService threadPool = Executors.newFixedThreadPool(poolSize);
     server.setExecutor(threadPool);
     server.start();
