@@ -42,4 +42,12 @@ public class QueryParser {
             collect(Collectors.toList());
   }
   
+  public static String getParameterValue(String query, final String parameterName) throws IllegalArgumentException {
+    final List<String> values = getParameterValues(query, parameterName);
+    if (1!=values.size()) {
+      throw new IllegalArgumentException("Invalid " + parameterName + " count: actual " + values.size() + " vs. 1 expected");
+    }
+    return values.get(0);
+  }
+  
 }

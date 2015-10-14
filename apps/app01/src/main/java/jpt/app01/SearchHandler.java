@@ -31,13 +31,12 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.PrintStream;
 import java.net.URI;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jpt.app01.data.LanguageProfile;
 import jpt.app01.data.LanguagesDatabase;
-import static jpt.app01.QueryParser.getParameterValues;
+import static jpt.app01.QueryParser.getParameterValue;
 
 /**
  * Search a language profile from the database
@@ -57,12 +56,13 @@ class SearchHandler implements HttpHandler {
     LOG.info(uri.toString());
     
     String query = exchange.getRequestURI().getQuery();
-    final List<String> keyValues = getParameterValues(query, "key");
-    if (1!=keyValues.size()) {
-      ErrorHandler.handle(exchange, ErrorHandler.ERR_BAD_REQUEST, "Invalid key count: actual " + keyValues.size() + " vs. 1 expected");
+    String keyValue;
+    try {
+      keyValue = getParameterValue(query, "key").toLowerCase();
+    } catch (IllegalArgumentException e) {
+      ErrorHandler.handle(exchange, ErrorHandler.ERR_BAD_REQUEST, e.getMessage());
       return;
     }
-    String keyValue = keyValues.get(0).toLowerCase();
     
     synchronized (database) {
       final Optional<String> firstFoundLanguageName = Arrays.stream(database.getLanguageNames()).
