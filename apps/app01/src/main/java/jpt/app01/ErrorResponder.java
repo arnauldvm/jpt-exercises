@@ -40,6 +40,8 @@ class ErrorResponder {
   public static final int ERR_BAD_REQUEST = 400;
   public static final int ERR_NOT_FOUND = 404;
 
+  private ErrorResponder() {} // Pure static
+
   public static void respond(HttpExchange exchange, int statusCode, String message) throws IOException {
     LOG.warning(() -> statusCode + ": " + message);
     exchange.sendResponseHeaders(statusCode, 0);

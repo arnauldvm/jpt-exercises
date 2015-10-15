@@ -37,7 +37,9 @@ import com.sun.net.httpserver.HttpExchange;
  */
 public class RedirectResponder {
   private static final Logger LOG = Logger.getLogger(RedirectResponder.class.getName());
-  
+
+  private RedirectResponder() {} // Pure static
+
   public static void respond(HttpExchange exchange, String redirectUrl, String name, Optional<String> message) throws IOException {
     LOG.info(() -> "Redirecting to " + name + " [" + redirectUrl + "]" + message.map( m -> ": " + m).orElse(""));
     exchange.getResponseHeaders().set("Location", redirectUrl);
