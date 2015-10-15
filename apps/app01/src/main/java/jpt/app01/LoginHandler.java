@@ -52,6 +52,7 @@ class LoginHandler implements HttpHandler {
   public void handle(HttpExchange exchange) throws IOException {
     final Session session = sessionRegistry.create(null);
 
+    exchange.getResponseHeaders().set("Set-Cookie", "SESSIONID=" + session.getId());
     RedirectResponder.respond(exchange, redirectUrl, "home", Optional.of("Session " + session.getId() + " created"));
   }
   
