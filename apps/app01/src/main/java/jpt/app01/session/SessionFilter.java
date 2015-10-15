@@ -94,8 +94,8 @@ public class SessionFilter extends Filter {
     responseHeaders.set("Set-Cookie", String.format("%s=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT", SESSIONID_COOKIENAME));
   }
   
-  public static Session getSession(HttpExchange exchange) {
-    return (Session) exchange.getAttribute(SESSION_ATTNAME);
+  public static Optional<Session> getSession(HttpExchange exchange) {
+    return Optional.ofNullable((Session) exchange.getAttribute(SESSION_ATTNAME));
   }
   
 }
