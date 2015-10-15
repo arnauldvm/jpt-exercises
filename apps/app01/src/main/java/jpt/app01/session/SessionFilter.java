@@ -69,6 +69,13 @@ public class SessionFilter extends Filter {
     }
     LOG.info(() -> "Retrieved session " + sessionId.get());
     Session session = sessionRegistry.get(sessionId.get());
+    if (null==session) {
+      final String message = String.format("Session %s not found, likely expired.", sessionId.get());
+      LOG.warning(message);
+      removeCookie(exchange.getResponseHeaders());
+      RedirectResponder.respond(exchange, redirectUrl, "login", Optional.of(message));
+      return; // no doFilter since we abort here
+    }
     exchange.setAttribute(SESSION_ATTNAME, session);
     chain.doFilter(exchange);
   }
@@ -81,6 +88,10 @@ public class SessionFilter extends Filter {
 
   public static void setCookie(Headers responseHeaders, Session session) {
     responseHeaders.set("Set-Cookie", String.format("%s=%s; path=/", SESSIONID_COOKIENAME, session.getId()));
+  }
+  
+  public static void removeCookie(Headers responseHeaders) {
+    responseHeaders.set("Set-Cookie", String.format("%s=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT", SESSIONID_COOKIENAME));
   }
   
   public static Session getSession(HttpExchange exchange) {
