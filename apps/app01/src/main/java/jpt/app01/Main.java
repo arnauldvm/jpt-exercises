@@ -23,12 +23,11 @@
  */
 package jpt.app01;
 
+import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
-
-import com.sun.net.httpserver.HttpServer;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 public class Main {
