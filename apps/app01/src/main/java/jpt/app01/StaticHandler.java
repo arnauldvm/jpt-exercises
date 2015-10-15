@@ -44,7 +44,7 @@ class StaticHandler implements HttpHandler {
     String resourcePath = "/ROOT" + exchange.getRequestURI().getPath(); // URI already starts with /
     InputStream in = StaticHandler.class.getResourceAsStream(resourcePath);
     if (in==null) {
-      ErrorResponder.handle(exchange, ErrorResponder.ERR_NOT_FOUND, "Resource '" + resourcePath + "' not found.");
+      ErrorResponder.respond(exchange, ErrorResponder.ERR_NOT_FOUND, "Resource '" + resourcePath + "' not found.");
       return;
     }
     LOG.info(() -> "Found resource '" + resourcePath + "'");

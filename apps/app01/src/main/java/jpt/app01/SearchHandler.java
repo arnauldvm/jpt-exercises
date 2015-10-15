@@ -59,7 +59,7 @@ class SearchHandler implements HttpHandler {
               orElseThrow(() -> new IllegalArgumentException("Missing parameter 'key'")).
               toLowerCase();
     } catch (IllegalArgumentException e) {
-      ErrorResponder.handle(exchange, ErrorResponder.ERR_BAD_REQUEST, e.getMessage());
+      ErrorResponder.respond(exchange, ErrorResponder.ERR_BAD_REQUEST, e.getMessage());
       return;
     }
     
@@ -69,7 +69,7 @@ class SearchHandler implements HttpHandler {
               sorted().
               collect(Collectors.toList());
       if (foundLanguageNames.isEmpty()) {
-        ErrorResponder.handle(exchange, ErrorResponder.ERR_NOT_FOUND, "No language matching '" + keyValue + "' found.");
+        ErrorResponder.respond(exchange, ErrorResponder.ERR_NOT_FOUND, "No language matching '" + keyValue + "' found.");
         return;
       }
       if (1 == foundLanguageNames.size()) {
