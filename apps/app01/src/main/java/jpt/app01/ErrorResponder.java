@@ -43,6 +43,7 @@ class ErrorResponder {
   public static void respond(HttpExchange exchange, int statusCode, String message) throws IOException {
     LOG.warning(() -> statusCode + ": " + message);
     exchange.sendResponseHeaders(statusCode, 0);
+    if ("HEAD".equals(exchange.getRequestMethod())) return;
     try (OutputStream responseBody = exchange.getResponseBody()) {
       responseBody.write(message.getBytes());
     }

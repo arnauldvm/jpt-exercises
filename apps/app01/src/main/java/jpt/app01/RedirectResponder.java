@@ -42,6 +42,7 @@ public class RedirectResponder {
     LOG.info(() -> "Redirecting to " + name + " [" + redirectUrl + "]" + message.map( m -> ": " + m).orElse(""));
     exchange.getResponseHeaders().set("Location", redirectUrl);
     exchange.sendResponseHeaders(302, 0);
+    if ("HEAD".equals(exchange.getRequestMethod())) return;
     try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
       out.printf("<TITLE>App 01: Redirection to %s</TITLE>\n", name);
       out.println("<DIV>");

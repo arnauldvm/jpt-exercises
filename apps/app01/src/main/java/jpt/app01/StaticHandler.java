@@ -58,6 +58,7 @@ class StaticHandler implements HttpHandler {
       //Headers responseHeaders = exchange.getResponseHeaders();
       //responseHeaders.set("Content-Type", "text/plain");
       exchange.sendResponseHeaders(200, 0);
+      if ("HEAD".equals(exchange.getRequestMethod())) return;
       try (OutputStream responseBody = exchange.getResponseBody()) {
         byte[] buffer = new byte[2<<12];
         int n;

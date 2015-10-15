@@ -70,6 +70,7 @@ class LanguageHandler implements HttpHandler {
       Headers responseHeaders = exchange.getResponseHeaders();
       responseHeaders.set("Content-Type", "text/html");
       exchange.sendResponseHeaders(200, 0);
+      if ("HEAD".equals(exchange.getRequestMethod())) return;
       try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
         out.printf("<TITLE>App 01: %s</TITLE>\n", languageName);
         out.println("<DIV>");
