@@ -77,7 +77,7 @@ public class SessionFilter extends Filter {
     return "Retrieve session from Map and store it in ThreadLocal, redirect to login if session not found.";
   }
 
-  public void setCookie(Headers responseHeaders, Session session) {
+  public static void setCookie(Headers responseHeaders, Session session) {
     responseHeaders.set("Set-Cookie", SESSIONID_COOKIENAME + "=" + session.getId());
   }
   

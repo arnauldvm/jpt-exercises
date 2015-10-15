@@ -43,19 +43,17 @@ class LoginHandler implements HttpHandler {
   
   private final String redirectUrl;
   private final SessionRegistry sessionRegistry;
-  private final SessionFilter sessionFilter;
 
-  public LoginHandler(SessionRegistry sessionRegistry, SessionFilter sessionFilter, String redirectUrl) {
+  public LoginHandler(SessionRegistry sessionRegistry, String redirectUrl) {
     this.redirectUrl = redirectUrl;
     this.sessionRegistry = sessionRegistry;
-    this.sessionFilter = sessionFilter;
   }
 
   @Override
   public void handle(HttpExchange exchange) throws IOException {
     final Session session = sessionRegistry.create(null);
 
-    sessionFilter.setCookie(exchange.getResponseHeaders(), session);
+    SessionFilter.setCookie(exchange.getResponseHeaders(), session);
     RedirectResponder.respond(exchange, redirectUrl, "home", Optional.of("Session " + session.getId() + " created"));
   }
   
