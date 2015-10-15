@@ -29,6 +29,7 @@ import java.io.OutputStream;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,7 +42,12 @@ class StaticHandler implements HttpHandler {
   
   @Override
   public void handle(HttpExchange exchange) throws IOException {
-    String resourcePath = "/ROOT" + exchange.getRequestURI().getPath(); // URI already starts with /
+    final String uriPath = exchange.getRequestURI().getPath();
+    if ("/".equals(uriPath)) {
+      RedirectResponder.respond(exchange, "/index.html", "Home", Optional.empty());
+      return;
+    }
+    String resourcePath = "/ROOT" + uriPath; // URI already starts with /
     InputStream in = StaticHandler.class.getResourceAsStream(resourcePath);
     if (in==null) {
       ErrorResponder.respond(exchange, ErrorResponder.ERR_NOT_FOUND, "Resource '" + resourcePath + "' not found.");
