@@ -80,7 +80,7 @@ public class SessionFilter extends Filter {
   }
 
   public static void setCookie(Headers responseHeaders, Session session) {
-    responseHeaders.set("Set-Cookie", SESSIONID_COOKIENAME + "=" + session.getId());
+    responseHeaders.set("Set-Cookie", String.format("%s=%s; path=/", SESSIONID_COOKIENAME, session.getId()));
   }
   
   public static Session getSession(HttpExchange exchange) {
