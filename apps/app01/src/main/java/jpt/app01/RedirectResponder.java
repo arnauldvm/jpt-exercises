@@ -31,6 +31,8 @@ import java.util.logging.Logger;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import jpt.app01.session.SessionFilter;
+
 /**
  *
  * @author avm
@@ -46,7 +48,7 @@ public class RedirectResponder {
     exchange.sendResponseHeaders(302, 0);
     if ("HEAD".equals(exchange.getRequestMethod())) return;
     try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
-      out.printf("<TITLE>App 01: Redirection to %s</TITLE>\n", name);
+      HeaderResponse.send(out, SessionFilter.getSession(exchange), "Redirection to " + name);
       out.println("<DIV>");
       message.ifPresent(m -> out.printf("%s<BR>\n", m));
       out.printf("Go to: <A href=\"%s\"><B>%s</B></A>", redirectUrl, name);

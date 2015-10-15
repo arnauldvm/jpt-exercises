@@ -26,12 +26,15 @@ package jpt.app01;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+
+import jpt.app01.session.SessionFilter;
 
 /**
  * Returns a static file from resources' ROOT subdirectory
@@ -60,6 +63,7 @@ class StaticHandler implements HttpHandler {
       exchange.sendResponseHeaders(200, 0);
       if ("HEAD".equals(exchange.getRequestMethod())) return;
       try (OutputStream responseBody = exchange.getResponseBody()) {
+        HeaderResponse.send(new PrintStream(responseBody), SessionFilter.getSession(exchange), "Search for language");
         byte[] buffer = new byte[2<<12];
         int n;
         while (0 <= (n = in.read(buffer))) {

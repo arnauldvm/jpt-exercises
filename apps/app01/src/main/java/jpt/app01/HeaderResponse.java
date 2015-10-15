@@ -23,35 +23,26 @@
  */
 package jpt.app01;
 
-import java.io.IOException;
 import java.io.PrintStream;
-import java.util.logging.Logger;
+import java.util.Optional;
 
-import com.sun.net.httpserver.HttpExchange;
-
-import jpt.app01.session.SessionFilter;
+import jpt.app01.session.Session;
 
 /**
  *
  * @author avm
  */
-class ErrorResponder {
+public class HeaderResponse {
   
-  private static final Logger LOG = Logger.getLogger(ErrorResponder.class.getName());
+  private HeaderResponse() {} // Pure static
   
-  public static final int ERR_BAD_REQUEST = 400;
-  public static final int ERR_NOT_FOUND = 404;
-
-  private ErrorResponder() {} // Pure static
-
-  public static void respond(HttpExchange exchange, int statusCode, String message) throws IOException {
-    LOG.warning(() -> statusCode + ": " + message);
-    exchange.sendResponseHeaders(statusCode, 0);
-    if ("HEAD".equals(exchange.getRequestMethod())) return;
-    try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
-      HeaderResponse.send(out, SessionFilter.getSession(exchange), "Error " + statusCode);
-      out.write(message.getBytes());
-    }
+  public static void send(PrintStream out, Optional<Session> session, String title) {
+    out.printf("<TITLE>App01: %s</TITLE>\n", title);
+    out.println("<META charset='UTF-8'>");
+    out.println("<TABLE width=100% border=1 cellspacing=0><TR>");
+    out.println("<TD align=left width=100%><BIG><B>App 01: A programming languages DB</B></BIG></TD>");
+    out.printf("<TD align=right>%s</TD>\n", session.map(s -> s.getUsername()).orElse("&nbsp;"));
+    out.println("</TABLE><BR>");
   }
   
 }

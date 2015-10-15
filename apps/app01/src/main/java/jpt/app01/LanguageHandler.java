@@ -34,6 +34,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import jpt.app01.data.LanguageProfile;
 import jpt.app01.data.LanguagesDatabase;
+import jpt.app01.session.SessionFilter;
 
 import static jpt.app01.QueryParser.getFirstParameterValue;
 
@@ -72,7 +73,7 @@ class LanguageHandler implements HttpHandler {
       exchange.sendResponseHeaders(200, 0);
       if ("HEAD".equals(exchange.getRequestMethod())) return;
       try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
-        out.printf("<TITLE>App 01: %s</TITLE>\n", languageName);
+        HeaderResponse.send(out, SessionFilter.getSession(exchange), languageName);
         out.println("<DIV>");
         out.printf("<B>%s</B>", languageName);
         out.println("<UL>");

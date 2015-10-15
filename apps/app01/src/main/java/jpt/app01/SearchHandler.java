@@ -38,6 +38,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import jpt.app01.data.LanguagesDatabase;
+import jpt.app01.session.SessionFilter;
 
 import static jpt.app01.QueryParser.getFirstParameterValue;
 
@@ -85,7 +86,7 @@ class SearchHandler implements HttpHandler {
         exchange.sendResponseHeaders(200, 0);
         if ("HEAD".equals(exchange.getRequestMethod())) return;
         try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
-          out.printf("<TITLE>App 01: List of languages matching '%s'</TITLE>\n", keyValue);
+          HeaderResponse.send(out, SessionFilter.getSession(exchange), String.format("List of languages matching '%s'", keyValue));
           out.println("<DIV>");
           out.printf("List of languages matching <B>%s</B>", keyValue);
           out.println("<UL>");
