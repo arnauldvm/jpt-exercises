@@ -65,9 +65,10 @@ public class Main {
   private void start() throws IOException {
     HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), queueSize);
     
-    server.createContext("/", new StaticHandler());
-    server.createContext("/search", new SearchHandler());
-    server.createContext("/language", new LanguageHandler());
+    AccessLogFilter accessLogFilter = new AccessLogFilter();
+    server.createContext("/", new StaticHandler()).getFilters().add(accessLogFilter);
+    server.createContext("/search", new SearchHandler()).getFilters().add(accessLogFilter);
+    server.createContext("/language", new LanguageHandler()).getFilters().add(accessLogFilter);
     final ExecutorService threadPool = Executors.newFixedThreadPool(poolSize);
     server.setExecutor(threadPool);
     server.start();

@@ -29,7 +29,6 @@ import java.io.IOException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.PrintStream;
-import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static jpt.app01.QueryParser.getFirstParameterValue;
@@ -50,9 +49,6 @@ class LanguageHandler implements HttpHandler {
   
   @Override
   public void handle(HttpExchange exchange) throws IOException {
-    final URI uri = exchange.getRequestURI();
-    LOG.info(uri.toString());
-    
     String query = exchange.getRequestURI().getQuery();
     String languageName;
     try {

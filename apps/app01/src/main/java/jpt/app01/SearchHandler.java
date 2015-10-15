@@ -29,7 +29,6 @@ import java.io.IOException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.PrintStream;
-import java.net.URI;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
@@ -53,9 +52,6 @@ class SearchHandler implements HttpHandler {
   
   @Override
   public void handle(HttpExchange exchange) throws IOException {
-    final URI uri = exchange.getRequestURI();
-    LOG.info(uri.toString());
-    
     String query = exchange.getRequestURI().getQuery();
     String keyValue;
     try {
