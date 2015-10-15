@@ -32,6 +32,7 @@ import java.io.PrintStream;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -74,20 +75,8 @@ class SearchHandler implements HttpHandler {
       }
       if (1 == foundLanguageNames.size()) {
         final String languageName = foundLanguageNames.get(0);
-        Headers responseHeaders = exchange.getResponseHeaders();
-        responseHeaders.set("Content-Type", "text/html");
         final String url = "/language?name=" + URLEncoder.encode(languageName, "UTF-8");
-        responseHeaders.set("Location", url);
-        exchange.sendResponseHeaders(302, 0);
-        try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
-          out.printf("<TITLE>App 01: %s</TITLE>\n", languageName);
-          out.println("<DIV>");
-          out.printf("Go to: <A href=\"%s\"><B>%s</B></A>", url, languageName);
-          out.println("</DIV>");
-        } catch (Exception e) {
-          LOG.log(Level.SEVERE, "Failed generating redirection to language page for '" + languageName + "': ", e);
-          throw(e);
-        }
+        RedirectResponder.respond(exchange, url, "language page for '" + languageName + "'", Optional.empty());
       } else {
         Headers responseHeaders = exchange.getResponseHeaders();
         responseHeaders.set("Content-Type", "text/html");
