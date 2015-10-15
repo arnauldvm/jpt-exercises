@@ -94,6 +94,7 @@ class SearchHandler implements HttpHandler {
             final String url = "/language?name=" + URLEncoder.encode(languageName, "UTF-8");
             out.printf("<LI><A href=\"%s\"><B>%s</B></A></LI>\n", url, languageName);
           }
+          out.println("</UL>");
           out.println("</DIV>");
         } catch (Exception e) {
           LOG.log(Level.SEVERE, "Failed generating list of languages matches for '" + keyValue + "': ", e);
