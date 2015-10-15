@@ -68,6 +68,7 @@ public class Main {
     
     AccessLogFilter accessLogFilter = new AccessLogFilter();
     server.createContext("/", new StaticHandler()).getFilters().add(accessLogFilter);
+    server.createContext("/login", new LoginHandler("/")).getFilters().add(accessLogFilter);
     server.createContext("/search", new SearchHandler()).getFilters().add(accessLogFilter);
     server.createContext("/language", new LanguageHandler()).getFilters().add(accessLogFilter);
     final ExecutorService threadPool = Executors.newFixedThreadPool(poolSize);
