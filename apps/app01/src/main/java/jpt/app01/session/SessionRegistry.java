@@ -25,7 +25,6 @@ package jpt.app01.session;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  *
@@ -39,9 +38,8 @@ public class SessionRegistry {
     this.sessions = new HashMap<>();
   }
 
-  void select(Optional<String> sessionId) {
-    final Session session = sessions.get(sessionId);
-    // TODO: should store in Thread
+  public Session get(String sessionId) {
+    return sessions.get(sessionId);
   }
 
   public Session create(String username) {

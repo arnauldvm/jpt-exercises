@@ -68,9 +68,11 @@ public class SessionFilter extends Filter {
       return; // no doFilter since we abort here
     }
     LOG.info(() -> "Retrieved session " + sessionId);
-    sessionRegistry.select(sessionId);
+    Session session = sessionRegistry.get(sessionId.get());
+    exchange.setAttribute(SESSION_ATTNAME, session);
     chain.doFilter(exchange);
   }
+  private static final String SESSION_ATTNAME = "SESSION";
 
   @Override
   public String description() {
@@ -79,6 +81,10 @@ public class SessionFilter extends Filter {
 
   public static void setCookie(Headers responseHeaders, Session session) {
     responseHeaders.set("Set-Cookie", SESSIONID_COOKIENAME + "=" + session.getId());
+  }
+  
+  public static Session getSession(HttpExchange exchange) {
+    return (Session) exchange.getAttribute(SESSION_ATTNAME);
   }
   
 }
