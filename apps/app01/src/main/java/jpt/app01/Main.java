@@ -37,11 +37,14 @@ public class Main {
   private static final int DEFAULT_QUEUE_SIZE = 0;
   private static final int DEFAULT_POOL_SIZE = 5;
   private static final int DEFAULT_PORT_NUMBER = 7666;
+  
+  private int portNumber = DEFAULT_PORT_NUMBER;
+  private int queueSize = DEFAULT_QUEUE_SIZE;
+  private int poolSize = DEFAULT_POOL_SIZE;
 
-  public static void main(String[] args) throws IOException {
-    int portNumber = DEFAULT_PORT_NUMBER;
-    int queueSize = DEFAULT_QUEUE_SIZE;
-    int poolSize = DEFAULT_POOL_SIZE;
+  public Main() { }
+
+  public void readArgs(String[] args) {
     for (String arg : args) {
       if (arg.startsWith("-p")) {
         portNumber = Integer.parseInt(arg.replaceFirst("\\-p", ""));
@@ -58,8 +61,11 @@ public class Main {
         System.exit(1);
       }
     }
-    HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), queueSize);
+  }
 
+  private void start() throws IOException {
+    HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), queueSize);
+    
     server.createContext("/", new StaticHandler());
     server.createContext("/search", new SearchHandler());
     server.createContext("/language", new LanguageHandler());
@@ -67,6 +73,12 @@ public class Main {
     server.setExecutor(threadPool);
     server.start();
     LOG.info("Server is listening on port " + portNumber);
+  }
+
+  public static void main(String[] args) throws IOException {
+    Main main = new Main();
+    main.readArgs(args);
+    main.start();
   }
 
 }
