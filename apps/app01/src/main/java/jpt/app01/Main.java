@@ -23,12 +23,13 @@
  */
 package jpt.app01;
 
-import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
+
+import com.sun.net.httpserver.HttpServer;
 
 public class Main {
   private static final Logger LOG = Logger.getLogger(Main.class.getName());

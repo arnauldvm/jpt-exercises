@@ -24,10 +24,12 @@
 package jpt.app01.data;
 
 import java.util.Arrays;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 /**
  *

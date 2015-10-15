@@ -23,11 +23,7 @@
  */
 package jpt.app01;
 
-import com.sun.net.httpserver.Headers;
 import java.io.IOException;
-
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import java.io.PrintStream;
 import java.net.URLEncoder;
 import java.util.Arrays;
@@ -36,7 +32,13 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
 import jpt.app01.data.LanguagesDatabase;
+
 import static jpt.app01.QueryParser.getFirstParameterValue;
 
 /**

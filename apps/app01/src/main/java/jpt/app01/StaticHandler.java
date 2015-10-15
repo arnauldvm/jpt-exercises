@@ -24,14 +24,14 @@
 package jpt.app01;
 
 import java.io.IOException;
-import java.io.OutputStream;
-
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 
 /**
  * Returns a static file from resources' ROOT subdirectory

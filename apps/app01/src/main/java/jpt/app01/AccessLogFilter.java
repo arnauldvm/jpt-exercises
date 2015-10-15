@@ -23,11 +23,12 @@
  */
 package jpt.app01;
 
-import com.sun.net.httpserver.Filter;
-import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.Logger;
+
+import com.sun.net.httpserver.Filter;
+import com.sun.net.httpserver.HttpExchange;
 
 /**
  *

@@ -23,17 +23,19 @@
  */
 package jpt.app01;
 
-import com.sun.net.httpserver.Headers;
 import java.io.IOException;
-
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static jpt.app01.QueryParser.getFirstParameterValue;
+
+import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
 import jpt.app01.data.LanguageProfile;
 import jpt.app01.data.LanguagesDatabase;
+
+import static jpt.app01.QueryParser.getFirstParameterValue;
 
 /**
  * Search a language profile from the database
