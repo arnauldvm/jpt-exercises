@@ -167,4 +167,14 @@ public class QueryParserTest {
     assertFalse(QueryParser.getFirstParameterValue(query, "name").isPresent());
   }
   
+ /**
+   * Test of getFirstParameterValue method, of class QueryParser.
+   */
+  @Test
+  public void testGetFirstParameterValueWithNull() {
+    System.out.println("getParameterValue");
+    String query = null;
+    assertFalse(QueryParser.getFirstParameterValue(query, "name").isPresent());
+  }
+  
 }
