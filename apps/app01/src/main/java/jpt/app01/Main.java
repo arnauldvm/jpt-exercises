@@ -25,12 +25,16 @@ package jpt.app01;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
+import com.sun.net.httpserver.Filter;
 import com.sun.net.httpserver.HttpServer;
 
+import jpt.app01.session.SessionFilter;
 import jpt.app01.session.SessionRegistry;
 
 public class Main {
@@ -43,7 +47,7 @@ public class Main {
   private int portNumber = DEFAULT_PORT_NUMBER;
   private int queueSize = DEFAULT_QUEUE_SIZE;
   private int poolSize = DEFAULT_POOL_SIZE;
-
+  
   public Main() { }
 
   public void readArgs(String[] args) {
@@ -69,11 +73,15 @@ public class Main {
     HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), queueSize);
     
     SessionRegistry sessionRegistry = new SessionRegistry();
+    SessionFilter sessionFilter = new SessionFilter(sessionRegistry, "/login");
     AccessLogFilter accessLogFilter = new AccessLogFilter();
-    server.createContext("/", new StaticHandler()).getFilters().add(accessLogFilter);
-    server.createContext("/login", new LoginHandler(sessionRegistry, "/")).getFilters().add(accessLogFilter);
-    server.createContext("/search", new SearchHandler()).getFilters().add(accessLogFilter);
-    server.createContext("/language", new LanguageHandler()).getFilters().add(accessLogFilter);
+    
+    List<Filter> defaultFilters = Arrays.asList(new Filter[] { accessLogFilter, sessionFilter });
+    
+    server.createContext("/", new StaticHandler()).getFilters().addAll(defaultFilters);
+    server.createContext("/login", new LoginHandler(sessionRegistry, sessionFilter, "/")).getFilters().add(accessLogFilter); // no session filter or else infinite redirect loop!
+    server.createContext("/search", new SearchHandler()).getFilters().addAll(defaultFilters);
+    server.createContext("/language", new LanguageHandler()).getFilters().addAll(defaultFilters);
     final ExecutorService threadPool = Executors.newFixedThreadPool(poolSize);
     server.setExecutor(threadPool);
     server.start();

@@ -31,6 +31,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import jpt.app01.session.Session;
+import jpt.app01.session.SessionFilter;
 import jpt.app01.session.SessionRegistry;
 
 /**
@@ -42,17 +43,19 @@ class LoginHandler implements HttpHandler {
   
   private final String redirectUrl;
   private final SessionRegistry sessionRegistry;
+  private final SessionFilter sessionFilter;
 
-  public LoginHandler(SessionRegistry sessionRegistry, String redirectUrl) {
+  public LoginHandler(SessionRegistry sessionRegistry, SessionFilter sessionFilter, String redirectUrl) {
     this.redirectUrl = redirectUrl;
     this.sessionRegistry = sessionRegistry;
+    this.sessionFilter = sessionFilter;
   }
 
   @Override
   public void handle(HttpExchange exchange) throws IOException {
     final Session session = sessionRegistry.create(null);
 
-    exchange.getResponseHeaders().set("Set-Cookie", "SESSIONID=" + session.getId());
+    sessionFilter.setCookie(exchange.getResponseHeaders(), session);
     RedirectResponder.respond(exchange, redirectUrl, "home", Optional.of("Session " + session.getId() + " created"));
   }
   
