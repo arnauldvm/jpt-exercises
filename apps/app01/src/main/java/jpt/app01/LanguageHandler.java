@@ -59,14 +59,14 @@ class LanguageHandler implements HttpHandler {
       languageName = getFirstParameterValue(query, "name").
               orElseThrow(() -> new IllegalArgumentException("Missing parameter 'name'"));
     } catch (IllegalArgumentException e) {
-      ErrorHandler.handle(exchange, ErrorHandler.ERR_BAD_REQUEST, e.getMessage());
+      ErrorResponder.handle(exchange, ErrorResponder.ERR_BAD_REQUEST, e.getMessage());
       return;
     }
     
     synchronized (database) {
       LanguageProfile language = database.getLanguage(languageName);
       if (null==language) {
-      ErrorHandler.handle(exchange, ErrorHandler.ERR_NOT_FOUND, "Language '" + languageName + "' not found in database.");
+      ErrorResponder.handle(exchange, ErrorResponder.ERR_NOT_FOUND, "Language '" + languageName + "' not found in database.");
       return;
       }
       Headers responseHeaders = exchange.getResponseHeaders();

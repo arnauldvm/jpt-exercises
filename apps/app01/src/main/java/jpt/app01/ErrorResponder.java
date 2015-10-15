@@ -33,9 +33,9 @@ import com.sun.net.httpserver.HttpExchange;
  *
  * @author avm
  */
-class ErrorHandler {
+class ErrorResponder {
   
-  private static final Logger LOG = Logger.getLogger(ErrorHandler.class.getName());
+  private static final Logger LOG = Logger.getLogger(ErrorResponder.class.getName());
   
   public static final int ERR_BAD_REQUEST = 400;
   public static final int ERR_NOT_FOUND = 404;
