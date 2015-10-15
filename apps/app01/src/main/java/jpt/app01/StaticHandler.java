@@ -47,7 +47,7 @@ class StaticHandler implements HttpHandler {
       ErrorResponder.handle(exchange, ErrorResponder.ERR_NOT_FOUND, "Resource '" + resourcePath + "' not found.");
       return;
     }
-    LOG.info("Found resource '" + resourcePath + "'");
+    LOG.info(() -> "Found resource '" + resourcePath + "'");
     try {
       //Headers responseHeaders = exchange.getResponseHeaders();
       //responseHeaders.set("Content-Type", "text/plain");

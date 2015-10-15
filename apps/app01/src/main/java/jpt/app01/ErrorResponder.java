@@ -41,7 +41,7 @@ class ErrorResponder {
   public static final int ERR_NOT_FOUND = 404;
 
   public static void handle(HttpExchange exchange, int statusCode, String message) throws IOException {
-    LOG.warning(statusCode + ": " + message);
+    LOG.warning(() -> statusCode + ": " + message);
     exchange.sendResponseHeaders(statusCode, 0);
     try (OutputStream responseBody = exchange.getResponseBody()) {
       responseBody.write(message.getBytes());

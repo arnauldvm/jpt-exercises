@@ -72,7 +72,7 @@ public class Main {
     final ExecutorService threadPool = Executors.newFixedThreadPool(poolSize);
     server.setExecutor(threadPool);
     server.start();
-    LOG.info("Server is listening on port " + portNumber);
+    LOG.info(() -> "Server is listening on port " + portNumber);
   }
 
   public static void main(String[] args) throws IOException {
