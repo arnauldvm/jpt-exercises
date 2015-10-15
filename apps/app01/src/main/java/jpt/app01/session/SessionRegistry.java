@@ -21,38 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package jpt.app01;
+package jpt.app01.session;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
-
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import jpt.app01.session.Session;
-import jpt.app01.session.SessionRegistry;
 
 /**
  *
  * @author avm
  */
-class LoginHandler implements HttpHandler {
-  private static final Logger LOG = Logger.getLogger(HttpHandler.class.getName());
+public class SessionRegistry {
   
-  private final String redirectUrl;
-  private final SessionRegistry sessionRegistry;
+  private Map <String, Session> sessions;
 
-  public LoginHandler(SessionRegistry sessionRegistry, String redirectUrl) {
-    this.redirectUrl = redirectUrl;
-    this.sessionRegistry = sessionRegistry;
+  public SessionRegistry() {
+    this.sessions = new HashMap<>();
   }
 
-  @Override
-  public void handle(HttpExchange exchange) throws IOException {
-    final Session session = sessionRegistry.create(null);
+  void select(Optional<String> sessionId) {
+    final Session session = sessions.get(sessionId);
+    // TODO: should store in Thread
+  }
 
-    RedirectResponder.respond(exchange, redirectUrl, "home", Optional.of("Session " + session.getId() + " created"));
+  public Session create(String username) {
+    Session session = new Session(username);
+    sessions.put(session.getId(), session);
+    return session;
   }
   
 }

@@ -31,6 +31,8 @@ import java.util.logging.Logger;
 
 import com.sun.net.httpserver.HttpServer;
 
+import jpt.app01.session.SessionRegistry;
+
 public class Main {
   private static final Logger LOG = Logger.getLogger(Main.class.getName());
 
@@ -66,9 +68,10 @@ public class Main {
   private void start() throws IOException {
     HttpServer server = HttpServer.create(new InetSocketAddress(portNumber), queueSize);
     
+    SessionRegistry sessionRegistry = new SessionRegistry();
     AccessLogFilter accessLogFilter = new AccessLogFilter();
     server.createContext("/", new StaticHandler()).getFilters().add(accessLogFilter);
-    server.createContext("/login", new LoginHandler("/")).getFilters().add(accessLogFilter);
+    server.createContext("/login", new LoginHandler(sessionRegistry, "/")).getFilters().add(accessLogFilter);
     server.createContext("/search", new SearchHandler()).getFilters().add(accessLogFilter);
     server.createContext("/language", new LanguageHandler()).getFilters().add(accessLogFilter);
     final ExecutorService threadPool = Executors.newFixedThreadPool(poolSize);
