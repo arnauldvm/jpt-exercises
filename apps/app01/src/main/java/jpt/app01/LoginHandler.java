@@ -24,9 +24,13 @@
 package jpt.app01;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -51,10 +55,47 @@ class LoginHandler implements HttpHandler {
 
   @Override
   public void handle(HttpExchange exchange) throws IOException {
-    final Session session = sessionRegistry.create("JohnDoe");
+    if (!"POST".equals(exchange.getRequestMethod())) {
+      Headers responseHeaders = exchange.getResponseHeaders();
+      responseHeaders.set("Content-Type", "text/html");
+      exchange.sendResponseHeaders(200, 0);
+      if ("HEAD".equals(exchange.getRequestMethod())) return;
+      try (PrintStream out = new PrintStream(exchange.getResponseBody())) {
+        HeaderResponse.send(out, Optional.empty(), "Login form");
+        out.println("<DIV>");
+        out.println("Please log in:<BR>");
+        out.println("<form action='login' method='post'>");
+        out.println("  User name: <input type='text' name='username'><br>");
+        out.println("  Password: <input type='password' name='password'><br>");
+        out.println("  <input type='submit' value='Submit'>");
+        out.println("</form>");
+        out.println("</DIV>");
+      } catch (Exception e) {
+        LOG.log(Level.SEVERE, "Failed login form: ", e);
+        throw(e);
+      }
+    } else {
+      final String body;
+      try (final InputStream in = exchange.getRequestBody()) {
+        StringBuilder bodyBuilder = new StringBuilder();
+        int count;
+        byte[] buf = new byte[2<<12];
+        while (0 <= (count = in.read(buf))) {
+          bodyBuilder.append(new String(buf, 0, count));
+        }
+        body = bodyBuilder.toString();
+      } catch (Exception e) {
+        LOG.log(Level.SEVERE, "Failed reading login query from body", e);
+        throw(e);
+      }
+      final Optional<String> username = QueryParser.getFirstParameterValue(body, "username");
+      // Ignore password for now
+      LOG.info(() -> String.format("User '%s' authenticated", username.get()));
+      final Session session = sessionRegistry.create(username.get());
 
-    SessionFilter.setCookie(exchange.getResponseHeaders(), session);
-    RedirectResponder.respond(exchange, redirectUrl, "home", Optional.of("Session " + session.getId() + " created"));
+      SessionFilter.setCookie(exchange.getResponseHeaders(), session);
+      RedirectResponder.respond(exchange, redirectUrl, "home", Optional.of("Session " + session.getId() + " created"));
+    }
   }
   
 }
