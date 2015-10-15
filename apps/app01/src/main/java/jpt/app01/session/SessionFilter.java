@@ -64,7 +64,7 @@ public class SessionFilter extends Filter {
             filter(oc -> oc.isPresent()).map(oc -> oc.get()).
             findFirst();
     if (!sessionId.isPresent()) {
-      RedirectResponder.respond(exchange, redirectUrl, "login", Optional.of("Session not found."));
+      RedirectResponder.respond(exchange, redirectUrl, "login", Optional.of("Session id not found in cookie."));
       return; // no doFilter since we abort here
     }
     LOG.info(() -> "Retrieved session " + sessionId);
