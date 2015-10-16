@@ -45,6 +45,8 @@ import jpt.app01.session.SessionRegistry;
 class LoginHandler implements HttpHandler {
   private static final Logger LOG = Logger.getLogger(HttpHandler.class.getName());
   
+  private static final String USERID_ATTRNAME = "username";
+
   private final String redirectUrl;
   private final SessionRegistry sessionRegistry;
 
@@ -65,7 +67,7 @@ class LoginHandler implements HttpHandler {
         out.println("<DIV>");
         out.println("Please log in:<BR>");
         out.println("<form action='login' method='post'>");
-        out.println("  User name: <input type='text' name='username'><br>");
+        out.printf ("  User name: <input type='text' name='%s'><br>\n", USERID_ATTRNAME);
         out.println("  Password: <input type='password' name='password'><br>");
         out.println("  <input type='submit' value='Submit'>");
         out.println("</form>");
@@ -88,7 +90,7 @@ class LoginHandler implements HttpHandler {
         LOG.log(Level.SEVERE, "Failed reading login query from body", e);
         throw(e);
       }
-      final Optional<String> username = QueryParser.getFirstParameterValue(body, "username");
+      final Optional<String> username = QueryParser.getFirstParameterValue(body, USERID_ATTRNAME);
       // Ignore password for now
       LOG.info(() -> String.format("User '%s' authenticated", username.get()));
       final Session session = sessionRegistry.create(username.get());
