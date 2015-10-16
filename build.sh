@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tgtdir=./build
+tgtdir=./target
 
 mkdir -p "$tgtdir"
 
