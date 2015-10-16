@@ -11,6 +11,26 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (User)" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="user.id" elementType="Argument">
+            <stringProp name="Argument.name">user.id</stringProp>
+            <stringProp name="Argument.value">scott</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="user.password" elementType="Argument">
+            <stringProp name="Argument.name">user.password</stringProp>
+            <stringProp name="Argument.value">tiger</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="user.name" elementType="Argument">
+            <stringProp name="Argument.name">user.name</stringProp>
+            <stringProp name="Argument.value">Scott Tiger</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (case)" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="case.sc1.key" elementType="Argument">
@@ -117,13 +137,13 @@
                 <elementProp name="userid" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.name">userid</stringProp>
-                  <stringProp name="Argument.value">scott</stringProp>
+                  <stringProp name="Argument.value">${user.id}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
                 <elementProp name="password" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.name">password</stringProp>
-                  <stringProp name="Argument.value">tiger</stringProp>
+                  <stringProp name="Argument.value">${user.password}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -144,6 +164,13 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">vars.put(&quot;user.name.encoded&quot;, vars.get(&quot;user.name&quot;).replaceAll(&quot;\\s+&quot;, &quot;&amp;nbsp;&quot;));</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (URL)" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="2144181430">/index.html</stringProp>
@@ -155,7 +182,7 @@
             <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (User name)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="1832974364">Scott&amp;nbsp;Tiger</stringProp>
+                <stringProp name="1173849446">${user.name.encoded}</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -172,6 +199,12 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="- debug dampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Scenario1 Controller" enabled="true"/>
         <hashTree>
