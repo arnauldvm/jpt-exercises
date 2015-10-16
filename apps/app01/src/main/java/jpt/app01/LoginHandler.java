@@ -37,6 +37,8 @@ import com.sun.net.httpserver.HttpHandler;
 import jpt.app01.session.Session;
 import jpt.app01.session.SessionFilter;
 import jpt.app01.session.SessionRegistry;
+import jpt.app01.user.UserAndPassword;
+import jpt.app01.user.UserDirectory;
 
 /**
  *
@@ -92,7 +94,20 @@ class LoginHandler implements HttpHandler {
         throw(e);
       }
       final Optional<String> userid = QueryParser.getFirstParameterValue(body, USERID_ATTRNAME);
-      // Ignore password for now
+      if (!userid.isPresent()) {
+        ErrorResponder.respond(exchange, ErrorResponder.ERR_BAD_REQUEST, "Missing userid");
+        return;
+      }
+      final Optional<String> password = QueryParser.getFirstParameterValue(body, PASSWORD_ATTRNAME);
+      if (!password.isPresent()) {
+        ErrorResponder.respond(exchange, ErrorResponder.ERR_BAD_REQUEST, "Missing password");
+        return;
+      }
+      final Optional<UserAndPassword> user = UserDirectory.getUser(userid.get());
+      if (!user.map(u -> u.checkPassword(password.get())).orElse(false)) {
+        ErrorResponder.respond(exchange, ErrorResponder.ERR_BAD_REQUEST, "Invalid userid or password");
+        return;
+      }
       LOG.info(() -> String.format("User '%s' authenticated", userid.get()));
       final Session session = sessionRegistry.create(userid.get());
 
