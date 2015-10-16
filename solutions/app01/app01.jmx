@@ -11,6 +11,31 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (case)" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="case.sc1.key" elementType="Argument">
+            <stringProp name="Argument.name">case.sc1.key</stringProp>
+            <stringProp name="Argument.value">javascript</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="case.sc1.name" elementType="Argument">
+            <stringProp name="Argument.name">case.sc1.name</stringProp>
+            <stringProp name="Argument.value">JavaScript</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="case.sc2.key" elementType="Argument">
+            <stringProp name="Argument.name">case.sc2.key</stringProp>
+            <stringProp name="Argument.value">bas</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="case.sc2.name" elementType="Argument">
+            <stringProp name="Argument.name">case.sc2.name</stringProp>
+            <stringProp name="Argument.value">BASIC</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -156,7 +181,7 @@
                 <elementProp name="key" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">key</stringProp>
-                  <stringProp name="Argument.value">javascript</stringProp>
+                  <stringProp name="Argument.value">${case.sc1.key}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -180,7 +205,7 @@
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (URL)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="1453255335">/language?name=JavaScript</stringProp>
+                <stringProp name="2060864472">/language?name=${case.sc1.name}</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.sample_label</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -189,7 +214,7 @@
             <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (Body)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="-1217201772">&lt;B&gt;JavaScript&lt;/B&gt;</stringProp>
+                <stringProp name="1142768581">&lt;B&gt;${case.sc1.name}&lt;/B&gt;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -206,7 +231,7 @@
                 <elementProp name="key" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">key</stringProp>
-                  <stringProp name="Argument.value">bas</stringProp>
+                  <stringProp name="Argument.value">${case.sc2.key}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -229,7 +254,7 @@
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (URL)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="1539004430">/search?key=bas</stringProp>
+                <stringProp name="1063410443">/search?key=${case.sc2.key}</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.sample_label</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -238,7 +263,7 @@
             <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (Body)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="-748327006">List of languages matching &lt;B&gt;bas&lt;/B&gt;</stringProp>
+                <stringProp name="-1268949857">List of languages matching &lt;B&gt;${case.sc2.key}&lt;/B&gt;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -247,7 +272,7 @@
             <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (target item)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="386884784">&lt;A href=&quot;/language?name=BASIC&quot;&gt;&lt;B&gt;BASIC&lt;/B&gt;&lt;/A&gt;</stringProp>
+                <stringProp name="716377708">&lt;A href=&quot;/language?name=${case.sc2.name}&quot;&gt;&lt;B&gt;${case.sc2.name}&lt;/B&gt;&lt;/A&gt;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -261,7 +286,7 @@
                 <elementProp name="name" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">name</stringProp>
-                  <stringProp name="Argument.value">BASIC</stringProp>
+                  <stringProp name="Argument.value">${case.sc2.name}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -284,7 +309,7 @@
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (URL)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="637361876">/language?name=BASIC</stringProp>
+                <stringProp name="-1346599143">/language?name=${case.sc2.name}</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.sample_label</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -293,7 +318,7 @@
             <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (Body)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="-1690934907">&lt;B&gt;BASIC&lt;/B&gt;</stringProp>
+                <stringProp name="-654182778">&lt;B&gt;${case.sc2.name}&lt;/B&gt;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
