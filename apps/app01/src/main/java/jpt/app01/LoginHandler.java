@@ -45,7 +45,7 @@ import jpt.app01.session.SessionRegistry;
 class LoginHandler implements HttpHandler {
   private static final Logger LOG = Logger.getLogger(HttpHandler.class.getName());
   
-  private static final String USERID_ATTRNAME = "username";
+  private static final String USERID_ATTRNAME = "userid";
 
   private final String redirectUrl;
   private final SessionRegistry sessionRegistry;
