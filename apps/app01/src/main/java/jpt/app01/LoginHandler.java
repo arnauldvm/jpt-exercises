@@ -91,10 +91,10 @@ class LoginHandler implements HttpHandler {
         LOG.log(Level.SEVERE, "Failed reading login query from body", e);
         throw(e);
       }
-      final Optional<String> username = QueryParser.getFirstParameterValue(body, USERID_ATTRNAME);
+      final Optional<String> userid = QueryParser.getFirstParameterValue(body, USERID_ATTRNAME);
       // Ignore password for now
-      LOG.info(() -> String.format("User '%s' authenticated", username.get()));
-      final Session session = sessionRegistry.create(username.get());
+      LOG.info(() -> String.format("User '%s' authenticated", userid.get()));
+      final Session session = sessionRegistry.create(userid.get());
 
       SessionFilter.setCookie(exchange.getResponseHeaders(), session);
       RedirectResponder.respond(exchange, redirectUrl, "home", Optional.of("Session " + session.getId() + " created"));
