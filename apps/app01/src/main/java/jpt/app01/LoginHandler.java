@@ -46,6 +46,7 @@ class LoginHandler implements HttpHandler {
   private static final Logger LOG = Logger.getLogger(HttpHandler.class.getName());
   
   private static final String USERID_ATTRNAME = "userid";
+  private static final String PASSWORD_ATTRNAME = "password";
 
   private final String redirectUrl;
   private final SessionRegistry sessionRegistry;
@@ -68,7 +69,7 @@ class LoginHandler implements HttpHandler {
         out.println("Please log in:<BR>");
         out.println("<form action='login' method='post'>");
         out.printf ("  User name: <input type='text' name='%s'><br>\n", USERID_ATTRNAME);
-        out.println("  Password: <input type='password' name='password'><br>");
+        out.printf ("  Password: <input type='password' name='%s'><br>\n", PASSWORD_ATTRNAME);
         out.println("  <input type='submit' value='Submit'>");
         out.println("</form>");
         out.println("</DIV>");
