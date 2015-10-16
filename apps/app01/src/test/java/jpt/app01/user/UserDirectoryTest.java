@@ -50,7 +50,7 @@ public class UserDirectoryTest {
     assertThat(result.get().getUser().getFirstname(), equalTo("Scott"));
     assertThat(result.get().getUser().getSurname(), equalTo("Tiger"));
     assertThat(result.get().getUser().getEmail(), equalTo("scott.tiger@acme.com"));
-    assertThat(result.get().getPassword(), equalTo("tiger"));
+    assertTrue(result.get().checkPassword("tiger"));
   }
   
   @Test
