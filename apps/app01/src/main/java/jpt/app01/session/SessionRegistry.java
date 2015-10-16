@@ -26,6 +26,8 @@ package jpt.app01.session;
 import java.util.HashMap;
 import java.util.Map;
 
+import jpt.app01.user.User;
+
 /**
  *
  * @author avm
@@ -42,8 +44,8 @@ public class SessionRegistry {
     return sessions.get(sessionId);
   }
 
-  public Session create(String username) {
-    Session session = new Session(username);
+  public Session create(User user) {
+    Session session = new Session(user);
     sessions.put(session.getId(), session);
     return session;
   }

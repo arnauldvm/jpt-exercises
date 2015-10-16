@@ -57,4 +57,9 @@ public class User {
     return email;
   }
 
+  @Override
+  public String toString() {
+    return firstname + " " + surname;
+  }
+  
 }

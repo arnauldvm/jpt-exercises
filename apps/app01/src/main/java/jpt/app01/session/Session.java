@@ -27,21 +27,23 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import jpt.app01.user.User;
+
 /**
  *
  * @author avm
  */
 public class Session {
   
-  private final String username;
+  private final User user;
   
   private final String id;
   
   private final Map<String, Object> attributesMap;
   
-  public Session(String username) {
+  public Session(User user) {
     this.id = UUID.randomUUID().toString();
-    this.username = username;
+    this.user = user;
     this.attributesMap = new ConcurrentHashMap<>();
   }
   
@@ -57,8 +59,8 @@ public class Session {
     return id;
   }
   
-  public String getUsername() {
-    return username;
+  public User getUser() {
+    return user;
   }
     
 }

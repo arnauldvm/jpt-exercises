@@ -109,7 +109,7 @@ class LoginHandler implements HttpHandler {
         return;
       }
       LOG.info(() -> String.format("User '%s' authenticated", userid.get()));
-      final Session session = sessionRegistry.create(userid.get());
+      final Session session = sessionRegistry.create(user.get().getUser());
 
       SessionFilter.setCookie(exchange.getResponseHeaders(), session);
       RedirectResponder.respond(exchange, redirectUrl, "home", Optional.of("Session " + session.getId() + " created"));
