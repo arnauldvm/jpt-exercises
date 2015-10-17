@@ -91,7 +91,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (User)" enabled="true">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (User)" enabled="false">
         <collectionProp name="Arguments.arguments">
           <elementProp name="user.id" elementType="Argument">
             <stringProp name="Argument.name">user.id</stringProp>
@@ -156,6 +156,18 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config (Users)" enabled="true">
+          <stringProp name="TestPlan.comments">tail -n +2 app01/src/main/resources/users.csv | while read l; do echo &quot;$RANDOM;$l&quot;; done | sort | cut -d \; -f 2- | grep -v &apos;^$&apos; &gt; solutions/app01/users.csv</stringProp>
+          <stringProp name="delimiter">;</stringProp>
+          <stringProp name="fileEncoding">utf-8</stringProp>
+          <stringProp name="filename">users.csv</stringProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">user.id,user.surname,user.firstname,user.password,user.email</stringProp>
+        </CSVDataSet>
+        <hashTree/>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
