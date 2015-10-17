@@ -103,9 +103,14 @@
             <stringProp name="Argument.value">tiger</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="user.name" elementType="Argument">
-            <stringProp name="Argument.name">user.name</stringProp>
-            <stringProp name="Argument.value">Scott Tiger</stringProp>
+          <elementProp name="user.surname" elementType="Argument">
+            <stringProp name="Argument.name">user.surname</stringProp>
+            <stringProp name="Argument.value">Tiger</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="user.firstname" elementType="Argument">
+            <stringProp name="Argument.name">user.firstname</stringProp>
+            <stringProp name="Argument.value">Scott</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -244,13 +249,6 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <boolProp name="resetInterpreter">false</boolProp>
-              <stringProp name="script">vars.put(&quot;user.name.encoded&quot;, vars.get(&quot;user.name&quot;).replaceAll(&quot;\\s+&quot;, &quot;&amp;nbsp;&quot;));</stringProp>
-            </BeanShellPreProcessor>
-            <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (URL)" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="2144181430">/index.html</stringProp>
@@ -262,7 +260,7 @@
             <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (User name)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="1173849446">${user.name.encoded}</stringProp>
+                <stringProp name="-2127524676">${user.firstname}&amp;nbsp;${user.surname}</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
