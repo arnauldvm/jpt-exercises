@@ -31,6 +31,26 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (Load profile: stress ramp -&gt; 300 threads)" enabled="false">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="threads.count" elementType="Argument">
+            <stringProp name="Argument.name">threads.count</stringProp>
+            <stringProp name="Argument.value">200</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.duration_s" elementType="Argument">
+            <stringProp name="Argument.name">test.duration_s</stringProp>
+            <stringProp name="Argument.value">300</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.rampup_s" elementType="Argument">
+            <stringProp name="Argument.name">test.rampup_s</stringProp>
+            <stringProp name="Argument.value">300</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (Environment)" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="env.host" elementType="Argument">
