@@ -300,6 +300,13 @@
               <intProp name="Assertion.test_type">2</intProp>
             </ResponseAssertion>
             <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor (init random)" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">vars.putObject(&quot;random&quot;, new java.util.Random());</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
           </hashTree>
           <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="- debug dampler" enabled="false">
             <boolProp name="displayJMeterProperties">false</boolProp>
@@ -504,6 +511,17 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">random = vars.getObject(&quot;random&quot;);
+if (random.nextBoolean()) { // Use name 50% of the time, key the rest of the time
+	vars.put(&quot;case.key&quot;, vars.get(&quot;case.name&quot;));
+}
+</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
             <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
               <stringProp name="BeanShellAssertion.query">Failure = true;
 if (ResponseCode.equals(&quot;302&quot;)) { // Scenario 1: direct search
