@@ -48,7 +48,8 @@ download http://jmeter-plugins.org/downloads/file/JMeterPlugins-Extras-1.3.1.zip
 gcviewer_jar=gcviewer-1.34.1.jar
 download http://sourceforge.net/projects/gcviewer/files/gcviewer-1.34.1.jar/download "$gcviewer_jar"
 
-if [ "$(uname)" \!= "Darwin" ]; then
+uname="$(uname)"
+if [ "$uname" \!= "Darwin" ]; then
   os_name="win32-x64"
   mat_zip=MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip
   #download "http://www.eclipse.org/downloads/download.php?file=/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip&mirror_id=468" "$mat_zip"
@@ -90,7 +91,7 @@ unzip -oq "../../../download/$jmpluginext_zip"
 popd
 find $jmeter_dir/bin \( -name '*.sh' -o -name 'jmeter' \) -exec chmod +x {} \;
 
-if [ "$(uname)" \!= "Darwin" ]; then
+if [ "$uname" \!= "Darwin" ]; then
   java_dir="$(echo "$javasdk_zip" | perl -pe 's/\.zip$//')"
   mkdir "$java_dir"
   pushd "$java_dir"
@@ -100,7 +101,7 @@ fi
 
 unzip -q "../../download/$mat_zip"
 mat_dir="$(echo mat*)"
-if [ "$(uname)" \!= "Darwin" ]; then
+if [ "$uname" \!= "Darwin" ]; then
   find $mat_dir \( -name '*.exe' -o -name '*.dll' \) -exec chmod +x {} \;
 fi
 
@@ -112,7 +113,7 @@ threadlogic_dir="$(echo "$threadlogic_jar" | perl -pe 's/\.jar$//')"
 mkdir "$threadlogic_dir"
 cp -p "../../download/$threadlogic_jar" "$threadlogic_dir"
 
-if [ "$(uname)" \!= "Darwin" ]; then
+if [ "$uname" \!= "Darwin" ]; then
   curl_dir="$(echo "$curl_7z" | perl -pe 's/\.7z$//')"
   mkdir "$curl_dir"
   pushd "$curl_dir"
@@ -133,7 +134,7 @@ fi
 PATH=\"\$PATH_OLD\"
 " > setenv.sh
 
-if [ "$(uname)" \!= "Darwin" ]; then
+if [ "$uname" \!= "Darwin" ]; then
 echo "
 JAVA_HOME=\"\$root_dir/$java_dir\"
 PATH=\"\$JAVA_HOME/bin:\$PATH\"
@@ -160,12 +161,23 @@ alias gcviewer='javaw -jar \"\$GCVIEWER_HOME_BIS/$gcviewer_jar\"&'
 
 THREADLOGIC_HOME_BIS=\"\$root_dir_bis/$threadlogic_dir\"
 alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME_BIS/$threadlogic_jar\"&'
+" >> setenv.sh
 
+if [ "$uname" \!= "Darwin" ]; then
+echo "
 alias perf='typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\% Interrupt Time\" \"\\Processor(_Total)\\% User Time\" \"\\Processor(_Total)\\% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"'
+" >> setenv.sh
+else
+echo "
+alias perf=\"top -o wq -n 0 -s 1 -l 0 | perl -pe 's/\n/ - /; s/Processes/\nProcesses/'\"
+" >> setenv.sh
+fi
 
-echo "Following tools installed: java, jmeter, mat, gcviewer, threadlogic, curl, perf"
+echo "
+echo 'Following tools installed: java, jmeter, mat, gcviewer, threadlogic, curl, perf'
 " >> setenv.sh
 chmod +x setenv.sh
+
 
 echo "
 @SET \"root_dir=%~dp0\\local\"
