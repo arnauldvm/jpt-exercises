@@ -116,7 +116,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (case)" enabled="true">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (case)" enabled="false">
         <collectionProp name="Arguments.arguments">
           <elementProp name="case.sc1.key" elementType="Argument">
             <stringProp name="Argument.name">case.sc1.key</stringProp>
@@ -166,6 +166,18 @@
           <stringProp name="shareMode">shareMode.all</stringProp>
           <boolProp name="stopThread">false</boolProp>
           <stringProp name="variableNames">user.id,user.surname,user.firstname,user.password,user.email</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config (Cases)" enabled="true">
+          <stringProp name="TestPlan.comments">tail -n +2 app01/src/main/resources/languages.csv | perl -pe &apos;s/;.*$//; s/^(.?(.{0,3})?.*)$/&quot;$1;&quot;.lc(&quot;$2&quot;)/e; s/^(.*);$/$1;$1/&apos; | while read l; do echo &quot;$RANDOM;$l&quot;; done | sort | cut -d \; -f 2- &gt; solutions/app01/cases.csv</stringProp>
+          <stringProp name="delimiter">;</stringProp>
+          <stringProp name="fileEncoding">utf-8</stringProp>
+          <stringProp name="filename">cases.csv</stringProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">case.name,case.key</stringProp>
         </CSVDataSet>
         <hashTree/>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
@@ -296,7 +308,7 @@
           </DebugSampler>
           <hashTree/>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Scenario1 Controller" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Scenario1 Controller" enabled="false"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Direct search" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -358,7 +370,7 @@
           </kg.apc.jmeter.samplers.DummySampler>
           <hashTree/>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Scenario2 Controller" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Scenario2 Controller" enabled="false"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search for list" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -389,7 +401,7 @@
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (URL)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="1063410443">/search?key=${case.sc2.key}</stringProp>
+                <stringProp name="605861061">/search?key=${__urlencode(${case.sc2.key})}</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.sample_label</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -444,7 +456,7 @@
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (URL)" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="-1346599143">/language?name=${case.sc2.name}</stringProp>
+                <stringProp name="-872631033">/language?name=${__urlencode(${case.sc2.name})}</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.sample_label</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -454,6 +466,130 @@
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (Body)" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-654182778">&lt;B&gt;${case.sc2.name}&lt;/B&gt;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Mixed Scenario Controller" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="key" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">key</stringProp>
+                  <stringProp name="Argument.value">${case.key}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/search</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
+              <stringProp name="BeanShellAssertion.query">Failure = true;
+if (ResponseCode.equals(&quot;302&quot;)) { // Scenario 1: direct search
+	headers = ResponseHeaders.split(&quot;\\r?\\n&quot;);
+	String location = null;
+	for (int i = 0; i&lt;headers.length; i++) {
+		if (headers[i].startsWith(&quot;Location:&quot;)) {
+			location = headers[i].replaceAll(&quot;Location:\\s+&quot;, &quot;&quot;);
+			break;
+		}
+	}
+	if (location==null) {
+		FailureMessage = &quot;Missing Location header in redirect&quot;;
+		return;
+	}
+	case_name = vars.get(&quot;case.name&quot;);
+	expected = String.format(&quot;/language?name=%s&quot;,
+						new Object[] { java.net.URLEncoder.encode(case_name) });
+	if (!location.equals(expected)) {
+		FailureMessage = &quot;Redirect Location expected to be: &quot; + expected;
+		return;
+	}
+	//vars.put(&quot;redirect_url&quot;, location);
+	Failure = false;
+} else { // Scenario 2: search for list
+	case_key = vars.get(&quot;case.key&quot;);
+	expected = String.format(&quot;List of languages matching &lt;B&gt;%s&lt;/B&gt;&quot;,
+						new Object[] { case_key.toLowerCase() });
+	String body = SampleResult.getResponseDataAsString();
+	if (!body.contains(expected)) {
+		FailureMessage = &quot;Response body expected to contain: &quot; + expected;
+		return;
+	}
+	case_name = vars.get(&quot;case.name&quot;);
+	expected = String.format(&quot;&lt;A href=\&quot;/language?name=%s\&quot;&gt;&lt;B&gt;%s&lt;/B&gt;&lt;/A&gt;&quot;,
+						new Object[] { java.net.URLEncoder.encode(case_name), case_name });
+	if (!body.contains(expected)) {
+		FailureMessage = &quot;Response body expected to contain: &quot; + expected;
+		return;
+	}
+	Failure = false;
+}
+</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="- debug dampler" enabled="false">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Display language" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="name" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">name</stringProp>
+                  <stringProp name="Argument.value">${case.name}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/language</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion (Body)" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1801103890">&lt;B&gt;${case.name}&lt;/B&gt;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
