@@ -47,20 +47,20 @@ public class QueryParser {
     }
   }
   
-  private static Stream<String> getParameterValuesAsStream(String query, final String parameterName) {
-    if (null==query) return Stream.empty();
-    return Arrays.stream(query.split("&")).
+  private static Stream<String> getParameterValuesAsStream(String rawQuery, final String parameterName) {
+    if (null==rawQuery) return Stream.empty();
+    return Arrays.stream(rawQuery.split("&")).
             map((String s) -> Arrays.stream(s.split("=", -1)).map(u -> urlDecode(u)).collect(Collectors.toList())).
             filter(ls -> (ls.size()>1) && ls.get(0).equals(parameterName)).
             map(ls -> ls.get(1));
   }
   
-  public static List<String> getParameterValues(String query, final String parameterName) {
-    return getParameterValuesAsStream(query, parameterName).collect(Collectors.toList());
+  public static List<String> getParameterValues(String rawQuery, final String parameterName) {
+    return getParameterValuesAsStream(rawQuery, parameterName).collect(Collectors.toList());
   }
   
-  public static Optional<String> getFirstParameterValue(String query, final String parameterName) {
-    return getParameterValuesAsStream(query, parameterName).findFirst();
+  public static Optional<String> getFirstParameterValue(String rawQuery, final String parameterName) {
+    return getParameterValuesAsStream(rawQuery, parameterName).findFirst();
   }
   
 }

@@ -52,10 +52,10 @@ class LanguageHandler implements HttpHandler {
   
   @Override
   public void handle(HttpExchange exchange) throws IOException {
-    String query = exchange.getRequestURI().getQuery();
+    String rawQuery = exchange.getRequestURI().getRawQuery();
     String languageName;
     try {
-      languageName = getFirstParameterValue(query, "name").
+      languageName = getFirstParameterValue(rawQuery, "name").
               orElseThrow(() -> new IllegalArgumentException("Missing parameter 'name'"));
     } catch (IllegalArgumentException e) {
       ErrorResponder.respond(exchange, ErrorResponder.ERR_BAD_REQUEST, e.getMessage());

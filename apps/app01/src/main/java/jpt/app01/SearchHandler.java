@@ -56,10 +56,10 @@ class SearchHandler implements HttpHandler {
   
   @Override
   public void handle(HttpExchange exchange) throws IOException {
-    String query = exchange.getRequestURI().getQuery();
+    String rawQuery = exchange.getRequestURI().getRawQuery();
     String keyValue;
     try {
-      keyValue = getFirstParameterValue(query, "key").
+      keyValue = getFirstParameterValue(rawQuery, "key").
               orElseThrow(() -> new IllegalArgumentException("Missing parameter 'key'")).
               toLowerCase();
     } catch (IllegalArgumentException e) {
