@@ -41,6 +41,7 @@ class ErrorResponder {
   
   public static final int ERR_BAD_REQUEST = 400;
   public static final int ERR_NOT_FOUND = 404;
+  public static final int SYS_INTERNAL = 500;
 
   private ErrorResponder() {} // Pure static
 
