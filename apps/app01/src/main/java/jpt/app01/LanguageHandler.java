@@ -25,6 +25,10 @@ package jpt.app01;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Deque;
+import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +38,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import jpt.app01.data.LanguageProfile;
 import jpt.app01.data.LanguagesDatabase;
+import jpt.app01.session.Session;
 import jpt.app01.session.SessionFilter;
 
 import static jpt.app01.QueryParser.getFirstParameterValue;
@@ -45,9 +50,50 @@ import static jpt.app01.QueryParser.getFirstParameterValue;
 class LanguageHandler implements HttpHandler {
   private static final Logger LOG = Logger.getLogger(LanguageHandler.class.getName());
 
+  private static final String HISTORY_ATTNM = "HISTORY";
+
   private final LanguagesDatabase database;
+  
   public LanguageHandler() {
     database = new LanguagesDatabase();
+  }
+  
+  static class LastRequest {
+    private final String languageName;
+    private final byte[] importantInfo;
+
+    public LastRequest(String languageName) {
+      this.languageName = languageName;
+      this.importantInfo = getImportantInfo(); // Keep this, it simulates actual memory usage
+    }
+
+    public String getLanguageName() {
+      return languageName;
+    }
+    
+    public int getSize() {
+      return importantInfo.length;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("%s (%d)", languageName, importantInfo.length);
+    }
+    
+    private static final Random random = new Random();
+    private static byte[] getImportantInfo() {
+      int randomSize = random.nextInt(10000);
+      return new byte[randomSize];
+    }
+
+  }
+  
+  public static Deque<LastRequest> getOrCreateHistory(HttpExchange exchange) {
+    final Optional<Session> optSession = SessionFilter.getSession(exchange);
+    if (!optSession.isPresent()) throw new IllegalStateException("Could not retrieve session");
+    Session session = optSession.get();
+    return session.getOrCreateAttribute(HISTORY_ATTNM,
+            () -> new ConcurrentLinkedDeque<>());
   }
   
   @Override
@@ -62,6 +108,13 @@ class LanguageHandler implements HttpHandler {
       return;
     }
     
+    try {
+      getOrCreateHistory(exchange).add(new LastRequest(languageName));
+    } catch (Exception e) {
+      ErrorResponder.respond(exchange, ErrorResponder.SYS_INTERNAL, "Could not retrieve history");
+      return;
+    }
+ 
     synchronized (database) {
       LanguageProfile language = database.getLanguage(languageName);
       if (null==language) {
@@ -87,6 +140,6 @@ class LanguageHandler implements HttpHandler {
         throw(e);
       }
     }
-  }
+ }
 
 }
