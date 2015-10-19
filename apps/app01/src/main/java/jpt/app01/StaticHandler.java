@@ -57,13 +57,24 @@ class StaticHandler implements HttpHandler {
       return;
     }
     LOG.info(() -> "Found resource '" + resourcePath + "'");
+    
+    Optional<LanguageHandler.LastRequest> lastRequest;
+    try {
+      lastRequest = Optional.ofNullable(LanguageHandler.getOrCreateHistory(exchange).peekLast());
+    } catch (Exception e) {
+      ErrorResponder.respond(exchange, ErrorResponder.SYS_INTERNAL, "Could not retrieve last request");
+      return;
+    }
+
     try {
       //Headers responseHeaders = exchange.getResponseHeaders();
       //responseHeaders.set("Content-Type", "text/plain");
       exchange.sendResponseHeaders(200, 0);
       if ("HEAD".equals(exchange.getRequestMethod())) return;
       try (OutputStream responseBody = exchange.getResponseBody()) {
-        HeaderResponse.send(new PrintStream(responseBody), SessionFilter.getSession(exchange), "Search for language");
+        final PrintStream bodyPrintStream = new PrintStream(responseBody);
+        HeaderResponse.send(bodyPrintStream, SessionFilter.getSession(exchange), "Search for language");
+        lastRequest.ifPresent( r -> bodyPrintStream.printf("<P>Last language displayed: %s</P>\n", r.toString()));
         byte[] buffer = new byte[2<<12];
         int n;
         while (0 <= (n = in.read(buffer))) {
