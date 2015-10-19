@@ -40,6 +40,7 @@ public class HeaderResponse {
     out.printf("<TITLE>App01: %s</TITLE>\n", title);
     out.println("<META charset='UTF-8'>");
     out.println("<TABLE width=100% border=1 cellspacing=0><TR>");
+    out.println("<TD align=left nowrap><A href='/'>Home</A></TD>");
     out.println("<TD align=left width=100%><BIG><B>App 01: A programming languages DB</B></BIG></TD>");
     out.printf("<TD align=right>%s</TD>\n", session.map(s -> s.getUser().toString().replaceAll(" ", "&nbsp;")).orElse("&nbsp;"));
     out.println("</TABLE><BR>");
