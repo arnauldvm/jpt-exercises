@@ -26,6 +26,7 @@ package jpt.app01.session;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 
 import jpt.app01.user.User;
 
@@ -48,7 +49,9 @@ public class Session {
   }
   
   public void setAttribute(String name, Object attribute) {
-    attributesMap.put(name, attribute);
+    synchronized(attributesMap) {
+      attributesMap.put(name, attribute);
+    }
   }
   
   public Object getAttribute(String name) {
@@ -61,6 +64,18 @@ public class Session {
   
   public User getUser() {
     return user;
+  }
+
+  public <T> T getOrCreateAttribute(String attributeName, Supplier<? extends T> supplier) {
+    T result;
+    synchronized (attributesMap) {
+      result = (T) attributesMap.get(attributeName);
+      if (null == result) {
+        result = supplier.get();
+        attributesMap.put(attributeName, result);
+      }
+    }
+    return result;
   }
     
 }
