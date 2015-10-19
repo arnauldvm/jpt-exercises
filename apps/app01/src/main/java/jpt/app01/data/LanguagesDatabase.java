@@ -28,12 +28,14 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  *
  * @author avm
  */
 public class LanguagesDatabase {
+  private static final Logger LOG = Logger.getLogger(LanguagesDatabase.class.getName());
   
   private static final String DATA_FILE_RESOURCEPATH = "/languages.csv";
   private final Map<String, LanguageProfile> languagesMap;
@@ -58,11 +60,21 @@ public class LanguagesDatabase {
   }
   
   public LanguageProfile getLanguage(String name) {
+    dbResponseTime(20);
     return languagesMap.get(name);
   }
 
   public String[] getLanguageNames() {
+    dbResponseTime(40);
     return languagesMap.keySet().toArray(new String[0]);
+  }
+  
+  public void dbResponseTime(long millis) { try {
+    // Keep this, it simulates DB response time
+    Thread.sleep(millis);
+    } catch (InterruptedException ex) {
+      LOG.warning("Sleep interrupted, ignoring exception");
+    }
   }
 
 }
