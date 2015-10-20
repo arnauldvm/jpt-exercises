@@ -2,7 +2,8 @@
 
 @SET logs_dir=.\logs
 @MKDIR %logs_dir%
-@FOR /f "skip=1" %%x in ('wmic os get localdatetime') do if not defined ts set ts=%%x
+@FOR /f "tokens=2 delims==" %%x IN ('WMIC OS Get localdatetime /value') DO @SET ts=%%x
+@SET ts=%ts:~0,8%-%ts:~8,6%
 @SET "gclog_options=-Xloggc:%logs_dir%\gc-%ts%.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps"
 @SET "heap_options=-Xms1g -Xmx2g"
 
