@@ -141,7 +141,7 @@ PATH=\"\$JAVA_HOME/bin:\$PATH\"
 JAVA_HOME_BIS=\"\$root_dir_bis/$java_dir\"
 
 CURL_HOME=\"\$root_dir/$curl_dir\"
-PATH=\"\$PATH:\$CURL_HOME/openssl\"
+PATH=\"\$PATH:\$CURL_HOME/winssl\"
 " >> setenv.sh
 fi
 
@@ -202,7 +202,7 @@ echo "
 @SET \"THREADLOGIC_HOME=%root_dir%\\$threadlogic_dir\"
 @DOSKEY threadlogic=javaw -jar \"%THREADLOGIC_HOME%\\$threadlogic_dir.jar\"&
 
-@SET \"CURL_HOME=%root_dir%\\$curl_dir\\openssl\"
+@SET \"CURL_HOME=%root_dir%\\$curl_dir\\winssl\"
 @SET \"PATH=%PATH%;%CURL_HOME%\"
 
 @DOSKEY perf=typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\%% Interrupt Time\" \"\\Processor(_Total)\\%% User Time\" \"\\Processor(_Total)\\%% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"
