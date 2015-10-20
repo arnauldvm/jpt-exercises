@@ -58,8 +58,8 @@ if [ "$uname" \!= "Darwin" ]; then
   download http://www.paehl.com/open_source/downloads/curl_X64_ssl.7z "$curl_7z"
 
   #This one cannot be easily downloaded under a portable form
-  javasdk_zip=java-sdk-1.8.0_25-x64.zip
-  archive /C/javadev/tools/java/sdk/1.8.0_25-x64 "$javasdk_zip"
+  javasdk_zip=java-sdk-1.8.0_60-x64.zip
+  archive /C/javadev/tools/java/sdk/1.8.0_60-x64 "$javasdk_zip"
       # Also includes:
       #Visual VM
       #Mission Control
