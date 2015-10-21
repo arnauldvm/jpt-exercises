@@ -7,3 +7,7 @@
 2/ Still same kind of observations
 => same conclusion
 -> increase thread pool size from 5 to 200
+
+3/  Memory leak + we are very close to OoM error when running for a longer time than 5 min
+    (cf. GC log)
+-> Remove history stack

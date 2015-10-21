@@ -51,6 +51,7 @@ class LanguageHandler implements HttpHandler {
   private static final Logger LOG = Logger.getLogger(LanguageHandler.class.getName());
 
   private static final String HISTORY_ATTNM = "HISTORY";
+  private static final String LASTREQ_ATTNM = "LASTREQ";
 
   private final LanguagesDatabase database;
   
@@ -97,11 +98,20 @@ class LanguageHandler implements HttpHandler {
   }
 
   private static boolean setLastRequest(HttpExchange exchange, final LastRequest lastRequest) {
-    return getOrCreateHistory(exchange).add(lastRequest);
-  }
+    // return getOrCreateHistory(exchange).add(lastRequest);
+    final Optional<Session> optSession = SessionFilter.getSession(exchange);
+    if (!optSession.isPresent()) throw new IllegalStateException("Could not retrieve session");
+    Session session = optSession.get();
+    session.setAttribute(LASTREQ_ATTNM, lastRequest);
+    return true;
+   }
 
   public static Optional<LastRequest> getLastRequest(HttpExchange exchange) {
-    return Optional.ofNullable(getOrCreateHistory(exchange).peekLast());
+    // return Optional.ofNullable(getOrCreateHistory(exchange).peekLast());
+    final Optional<Session> optSession = SessionFilter.getSession(exchange);
+    if (!optSession.isPresent()) throw new IllegalStateException("Could not retrieve session");
+    Session session = optSession.get();
+    return Optional.ofNullable((LastRequest) session.getAttribute(LASTREQ_ATTNM));
   }
   
   @Override
