@@ -3,3 +3,7 @@
  - High ratio CPU system/user
 => threads contention
 -> remove (useless) synchronized blocks
+
+2/ Still same kind of observations
+=> same conclusion
+-> increase thread pool size from 5 to 200
