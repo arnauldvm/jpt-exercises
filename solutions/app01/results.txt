@@ -1,6 +1,6 @@
 Results summary
 
-As-is (029483b)
+* As-is (029483b)
 
 on PORT-AVM (Win64 - 2x core):
 max throughput : ~34 r/s @ 2+ threads
@@ -14,3 +14,10 @@ min resptm :
  - Search: ~32ms @ 1 thread
  - Display: ~20ms @ 1-5 threads
 
+* Removed synchronized blocks (27ef616)
+
+on Drogon (OSX - 4x core, *plugged*):
+max throughput : ~92 r/s @ 6+ threads
+min resptm :
+ - Search: ~32ms @ 1-5 thread
+ - Display: ~20ms @ 1-5 threads
