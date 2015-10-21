@@ -5,13 +5,13 @@ Results summary
 on PORT-AVM (Win64 - 2x core):
 max throughput : ~34 r/s @ 2+ threads
 min resptm :
- - Search: ~32ms @ 1 thread
+ - Search: ~32ms @ 1 threads
  - Display: ~19ms @ 1-5 threads
 
 on Drogon (OSX - 4x core, unplugged): ~idem, but more stable
 max throughput : ~32 r/s @ 2+ threads
 min resptm :
- - Search: ~32ms @ 1 thread
+ - Search: ~32ms @ 1 threads
  - Display: ~20ms @ 1-5 threads
 
 * Removed synchronized blocks (27ef616)
@@ -19,13 +19,13 @@ min resptm :
 on Drogon (OSX - 4x core, *plugged*):
 max throughput : ~92 r/s @ 6+ threads
 min resptm :
- - Search: ~32ms @ 1-5 thread
+ - Search: ~32ms @ 1-5 threads
  - Display: ~20ms @ 1-5 threads
 
 on PORT-AVM (Win64 - 2x core): ~idem
 max throughput : ~100 r/s @ 6+ threads
 min resptm :
- - Search: ~30ms @ 1-5 thread
+ - Search: ~30ms @ 1-5 threads
  - Display: ~18ms @ 1-5 threads
 
 * Increased threads pool size: 5->200 (c9785b5)
