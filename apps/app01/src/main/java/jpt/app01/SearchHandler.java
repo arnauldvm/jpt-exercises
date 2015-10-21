@@ -67,7 +67,6 @@ class SearchHandler implements HttpHandler {
       return;
     }
     
-    synchronized (database) {
       final List<String> foundLanguageNames = Arrays.stream(database.getLanguageNames()).
               filter(s -> s.toLowerCase().contains(keyValue)).
               sorted().
@@ -101,7 +100,6 @@ class SearchHandler implements HttpHandler {
           throw(e);
         }
       }
-    }
   }
 
 }

@@ -115,7 +115,6 @@ class LanguageHandler implements HttpHandler {
       return;
     }
  
-    synchronized (database) {
       LanguageProfile language = database.getLanguage(languageName);
       if (null==language) {
       ErrorResponder.respond(exchange, ErrorResponder.ERR_NOT_FOUND, "Language '" + languageName + "' not found in database.");
@@ -139,7 +138,6 @@ class LanguageHandler implements HttpHandler {
         LOG.log(Level.SEVERE, e, () -> "Failed returning HTML page for language '" + languageName + "': ");
         throw(e);
       }
-    }
  }
 
 }

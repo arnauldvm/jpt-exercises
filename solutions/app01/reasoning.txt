@@ -1,0 +1,5 @@
+1/
+ - Long run queue
+ - High ratio CPU system/user
+=> threads contention
+-> remove (useless) synchronized blocks
