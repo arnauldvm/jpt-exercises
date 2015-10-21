@@ -190,26 +190,33 @@ echo "
 
 @SET \"JMETER_HOME=%root_dir%\\$jmeter_dir\"
 @SET \"PATH=%PATH%;%JMETER_HOME%\\bin\"
-@DOSKEY jm=START /MIN CMD /C jmeter
 
 @SET \"MAT_HOME=%root_dir%\\$mat_dir\"
 ::@SET \"PATH=%PATH%;%MAT_HOME%\"
-@DOSKEY mat=START %MAT_HOME%\\MemoryAnalyzer -data %MAT_HOME%\\workspace -vm %JAVA_HOME%\\bin\\javaw.exe -vmargs -Xms256m -Xms4g
 
 @SET \"GCVIEWER_HOME=%root_dir%\\$gcviewer_dir\"
-@DOSKEY gcviewer=javaw -jar \"%GCVIEWER_HOME%\\$gcviewer_dir.jar\"&
 
 @SET \"THREADLOGIC_HOME=%root_dir%\\$threadlogic_dir\"
-@DOSKEY threadlogic=javaw -jar \"%THREADLOGIC_HOME%\\$threadlogic_dir.jar\"&
 
 @SET \"CURL_HOME=%root_dir%\\$curl_dir\\winssl\"
 @SET \"PATH=%PATH%;%CURL_HOME%\"
 
-@DOSKEY perf=typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\%% Interrupt Time\" \"\\Processor(_Total)\\%% User Time\" \"\\Processor(_Total)\\%% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"
+@SET \"CMD_HOME=%root_dir%\\bin\"
+@SET \"PATH=%CMD_HOME%;%PATH%\"
 
 @ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl, perf"
 " > setenv.bat
 unix2dos setenv.bat
+
+mkdir -p local/bin
+pushd local/bin
+echo "@START /MIN CMD /C jmeter" > jm.cmd
+echo "@javaw -jar \"%GCVIEWER_HOME%\\$gcviewer_dir.jar\"&" > gcviewer.cmd
+echo "@javaw -jar \"%THREADLOGIC_HOME%\\$threadlogic_dir.jar\"&" > threadlogic.cmd
+echo "@START %MAT_HOME%\\MemoryAnalyzer -data %MAT_HOME%\\workspace -vm %JAVA_HOME%\\bin\\javaw.exe -vmargs -Xms256m -Xms4g" > mat.cmd
+echo "@typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\%% Interrupt Time\" \"\\Processor(_Total)\\%% User Time\" \"\\Processor(_Total)\\%% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"" > perf.cmd
+unix2dos *.cmd
+popd
 
 popd
 
