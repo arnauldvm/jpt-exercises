@@ -77,5 +77,10 @@ public class Session {
     }
     return result;
   }
-    
+
+  @Override
+  public String toString() {
+    return String.format("%s:%s", user.getUserid(), id);
+  }
+  
 }
