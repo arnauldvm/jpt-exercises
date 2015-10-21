@@ -27,3 +27,18 @@ max throughput : ~100 r/s @ 6+ threads
 min resptm :
  - Search: ~30ms @ 1-5 thread
  - Display: ~18ms @ 1-5 threads
+
+* Increased threads pool size: 5->200 (c9785b5)
+
+on Drogon (OSX - 4x core, *plugged*):
+max throughput : ~1550 r/s @ 90-210 threads
+min resptm :
+ - Search: ~32-36ms @ 1-90 threads
+ - Display: ~19-23ms @ 1-90 threads
+
+on PORT-AVM (Win64 - 2x core): worst
+max throughput : ~800-1200 r/s @ 60+ threads
+min resptm :
+ - Search: ~32ms @ 1-60 threads
+ - Display: ~20ms @ 1-60 threads
+
