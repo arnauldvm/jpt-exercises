@@ -391,6 +391,7 @@
             <stringProp name="RESPONSE_DATA"></stringProp>
             <stringProp name="RESPONSE_TIME">0</stringProp>
             <stringProp name="LATENCY">0</stringProp>
+            <stringProp name="CONNECT"></stringProp>
           </kg.apc.jmeter.samplers.DummySampler>
           <hashTree/>
         </hashTree>
