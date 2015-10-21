@@ -784,7 +784,7 @@ if (ResponseCode.equals(&quot;302&quot;)) { // Scenario 1: direct search
           </value>
         </objProp>
         <stringProp name="filename"></stringProp>
-        <longProp name="interval_grouping">1000</longProp>
+        <longProp name="interval_grouping">5000</longProp>
         <boolProp name="graph_aggregated">false</boolProp>
         <stringProp name="include_sample_labels"></stringProp>
         <stringProp name="exclude_sample_labels"></stringProp>
@@ -825,7 +825,7 @@ if (ResponseCode.equals(&quot;302&quot;)) { // Scenario 1: direct search
           </value>
         </objProp>
         <stringProp name="filename"></stringProp>
-        <longProp name="interval_grouping">500</longProp>
+        <longProp name="interval_grouping">5000</longProp>
         <boolProp name="graph_aggregated">false</boolProp>
         <stringProp name="include_sample_labels"></stringProp>
         <stringProp name="exclude_sample_labels"></stringProp>
