@@ -136,7 +136,7 @@ class LanguageHandler implements HttpHandler {
         out.println("</UL>");
         out.println("</DIV>");
       } catch (Exception e) {
-        LOG.log(Level.SEVERE, "Failed returning HTML page for language '" + languageName + "': ", e);
+        LOG.log(Level.SEVERE, e, () -> "Failed returning HTML page for language '" + languageName + "': ");
         throw(e);
       }
     }

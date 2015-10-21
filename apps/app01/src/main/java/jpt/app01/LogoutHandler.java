@@ -59,7 +59,7 @@ class LogoutHandler implements HttpHandler {
     } else {
       final Session session = optSession.get();
       sessionRegistry.remove(session);
-      LOG.info("Forget session " + session);
+      LOG.info(() -> "Forget session " + session);
     }
       
     SessionFilter.removeCookie(exchange.getResponseHeaders());

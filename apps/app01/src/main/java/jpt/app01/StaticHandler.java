@@ -82,7 +82,7 @@ class StaticHandler implements HttpHandler {
         }
       }
     } catch (Exception e) {
-      LOG.log(Level.SEVERE, "Failed processing '" + resourcePath + "': ", e);
+      LOG.log(Level.SEVERE, e, () -> "Failed processing '" + resourcePath + "': ");
       throw(e);
     } finally {
       in.close();

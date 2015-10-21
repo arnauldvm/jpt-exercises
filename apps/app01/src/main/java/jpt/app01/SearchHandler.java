@@ -97,7 +97,7 @@ class SearchHandler implements HttpHandler {
           out.println("</UL>");
           out.println("</DIV>");
         } catch (Exception e) {
-          LOG.log(Level.SEVERE, "Failed generating list of languages matches for '" + keyValue + "': ", e);
+          LOG.log(Level.SEVERE, e, () -> "Failed generating list of languages matches for '" + keyValue + "': ");
           throw(e);
         }
       }

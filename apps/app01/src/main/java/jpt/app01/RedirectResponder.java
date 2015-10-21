@@ -54,7 +54,7 @@ public class RedirectResponder {
       out.printf("Go to: <A href=\"%s\"><B>%s</B></A>", redirectUrl, name);
       out.println("</DIV>");
     } catch (Exception e) {
-      LOG.log(Level.SEVERE, "Failed generating redirection to '" + name + "': ", e);
+      LOG.log(Level.SEVERE, e, () -> "Failed generating redirection to '" + name + "': ");
       throw(e);
     }
   }
