@@ -1,9 +1,9 @@
 Results summary
 
-As-is (9992a78)
+As-is (029483b)
 
 on PORT-AVM:
 max throughput : ~34 r/s @ 2+ threads
 min resptm :
- - Search: ~30ms @ 1 thread
+ - Search: ~32ms @ 1 thread
  - Display: ~19ms @ 1-5 threads
