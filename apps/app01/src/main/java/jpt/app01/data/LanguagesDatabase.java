@@ -28,6 +28,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Logger;
 
 /**
@@ -60,18 +61,19 @@ public class LanguagesDatabase {
   }
   
   public LanguageProfile getLanguage(String name) {
-    dbResponseTime(20);
+    dbResponseTime(20, 10);
     return languagesMap.get(name);
   }
 
   public String[] getLanguageNames() {
-    dbResponseTime(40);
+    dbResponseTime(40, 20);
     return languagesMap.keySet().toArray(new String[0]);
   }
   
-  public void dbResponseTime(long millis) { try {
+  private Random random = new Random();
+  public void dbResponseTime(int millis, int randomPct) { try {
     // Keep this, it simulates DB response time
-    Thread.sleep(millis);
+    Thread.sleep(millis + random.nextInt(millis*randomPct/100) - millis*randomPct/50);
     } catch (InterruptedException ex) {
       LOG.warning("Sleep interrupted, ignoring exception");
     }
