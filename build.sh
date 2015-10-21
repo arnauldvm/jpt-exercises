@@ -119,6 +119,9 @@ if [ "$uname" \!= "Darwin" ]; then
   pushd "$curl_dir"
   7z x "../../../download/$curl_7z"
   popd
+  javaw=javaw.exe
+else
+  javaw=java
 fi
 
 cd ..
@@ -154,16 +157,17 @@ alias jmeter='\"\$JMETER_HOME_BIS/bin/jmeter.sh\"'
 #MAT_HOME=\"\$root_dir/$mat_dir\"
 #PATH=\"\$PATH:\$MAT_HOME\"
 MAT_HOME_BIS=\"\$root_dir_bis/$mat_dir\"
-alias mat='\"\$MAT_HOME_BIS/MemoryAnalyzer\" -data \"\$MAT_HOME_BIS/workspace\" -vm \"\$JAVA_HOME_BIS/bin/javaw.exe\" -vmargs -Xms256m -Xms4g&'
+alias mat='\"\$MAT_HOME_BIS/MemoryAnalyzer\" -data \"\$MAT_HOME_BIS/workspace\" -vm \"\$JAVA_HOME_BIS/bin/$javaw\" -vmargs -Xms256m -Xms4g&'
 
 GCVIEWER_HOME_BIS=\"\$root_dir_bis/$gcviewer_dir\"
-alias gcviewer='javaw -jar \"\$GCVIEWER_HOME_BIS/$gcviewer_jar\"&'
+alias gcviewer='$javaw -jar \"\$GCVIEWER_HOME_BIS/$gcviewer_jar\"&'
 
 THREADLOGIC_HOME_BIS=\"\$root_dir_bis/$threadlogic_dir\"
-alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME_BIS/$threadlogic_jar\"&'
+alias threadlogic='$javaw -jar \"\$THREADLOGIC_HOME_BIS/$threadlogic_jar\"&'
 " >> setenv.sh
 
 if [ "$uname" \!= "Darwin" ]; then
+
 echo "
 alias perf='typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\% Interrupt Time\" \"\\Processor(_Total)\\% User Time\" \"\\Processor(_Total)\\% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"'
 " >> setenv.sh
@@ -179,6 +183,7 @@ echo 'Following tools installed: java, jmeter, mat, gcviewer, threadlogic, curl,
 chmod +x setenv.sh
 
 
+if [ "$uname" \!= "Darwin" ]; then
 echo "
 @SET \"root_dir=%~dp0\\local\"
 
@@ -217,6 +222,8 @@ echo "@START %MAT_HOME%\\MemoryAnalyzer -data %MAT_HOME%\\workspace -vm %JAVA_HO
 echo "@typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\%% Interrupt Time\" \"\\Processor(_Total)\\%% User Time\" \"\\Processor(_Total)\\%% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"" > perf.cmd
 unix2dos *.cmd
 popd
+
+fi
 
 popd
 
