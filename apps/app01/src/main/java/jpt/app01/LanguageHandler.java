@@ -95,6 +95,14 @@ class LanguageHandler implements HttpHandler {
     return session.getOrCreateAttribute(HISTORY_ATTNM,
             () -> new ConcurrentLinkedDeque<>());
   }
+
+  private static boolean setLastRequest(HttpExchange exchange, final LastRequest lastRequest) {
+    return getOrCreateHistory(exchange).add(lastRequest);
+  }
+
+  public static Optional<LastRequest> getLastRequest(HttpExchange exchange) {
+    return Optional.ofNullable(getOrCreateHistory(exchange).peekLast());
+  }
   
   @Override
   public void handle(HttpExchange exchange) throws IOException {
@@ -109,7 +117,8 @@ class LanguageHandler implements HttpHandler {
     }
     
     try {
-      getOrCreateHistory(exchange).add(new LastRequest(languageName));
+      final LastRequest lastRequest = new LastRequest(languageName);
+      setLastRequest(exchange, lastRequest);
     } catch (Exception e) {
       ErrorResponder.respond(exchange, ErrorResponder.SYS_INTERNAL, "Could not retrieve history");
       return;

@@ -60,7 +60,7 @@ class StaticHandler implements HttpHandler {
     
     Optional<LanguageHandler.LastRequest> lastRequest;
     try {
-      lastRequest = Optional.ofNullable(LanguageHandler.getOrCreateHistory(exchange).peekLast());
+      lastRequest = LanguageHandler.getLastRequest(exchange);
     } catch (Exception e) {
       ErrorResponder.respond(exchange, ErrorResponder.SYS_INTERNAL, "Could not retrieve last request");
       return;
@@ -88,5 +88,6 @@ class StaticHandler implements HttpHandler {
       in.close();
     }
   }
+
 
 }
