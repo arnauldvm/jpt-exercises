@@ -49,6 +49,7 @@ min resptm :
  - Display: ~20ms @ 1-60 threads
 CPU: avg:84%, rq: avg:6, %75:9, sy:us ratio: avg:0.3
 (only during the CPU "plateau" phase)
+GC: slope full GC: 6M/s, CPU throughput: 99.09%, alloc rate: 15G/M
 
 * Remove memory leak (5978c3a)
 
@@ -61,3 +62,11 @@ CPU: avg:58%, loadavg 1m: avg: 7.0, sy:us ratio: avg:0.4
 (only during the CPU "plateau" phase)
 GC: slope full GC: N/A, CPU throughput: 99.84%, alloc rate: 22G/M
 
+on PORT-AVM (Win64 - 2x core): worst
+max throughput : ~1050 r/s @ 90+ threads
+min resptm :
+ - Search: ~31ms @ 30-50 threads
+ - Display: ~19ms @ 30-50 threads
+CPU: avg:87%, rq: avg:7, %75:9, sy:us ratio: avg:0.3
+(only during the CPU "plateau" phase)
+GC: slope full GC: N/A, CPU throughput: 99.79%, alloc rate: 16G/M
