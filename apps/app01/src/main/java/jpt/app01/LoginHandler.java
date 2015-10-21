@@ -51,10 +51,12 @@ class LoginHandler implements HttpHandler {
   private static final String PASSWORD_ATTRNAME = "password";
 
   private final String redirectUrl;
+  private final String redirectName;
   private final SessionRegistry sessionRegistry;
 
-  public LoginHandler(SessionRegistry sessionRegistry, String redirectUrl) {
+  public LoginHandler(SessionRegistry sessionRegistry, String redirectUrl, String redirectName) {
     this.redirectUrl = redirectUrl;
+    this.redirectName = redirectName;
     this.sessionRegistry = sessionRegistry;
   }
 
@@ -112,7 +114,7 @@ class LoginHandler implements HttpHandler {
       final Session session = sessionRegistry.create(user.get().getUser());
 
       SessionFilter.setCookie(exchange.getResponseHeaders(), session);
-      RedirectResponder.respond(exchange, redirectUrl, "home", Optional.of("Session " + session.getId() + " created"));
+      RedirectResponder.respond(exchange, redirectUrl, redirectName, Optional.of("Session " + session.getId() + " created"));
     }
   }
   

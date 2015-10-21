@@ -79,7 +79,7 @@ public class Main {
     List<Filter> defaultFilters = Arrays.asList(new Filter[] { accessLogFilter, sessionFilter });
     
     server.createContext("/", new StaticHandler()).getFilters().addAll(defaultFilters);
-    server.createContext("/login", new LoginHandler(sessionRegistry, "/")).getFilters().add(accessLogFilter); // no session filter or else infinite redirect loop!
+    server.createContext("/login", new LoginHandler(sessionRegistry, "/", "home")).getFilters().add(accessLogFilter); // no session filter or else infinite redirect loop!
     server.createContext("/search", new SearchHandler()).getFilters().addAll(defaultFilters);
     server.createContext("/language", new LanguageHandler()).getFilters().addAll(defaultFilters);
     final ExecutorService threadPool = Executors.newFixedThreadPool(poolSize);
