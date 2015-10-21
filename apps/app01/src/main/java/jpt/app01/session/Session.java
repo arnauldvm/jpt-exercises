@@ -66,6 +66,7 @@ public class Session {
     return user;
   }
 
+  @SuppressWarnings("unchecked")
   public <T> T getOrCreateAttribute(String attributeName, Supplier<? extends T> supplier) {
     T result;
     synchronized (attributesMap) {
