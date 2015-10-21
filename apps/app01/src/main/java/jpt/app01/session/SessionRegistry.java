@@ -23,8 +23,8 @@
  */
 package jpt.app01.session;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import jpt.app01.user.User;
 
@@ -34,10 +34,10 @@ import jpt.app01.user.User;
  */
 public class SessionRegistry {
   
-  private Map <String, Session> sessions;
+  private final Map <String, Session> sessions;
 
   public SessionRegistry() {
-    this.sessions = new HashMap<>();
+    this.sessions = new ConcurrentHashMap<>();
   }
 
   public Session get(String sessionId) {
@@ -48,6 +48,10 @@ public class SessionRegistry {
     Session session = new Session(user);
     sessions.put(session.getId(), session);
     return session;
+  }
+
+  public void remove(Session session) {
+    sessions.remove(session.getId());
   }
   
 }
