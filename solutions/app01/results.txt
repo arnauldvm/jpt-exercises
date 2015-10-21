@@ -7,6 +7,7 @@ max throughput : ~34 r/s @ 2+ threads
 min resptm :
  - Search: ~32ms @ 1 threads
  - Display: ~19ms @ 1-5 threads
+CPU: avg:30%, rq: avg:3, %75:5, sy:us ratio: avg:0.5
 
 on Drogon (OSX - 4x core, unplugged): ~idem, but more stable
 max throughput : ~32 r/s @ 2+ threads
@@ -27,6 +28,8 @@ max throughput : ~100 r/s @ 6+ threads
 min resptm :
  - Search: ~30ms @ 1-5 threads
  - Display: ~18ms @ 1-5 threads
+CPU: avg:21%, rq: avg:3, %75:5, sy:us ratio: avg:0.5
+(only during the CPU "plateau" phase)
 
 * Increased threads pool size: 5->200 (c9785b5)
 
@@ -35,10 +38,14 @@ max throughput : ~1550 r/s @ 90-210 threads
 min resptm :
  - Search: ~32-36ms @ 1-90 threads
  - Display: ~19-23ms @ 1-90 threads
+CPU: avg:60%, loadavg 1m: avg: 5.2, sy:us ratio: avg:0.4
+(only during the CPU "plateau" phase)
 
 on PORT-AVM (Win64 - 2x core): worst
 max throughput : ~800-1200 r/s @ 60+ threads
 min resptm :
  - Search: ~32ms @ 1-60 threads
  - Display: ~20ms @ 1-60 threads
+CPU: avg:84%, rq: avg:6, %75:9, sy:us ratio: avg:0.3
+(only during the CPU "plateau" phase)
 
