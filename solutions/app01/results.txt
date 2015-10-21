@@ -50,3 +50,14 @@ min resptm :
 CPU: avg:84%, rq: avg:6, %75:9, sy:us ratio: avg:0.3
 (only during the CPU "plateau" phase)
 
+* Remove memory leak (5978c3a)
+
+on Drogon (OSX - 4x core, *plugged*):
+max throughput : ~1550 r/s @ 90-210 threads
+min resptm :
+ - Search: ~32-36ms @ 1-90 threads
+ - Display: ~19-23ms @ 1-90 threads
+CPU: avg:58%, loadavg 1m: avg: 7.0, sy:us ratio: avg:0.4
+(only during the CPU "plateau" phase)
+GC: slope full GC: N/A, CPU throughput: 99.84%, alloc rate: 22G/M
+
