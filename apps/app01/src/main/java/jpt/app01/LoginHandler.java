@@ -110,7 +110,7 @@ class LoginHandler implements HttpHandler {
         ErrorResponder.respond(exchange, ErrorResponder.ERR_BAD_REQUEST, "Invalid userid or password");
         return;
       }
-      LOG.info(() -> String.format("User '%s' authenticated", userid.get()));
+      LOG.finer(() -> String.format("User '%s' authenticated", userid.get()));
       final Session session = sessionRegistry.create(user.get().getUser());
 
       SessionFilter.setCookie(exchange.getResponseHeaders(), session);

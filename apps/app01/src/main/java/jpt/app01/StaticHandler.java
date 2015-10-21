@@ -56,7 +56,7 @@ class StaticHandler implements HttpHandler {
       ErrorResponder.respond(exchange, ErrorResponder.ERR_NOT_FOUND, "Resource '" + resourcePath + "' not found.");
       return;
     }
-    LOG.info(() -> "Found resource '" + resourcePath + "'");
+    LOG.finer(() -> "Found resource '" + resourcePath + "'");
     
     Optional<LanguageHandler.LastRequest> lastRequest;
     try {

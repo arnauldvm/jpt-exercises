@@ -43,11 +43,11 @@ public class AccessLogFilter extends Filter {
   @Override
   public void doFilter(HttpExchange exchange, Chain chain) throws IOException {
     String uuid = UUID.randomUUID().toString();
-    LOG.info(() -> String.format("[%s]> %s %s %s", uuid, exchange.getProtocol(), exchange.getRequestMethod(), exchange.getRequestURI()));
+    LOG.fine(() -> String.format("[%s]> %s %s %s", uuid, exchange.getProtocol(), exchange.getRequestMethod(), exchange.getRequestURI()));
     long bgnTime_ms = System.currentTimeMillis();
     chain.doFilter(exchange);
     long endTime_ms = System.currentTimeMillis();
-    LOG.info(() -> String.format("[%s]< %s %d", uuid, exchange.getResponseCode(), (endTime_ms-bgnTime_ms)));
+    LOG.fine(() -> String.format("[%s]< %s %d", uuid, exchange.getResponseCode(), (endTime_ms-bgnTime_ms)));
   }
 
   @Override

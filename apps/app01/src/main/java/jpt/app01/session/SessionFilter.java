@@ -67,7 +67,7 @@ public class SessionFilter extends Filter {
       RedirectResponder.respond(exchange, redirectUrl, "login", Optional.of("Session id not found in cookie."));
       return; // no doFilter since we abort here
     }
-    LOG.info(() -> "Retrieved session " + sessionId.get());
+    LOG.finer(() -> "Retrieved session " + sessionId.get());
     Session session = sessionRegistry.get(sessionId.get());
     if (null==session) {
       final String message = String.format("Session %s not found, likely expired.", sessionId.get());
