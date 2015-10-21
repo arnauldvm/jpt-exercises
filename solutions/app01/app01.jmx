@@ -65,7 +65,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="threads.count" elementType="Argument">
             <stringProp name="Argument.name">threads.count</stringProp>
-            <stringProp name="Argument.value">200</stringProp>
+            <stringProp name="Argument.value">300</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="test.duration_s" elementType="Argument">
