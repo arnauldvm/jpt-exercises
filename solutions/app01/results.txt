@@ -2,8 +2,15 @@ Results summary
 
 As-is (029483b)
 
-on PORT-AVM:
+on PORT-AVM (Win64 - 2x core):
 max throughput : ~34 r/s @ 2+ threads
 min resptm :
  - Search: ~32ms @ 1 thread
  - Display: ~19ms @ 1-5 threads
+
+on Drogon (OSX - 4x core): ~idem, but more stable
+max throughput : ~32 r/s @ 2+ threads
+min resptm :
+ - Search: ~32ms @ 1 thread
+ - Display: ~20ms @ 1-5 threads
+
