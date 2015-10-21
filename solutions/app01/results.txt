@@ -40,6 +40,7 @@ min resptm :
  - Display: ~19-23ms @ 1-90 threads
 CPU: avg:60%, loadavg 1m: avg: 5.2, sy:us ratio: avg:0.4
 (only during the CPU "plateau" phase)
+GC: slope full GC: 7M/s, CPU throughput: 95.95%, alloc rate: 21G/M
 
 on PORT-AVM (Win64 - 2x core): worst
 max throughput : ~800-1200 r/s @ 60+ threads
