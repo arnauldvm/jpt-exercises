@@ -21,3 +21,9 @@ max throughput : ~92 r/s @ 6+ threads
 min resptm :
  - Search: ~32ms @ 1-5 thread
  - Display: ~20ms @ 1-5 threads
+
+on PORT-AVM (Win64 - 2x core): ~idem
+max throughput : ~100 r/s @ 6+ threads
+min resptm :
+ - Search: ~30ms @ 1-5 thread
+ - Display: ~18ms @ 1-5 threads
