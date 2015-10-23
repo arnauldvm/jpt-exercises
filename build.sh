@@ -66,7 +66,7 @@ if [ "$uname" \!= "Darwin" ]; then
 else
   os_name="osx"
   mat_zip=MemoryAnalyzer-1.5.0.20150527-macosx.cocoa.x86_64.zip
-  http://mirror.switch.ch/eclipse/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-macosx.cocoa.x86_64.zip
+  download http://mirror.switch.ch/eclipse/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-macosx.cocoa.x86_64.zip "$mat_zip"
 fi
 
 threadlogic_jar=ThreadLogic-2.0.217.jar
