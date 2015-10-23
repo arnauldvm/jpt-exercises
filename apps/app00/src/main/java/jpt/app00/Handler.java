@@ -40,7 +40,7 @@ class Handler implements HttpHandler {
   @Override
   public void handle(HttpExchange exchange) throws IOException {
     String requestMethod = exchange.getRequestMethod();
-    if (requestMethod.equalsIgnoreCase("GET")) {
+    if (!requestMethod.equalsIgnoreCase("HEAD")) {
       Headers responseHeaders = exchange.getResponseHeaders();
       responseHeaders.set("Content-Type", "text/plain");
       exchange.sendResponseHeaders(200, 0);
