@@ -46,8 +46,11 @@ class Handler implements HttpHandler {
       exchange.sendResponseHeaders(200, 0);
 
       try (OutputStream responseBody = exchange.getResponseBody()) {
-        Headers requestHeaders = exchange.getRequestHeaders();
+        responseBody.write(
+          String.format("%s %s %s\r\n\r\n", requestMethod, exchange.getProtocol(), exchange.getRequestURI()).getBytes()
+        );
 
+        Headers requestHeaders = exchange.getRequestHeaders();
         responseBody.write(
           requestHeaders.entrySet().stream().map(
                   entry -> entry.getKey() + "=" + entry.getValue()
