@@ -26,8 +26,11 @@ package jpt.app00;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import com.sun.net.httpserver.Headers;
@@ -69,6 +72,15 @@ class Handler implements HttpHandler {
     LOG.log(Level.WARNING, "Failed processing " + requestMethod + " " + requestUri, e);
     exchange.sendResponseHeaders(500, 0);
   }
+  }
+
+  public Optional<String> getParameterValue(final String rawQuery, final String parameterName) throws NumberFormatException {
+    if (null==rawQuery) return Optional.empty();
+    final String regex = "^(?:.*[;&])?%s=(\\d+?)(?:[;&].*)?$";
+    final Pattern parameterPattern = Pattern.compile(String.format(regex, parameterName));
+    final Matcher parameterMatcher = parameterPattern.matcher(rawQuery);
+    if (!parameterMatcher.matches()) return Optional.empty();
+    return(Optional.of(parameterMatcher.group(1)));
   }
 
 }
