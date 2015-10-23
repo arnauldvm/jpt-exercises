@@ -25,6 +25,9 @@ package jpt.app00;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.sun.net.httpserver.Headers;
@@ -36,10 +39,13 @@ import com.sun.net.httpserver.HttpHandler;
  * @author avm
  */
 class Handler implements HttpHandler {
+  private static final Logger LOG = Logger.getLogger(Handler.class.getName());
 
   @Override
   public void handle(HttpExchange exchange) throws IOException {
-    String requestMethod = exchange.getRequestMethod();
+  final String requestMethod = exchange.getRequestMethod();
+  final URI requestUri = exchange.getRequestURI();
+  try {
     if (!requestMethod.equalsIgnoreCase("HEAD")) {
       Headers responseHeaders = exchange.getResponseHeaders();
       responseHeaders.set("Content-Type", "text/plain");
@@ -47,7 +53,7 @@ class Handler implements HttpHandler {
 
       try (OutputStream responseBody = exchange.getResponseBody()) {
         responseBody.write(
-          String.format("%s %s %s\r\n\r\n", requestMethod, exchange.getProtocol(), exchange.getRequestURI()).getBytes()
+          String.format("%s %s %s\r\n\r\n", requestMethod, exchange.getProtocol(), requestUri).getBytes()
         );
 
         Headers requestHeaders = exchange.getRequestHeaders();
@@ -59,6 +65,10 @@ class Handler implements HttpHandler {
 
       }
     }
+  } catch (Exception e) {
+    LOG.log(Level.WARNING, "Failed processing " + requestMethod + " " + requestUri, e);
+    exchange.sendResponseHeaders(500, 0);
+  }
   }
 
 }
