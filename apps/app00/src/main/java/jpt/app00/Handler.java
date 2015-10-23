@@ -49,6 +49,8 @@ class Handler implements HttpHandler {
   final String requestMethod = exchange.getRequestMethod();
   final URI requestUri = exchange.getRequestURI();
   try {
+    getParameterValue(requestUri.getRawQuery(), "delay").ifPresent(s -> handleDelay(s));
+
     if (!requestMethod.equalsIgnoreCase("HEAD")) {
       Headers responseHeaders = exchange.getResponseHeaders();
       responseHeaders.set("Content-Type", "text/plain");
@@ -81,6 +83,16 @@ class Handler implements HttpHandler {
     final Matcher parameterMatcher = parameterPattern.matcher(rawQuery);
     if (!parameterMatcher.matches()) return Optional.empty();
     return(Optional.of(parameterMatcher.group(1)));
+  }
+
+  public void handleDelay(final String parameterValue) throws NumberFormatException {
+    final long delay = Long.parseLong(parameterValue);
+    LOG.info(() -> "Pausing for " + delay + "ms");
+    try {
+      Thread.sleep(delay);
+    } catch (InterruptedException ex) {
+      LOG.info(() -> "Interrupted while pausing : " + ex);
+    }
   }
 
 }
