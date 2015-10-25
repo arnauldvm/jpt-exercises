@@ -25,11 +25,13 @@ package jpt.app01.data;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -69,6 +71,13 @@ public class LanguagesDatabase {
     dbResponseTime(40, 20);
     return languagesMap.keySet().toArray(new String[0]);
   }
+  
+  public List<String> findAllMatchingLanguages(String keyValue) {
+    return Arrays.stream(this.getLanguageNames()).
+            filter(s -> s.toLowerCase().contains(keyValue.toLowerCase())).
+            sorted().
+            collect(Collectors.toList());
+  }  
   
   private Random random = new Random();
   public void dbResponseTime(int millis, int randomPct) { try {
