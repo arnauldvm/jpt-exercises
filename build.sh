@@ -220,6 +220,10 @@ popd
 
 popd
 
+git clone https://github.com/arnauldvm/jpt-exercises.git tmp
+mv tmp/apps/* install
+\rm -rf tmp
+
 kit_file=jpt-kit-${os_name}.zip
 \rm -f $kit_file
 archive install $kit_file
