@@ -33,6 +33,73 @@
             <stringProp name="Argument.value">2</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="test.rate_permin" elementType="Argument">
+            <stringProp name="Argument.name">test.rate_permin</stringProp>
+            <stringProp name="Argument.value">2</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (Load profile: interactive load 100 r/s)" enabled="false">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="threads.count" elementType="Argument">
+            <stringProp name="Argument.name">threads.count</stringProp>
+            <stringProp name="Argument.value">50</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.duration_s" elementType="Argument">
+            <stringProp name="Argument.name">test.duration_s</stringProp>
+            <stringProp name="Argument.value">300</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.rampup_s" elementType="Argument">
+            <stringProp name="Argument.name">test.rampup_s</stringProp>
+            <stringProp name="Argument.value">20</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.loopCount" elementType="Argument">
+            <stringProp name="Argument.name">test.loopCount</stringProp>
+            <stringProp name="Argument.value">99999999</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.rate_permin" elementType="Argument">
+            <stringProp name="Argument.name">test.rate_permin</stringProp>
+            <stringProp name="Argument.value">6000</stringProp>
+            <stringProp name="Argument.desc">100*60</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables (Load profile: batch load 1000 r/s)" enabled="false">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="threads.count" elementType="Argument">
+            <stringProp name="Argument.name">threads.count</stringProp>
+            <stringProp name="Argument.value">100</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.duration_s" elementType="Argument">
+            <stringProp name="Argument.name">test.duration_s</stringProp>
+            <stringProp name="Argument.value">300</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.rampup_s" elementType="Argument">
+            <stringProp name="Argument.name">test.rampup_s</stringProp>
+            <stringProp name="Argument.value">20</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.loopCount" elementType="Argument">
+            <stringProp name="Argument.name">test.loopCount</stringProp>
+            <stringProp name="Argument.value">99999999</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.rate_permin" elementType="Argument">
+            <stringProp name="Argument.name">test.rate_permin</stringProp>
+            <stringProp name="Argument.value">60000</stringProp>
+            <stringProp name="Argument.desc">1000*60</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -56,6 +123,11 @@
           <elementProp name="test.loopCount" elementType="Argument">
             <stringProp name="Argument.name">test.loopCount</stringProp>
             <stringProp name="Argument.value">99999999</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.rate_permin" elementType="Argument">
+            <stringProp name="Argument.name">test.rate_permin</stringProp>
+            <stringProp name="Argument.value">999999</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -83,6 +155,11 @@
             <stringProp name="Argument.value">99999999</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="test.rate_permin" elementType="Argument">
+            <stringProp name="Argument.name">test.rate_permin</stringProp>
+            <stringProp name="Argument.value">999999</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -108,6 +185,11 @@
             <stringProp name="Argument.value">99999999</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="test.rate_permin" elementType="Argument">
+            <stringProp name="Argument.name">test.rate_permin</stringProp>
+            <stringProp name="Argument.value">999999</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -131,6 +213,11 @@
           <elementProp name="test.loopCount" elementType="Argument">
             <stringProp name="Argument.name">test.loopCount</stringProp>
             <stringProp name="Argument.value">99999999</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="test.rate_permin" elementType="Argument">
+            <stringProp name="Argument.name">test.rate_permin</stringProp>
+            <stringProp name="Argument.value">999999</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -637,6 +724,11 @@ if (ResponseCode.equals(&quot;302&quot;)) { // Scenario 1: direct search
               <stringProp name="BeanShellAssertion.parameters"></stringProp>
               <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
             </BeanShellAssertion>
+            <hashTree/>
+            <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
+              <intProp name="calcMode">3</intProp>
+              <stringProp name="throughput">${test.rate_permin}</stringProp>
+            </ConstantThroughputTimer>
             <hashTree/>
           </hashTree>
           <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="- debug dampler" enabled="false">
