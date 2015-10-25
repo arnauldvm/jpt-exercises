@@ -25,12 +25,15 @@ package jpt.app01;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Deque;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -153,6 +156,18 @@ class LanguageHandler implements HttpHandler {
         }
         out.println("</UL>");
         out.println("</DIV>");
+        if (database.findAllMatchingLanguages(languageName).size()>1) {
+          out.println("<P>Did you mean: " + database.findAllMatchingLanguages(languageName).stream().
+                  filter(l -> !l.equals(languageName)).
+                  map(l -> {
+                    try {
+                       final String url = "/language?name=" + URLEncoder.encode(l, "UTF-8");
+                       return String.format("<I><A href=\"%s\"><B>%s</B></A></I>", url, l);
+                    } catch (UnsupportedEncodingException e) { throw new RuntimeException("Unexpected exception: ", e); }
+                  }).collect(Collectors.joining(", or "))
+                  + "?</P>"
+          );
+        }
       } catch (Exception e) {
         LOG.log(Level.SEVERE, e, () -> "Failed returning HTML page for language '" + languageName + "': ");
         throw(e);
