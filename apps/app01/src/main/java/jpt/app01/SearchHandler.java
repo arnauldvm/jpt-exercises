@@ -26,12 +26,10 @@ package jpt.app01;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URLEncoder;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -67,10 +65,7 @@ class SearchHandler implements HttpHandler {
       return;
     }
     
-      final List<String> foundLanguageNames = Arrays.stream(database.getLanguageNames()).
-              filter(s -> s.toLowerCase().contains(keyValue)).
-              sorted().
-              collect(Collectors.toList());
+      List<String> foundLanguageNames = database.findAllMatchingLanguages(keyValue);
       if (foundLanguageNames.isEmpty()) {
         ErrorResponder.respond(exchange, ErrorResponder.ERR_NOT_FOUND, "No language matching '" + keyValue + "' found.");
         return;
