@@ -232,6 +232,7 @@ popd
 
 popd
 
+\rm -rf install/app*
 git clone https://github.com/arnauldvm/jpt-exercises.git tmp
 mv tmp/apps/* install
 \rm -rf tmp
