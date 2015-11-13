@@ -82,6 +82,7 @@ popd
 #############
 
 \rm -rf install/local
+\rm -rf install/app*
 \rm -f install/setenv.*
 mkdir -p install/local
 pushd install/local
@@ -232,12 +233,12 @@ popd
 
 popd
 
-\rm -rf install/app*
-git clone https://github.com/arnauldvm/jpt-exercises.git tmp
-mv tmp/apps/* install
-\rm -rf tmp
-
 kit_file=jpt-kit-${os_name}.zip
 \rm -f $kit_file
 archive install $kit_file
 
+git clone https://github.com/arnauldvm/jpt-exercises.git tmp
+apps_file=jpt-apps.zip
+archive tmp/apps $apps_file
+mv tmp/apps/* install
+\rm -rf tmp
