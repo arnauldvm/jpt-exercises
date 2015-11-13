@@ -72,6 +72,9 @@ fi
 threadlogic_jar=ThreadLogic-2.0.217.jar
 download https://java.net/projects/threadlogic/downloads/download/ThreadLogic-2.0.217.jar "$threadlogic_jar"
 
+gatling_zip=gatling-charts-highcharts-bundle-2.1.7-bundle.zip
+download https://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts-bundle/2.1.7/gatling-charts-highcharts-bundle-2.1.7-bundle.zip "$gatling_zip"
+
 popd
 
 
@@ -121,6 +124,9 @@ if [ "$uname" \!= "Darwin" ]; then
   popd
 fi
 
+unzip -q "../../download/$gatling_zip"
+gatling_dir="$(echo gatling*)"
+
 cd ..
 echo "#!/bin/bash
 
@@ -161,6 +167,9 @@ alias gcviewer='javaw -jar \"\$GCVIEWER_HOME_BIS/$gcviewer_jar\"&'
 
 THREADLOGIC_HOME_BIS=\"\$root_dir_bis/$threadlogic_dir\"
 alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME_BIS/$threadlogic_jar\"&'
+
+GATLING_HOME=\"\$root_dir/$gatling_dir\"
+PATH=\"\$GATLING_HOME/bin:\$PATH\"
 " >> setenv.sh
 
 if [ "$uname" \!= "Darwin" ]; then
@@ -174,7 +183,7 @@ alias perf=\"top -o wq -n 0 -s 1 -l 0 | perl -pe 's/\n/ - /; s/Processes/\nProce
 fi
 
 echo "
-echo 'Following tools installed: java, jmeter, mat, gcviewer, threadlogic, curl, perf'
+echo 'Following tools installed: java, jmeter, mat, gcviewer, threadlogic, curl, perf, (gatling)'
 " >> setenv.sh
 chmod +x setenv.sh
 
@@ -204,7 +213,10 @@ echo "
 @SET \"CMD_HOME=%root_dir%\\bin\"
 @SET \"PATH=%CMD_HOME%;%PATH%\"
 
-@ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl, perf"
+@SET \"GATLING_HOME=%root_dir%\\$gatling_dir\"
+@SET \"PATH=%GATLING_HOME%\\bin;%PATH%\"
+
+@ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl, perf, \(gatling\)"
 " > setenv.bat
 unix2dos setenv.bat
 
