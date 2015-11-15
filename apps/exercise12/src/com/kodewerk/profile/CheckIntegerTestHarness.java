@@ -33,10 +33,11 @@ public class CheckIntegerTestHarness {
         if (   (chars.length < 2) || //greater than ten & 2>=X & not empty
                (chars.length > 5) //X<=100000
            ) return false;
+        if (chars[0] != '3') return false; //first digit is 3
         for (char ch: chars) {
           if ((ch<'0')||(ch>'9')) return false;
         }
-        return (chars[0] == '3'); //first digit is 3
+        return true;
     }
 
 }
