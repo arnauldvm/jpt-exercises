@@ -40,11 +40,11 @@ public class CheckIntegerTestHarness {
             throw new RuntimeException("Should not happend", err);
         }
         return
-                (testInteger != "") && //not empty
+                (chars.length != 0) && //not empty
                 (theInteger > 10) && //greater than ten
                 ((theInteger >= 2) &&
                 (theInteger <= 100000)) && //2>=X<=100000
-                (testInteger.charAt(0) == '3'); //first digit is 3
+                (chars[0] == '3'); //first digit is 3
     }
 
 }
