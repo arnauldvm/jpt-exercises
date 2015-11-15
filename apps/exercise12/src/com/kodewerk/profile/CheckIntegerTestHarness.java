@@ -33,12 +33,6 @@ public class CheckIntegerTestHarness {
         for (char ch: chars) {
           if ((ch<'0')||(ch>'9')) return false;
         }
-        int theInteger;
-        try {
-            theInteger = Integer.parseInt(testInteger);//fails if not  a number
-        } catch (NumberFormatException err) {
-            throw new RuntimeException("Should not happend", err);
-        }
         return
                 (chars[0] == '3') && //first digit is 3
                 (chars.length >= 2) && //greater than ten & 2>=X & not empty
