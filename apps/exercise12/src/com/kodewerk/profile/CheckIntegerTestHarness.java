@@ -1,7 +1,9 @@
 package com.kodewerk.profile;
 
-import java.util.*;
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class CheckIntegerTestHarness {
     public static void main(String[] args) throws IOException {
@@ -27,17 +29,22 @@ public class CheckIntegerTestHarness {
     }
 
     public static boolean checkInteger(String testInteger) {
-        try {
-            Integer theInteger = new Integer(testInteger);//fails if not  a number
-            return
-                    (theInteger.toString() != "") && //not empty
-                    (theInteger.intValue() > 10) && //greater than ten
-                    ((theInteger.intValue() >= 2) &&
-                    (theInteger.intValue() <= 100000)) && //2>=X<=100000
-                    (theInteger.toString().charAt(0) == '3'); //first digit is 3
-        } catch (NumberFormatException err) {
-            return false;
+        char[] chars = testInteger.toCharArray();
+        for (char ch: chars) {
+          if ((ch<'0')||(ch>'9')) return false;
         }
+        Integer theInteger;
+        try {
+            theInteger = new Integer(testInteger);//fails if not  a number
+        } catch (NumberFormatException err) {
+            throw new RuntimeException("Should not happend", err);
+        }
+        return
+                (theInteger.toString() != "") && //not empty
+                (theInteger.intValue() > 10) && //greater than ten
+                ((theInteger.intValue() >= 2) &&
+                (theInteger.intValue() <= 100000)) && //2>=X<=100000
+                (theInteger.toString().charAt(0) == '3'); //first digit is 3
     }
 
 }
