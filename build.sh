@@ -131,8 +131,22 @@ gatling_dir="$(echo gatling*)"
 cd ..
 echo "#!/bin/bash
 
+function msyspath {
+  { cd 2>/dev/null \"\$1\" && pwd -W ||
+  echo \"\$1\" | sed 's|^/\\([a-z]\\)/|\\1:/|'; }
+# | sed 's|/|\\\\|g'
+}
+
+function convertpath {
+  uname=\"\$(uname)\"
+  if [[ \"\$uname\" == MINGW* ]]; then msyspath \"\$1\"
+  elif [[ \"\$uname\" == CYGWIN* ]]; then cygpath -m \"\$1\"
+  else echo \"\$1\"
+  fi
+}
+
 root_dir=\"\$(cd \"\$(dirname \"\$1\")\"; pwd)\"/local
-root_dir_bis=\"\$(echo \"\$root_dir\" | perl -pe 's#^/([a-zA-Z])/#\1:/#')\"
+root_dir_bis=\"\$(convertpath \"\$root_dir\")\"
   # java does not expect to see /C/... in the path, but C:/...
 
 if [ -z \"\$PATH_OLD\" ]; then
