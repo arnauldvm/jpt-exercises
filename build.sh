@@ -256,3 +256,40 @@ apps_file=jpt-apps.zip
 archive tmp/apps $apps_file
 mv tmp/apps/* install
 \rm -rf tmp
+
+mkdir solutions
+git clone https://github.com/arnauldvm/jpt-exercises.git tmp
+
+mkdir -p solutions/w1/jmeter
+git --git-dir=tmp/.git checkout solutions/w1
+cp -rp tmp/solutions/app01 solutions/w1/jmeter/app01
+
+mkdir -p solutions/w2/jmeter
+git --git-dir=tmp/.git checkout solutions/w2
+cp -rp tmp/solutions/app01 solutions/w2/jmeter/app01
+
+mkdir -p solutions/w3/jmeter
+git --git-dir=tmp/.git checkout solutions/w3
+cp -rp tmp/solutions/app01 solutions/w3/jmeter/app01
+mkdir -p solutions/w3/apps
+cp -rp tmp/apps/app01 solutions/w3/apps/app01
+
+mkdir -p solutions/w4/jmeter
+git --git-dir=tmp/.git checkout solutions/w4
+cp -rp tmp/solutions/app01 solutions/w4/jmeter/app01
+mkdir -p solutions/w4/apps
+cp -rp tmp/apps/app01 solutions/w4/apps/app01
+
+mkdir -p solutions/w5a/jmeter
+git --git-dir=tmp/.git checkout solutions/w5a
+cp -rp tmp/solutions/app01 solutions/w5a/jmeter/app01
+mkdir -p solutions/w5a/apps
+cp -rp tmp/apps/app01 solutions/w5a/apps/app01
+
+mkdir -p solutions/w5b/apps
+git --git-dir=tmp/.git checkout solutions/w5b
+cp -rp tmp/apps/exercise12 solutions/w5b/apps/exercise12
+
+solutions_file=jpt-solutions.zip
+archive solutions $solutions_file
+\rm -rf tmp
