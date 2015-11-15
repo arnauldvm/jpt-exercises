@@ -42,9 +42,9 @@ public class CheckIntegerTestHarness {
         return
                 (chars.length != 0) && //not empty
                 (chars[0] == '3') && //first digit is 3
-                (theInteger > 10) && //greater than ten
-                ((theInteger >= 2) &&
-                (theInteger <= 100000)); //2>=X<=100000
+                (chars.length >= 2) && //greater than ten
+                ((chars.length >= 1) &&
+                (chars.length <= 5)); //2>=X<=100000
     }
 
 }
