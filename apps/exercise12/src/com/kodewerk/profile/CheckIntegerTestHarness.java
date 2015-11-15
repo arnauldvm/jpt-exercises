@@ -33,17 +33,17 @@ public class CheckIntegerTestHarness {
         for (char ch: chars) {
           if ((ch<'0')||(ch>'9')) return false;
         }
-        Integer theInteger;
+        int theInteger;
         try {
-            theInteger = new Integer(testInteger);//fails if not  a number
+            theInteger = Integer.parseInt(testInteger);//fails if not  a number
         } catch (NumberFormatException err) {
             throw new RuntimeException("Should not happend", err);
         }
         return
                 (testInteger != "") && //not empty
-                (theInteger.intValue() > 10) && //greater than ten
-                ((theInteger.intValue() >= 2) &&
-                (theInteger.intValue() <= 100000)) && //2>=X<=100000
+                (theInteger > 10) && //greater than ten
+                ((theInteger >= 2) &&
+                (theInteger <= 100000)) && //2>=X<=100000
                 (testInteger.charAt(0) == '3'); //first digit is 3
     }
 
