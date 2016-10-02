@@ -4,3 +4,5 @@
 * [jpt-kit-osx.zip](https://www.dropbox.com/s/b3kfk32728zoiu0/jpt-kit-osx.zip?dl=0) (155 MB) [SHA1: d0989574eed05a985aa07fab18aa1c9ca784e289]
 
 Installation instructions: [Workshop 0 in JPT-Course](https://github.com/arnauldvm/jpt-course/blob/master/src/main/adoc/1-intro/w0-install.adoc)
+
+* [jpt-bundle.pdf](https://www.dropbox.com/s/q72p3roogfrdkfc/jpt-bundle.pdf?dl=0) (2.6 MB) -> printable slides
