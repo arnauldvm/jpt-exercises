@@ -8,6 +8,7 @@ mkdir -p "$logs_dir"
 ts=$(date +%Y%m%d-%H%M%S)
 gclog_options="-Xloggc:$logs_dir/gc-$ts.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps"
 heap_options="-Xms1g -Xmx2g"
+#heap_options="-Xms25m -Xmx50m" # try this if you dare
 logging_options="-Djava.util.logging.config.file=./logging.properties"
 jmx_options="-Dcom.sun.management.jmxremote.port=6789"
 jmx_options="$jmx_options -Dcom.sun.management.jmxremote.ssl=false"
