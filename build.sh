@@ -265,6 +265,7 @@ kit_file=jpt-kit-${os_name}.zip
 \rm -f $kit_file
 archive install $kit_file
 
+\rm -rf tmp
 git clone https://github.com/arnauldvm/jpt-exercises.git tmp
 apps_file=jpt-apps.zip
 mv tmp/apps/setenv.sh .
@@ -273,6 +274,7 @@ archive tmp/apps $apps_file
 cp -rp tmp/apps/* install
 mv ./setenv.sh tmp/apps
 
+\rm -rf solutions
 mkdir -p solutions
 
 echo Retrieve solution for workshop 1
