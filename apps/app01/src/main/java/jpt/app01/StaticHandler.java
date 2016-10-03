@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +42,8 @@ import jpt.app01.session.SessionFilter;
  * @author avm
  */
 class StaticHandler implements HttpHandler {
+  private static final int BUF_SIZE = 2<<25;
+
   private static final Logger LOG = Logger.getLogger(StaticHandler.class.getName());
   
   @Override
@@ -75,7 +78,8 @@ class StaticHandler implements HttpHandler {
         final PrintStream bodyPrintStream = new PrintStream(responseBody);
         HeaderResponse.send(bodyPrintStream, SessionFilter.getSession(exchange), "Search for language");
         lastRequest.ifPresent( r -> bodyPrintStream.printf("<P>Last language displayed: %s</P>\n", r.toString()));
-        byte[] buffer = new byte[2<<12];
+        byte[] buffer = new byte[BUF_SIZE];
+        Arrays.fill(buffer, (byte)0);
         int n;
         while (0 <= (n = in.read(buffer))) {
           responseBody.write(buffer, 0, n);

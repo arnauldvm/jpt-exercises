@@ -26,6 +26,7 @@ package jpt.app01;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,6 +46,8 @@ import jpt.app01.user.UserDirectory;
  * @author avm
  */
 class LoginHandler implements HttpHandler {
+  private static final int BUF_SIZE = 2<<25;
+
   private static final Logger LOG = Logger.getLogger(HttpHandler.class.getName());
   
   private static final String USERID_ATTRNAME = "userid";
@@ -86,7 +89,8 @@ class LoginHandler implements HttpHandler {
       try (final InputStream in = exchange.getRequestBody()) {
         StringBuilder bodyBuilder = new StringBuilder();
         int count;
-        byte[] buf = new byte[2<<12];
+        byte[] buf = new byte[BUF_SIZE];
+        Arrays.fill(buf, (byte)0);
         while (0 <= (count = in.read(buf))) {
           bodyBuilder.append(new String(buf, 0, count));
         }
