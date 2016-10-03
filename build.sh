@@ -48,6 +48,16 @@ download http://jmeter-plugins.org/downloads/file/JMeterPlugins-Extras-1.3.1.zip
 gcviewer_jar=gcviewer-1.34.1.jar
 download http://sourceforge.net/projects/gcviewer/files/gcviewer-1.34.1.jar/download "$gcviewer_jar"
 
+mkdir -p nbm
+pushd nbm
+download https://java.net/downloads/visualvm/release136/com-sun-tools-visualvm-modules-visualgc_1.nbm com-sun-tools-visualvm-modules-visualgc_1.nbm
+download https://java.net/downloads/visualvm/release136/com-sun-tools-visualvm-modules-threadinspect.nbm com-sun-tools-visualvm-modules-threadinspect.nbm
+download https://java.net/downloads/visualvm/release136/com-sun-tools-visualvm-modules-oqlsyntax.nbm com-sun-tools-visualvm-modules-oqlsyntax.nbm
+download https://java.net/projects/tda/downloads/download/visualvm/net-java-dev-tda-visualvm-logfile.nbm net-java-dev-tda-visualvm-logfile.nbm
+download https://java.net/projects/tda/downloads/download/visualvm/net-java-dev-tda.nbm net-java-dev-tda.nbm
+download https://java.net/projects/tda/downloads/download/visualvm/net-java-dev-tda-visualvm.nbm net-java-dev-tda-visualvm.nbm
+popd
+
 uname="$(uname)"
 if [ "$uname" \!= "Darwin" ]; then
   os_name="win32-x64"
@@ -102,6 +112,8 @@ if [ "$uname" \!= "Darwin" ]; then
   unzip -q "../../../download/$javasdk_zip"
   popd
 fi
+
+cp -r ../../download/nbm .
 
 unzip -q "../../download/$mat_zip"
 mat_dir="$(echo mat*)"
