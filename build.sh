@@ -93,6 +93,7 @@ popd
 
 \rm -rf install/local
 \rm -rf install/app*
+\rm -rf install/exercise*
 \rm -f install/setenv.*
 mkdir -p install/local
 pushd install/local
