@@ -9,7 +9,7 @@ cd "$tgtdir"
 # Download all
 ##############
 
-mkdir download
+mkdir -p download
 pushd download
 
 #! Add this to your ~/.curlrc (UX) or ~/_curlrc (Windows)
@@ -259,7 +259,7 @@ archive tmp/apps $apps_file
 cp -rp tmp/apps/* install
 mv ./setenv.sh tmp/apps
 
-mkdir solutions
+mkdir -p solutions
 
 mkdir -p solutions/w1/jmeter
 git --git-dir=tmp/.git checkout solutions/w1 --
