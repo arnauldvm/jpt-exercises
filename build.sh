@@ -20,7 +20,7 @@ function download {
   file="$2"
   if [ \! -f "$file" ]; then
     echo Downloading "$file"...
-    curl -L -o "$file.downloading" $url
+    curl -k -L -o "$file.downloading" $url
    mv "$file.downloading" "$file"
   else
     echo "$file" already downloaded, skipping
