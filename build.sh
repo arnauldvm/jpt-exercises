@@ -32,8 +32,9 @@ function archive {
   file="$2"
   if [ \! -f "$file" ]; then
     echo Archiving "$file"...
-    (cd "$source"; zip -qr9 - .) > "$file.archiving"
-   mv "$file.archiving" "$file"
+    #(cd "$source"; zip -qr9 - .) > "$file.archiving"
+    (cd "$source"; 7z a -r -tzip -mx9 ../"$file.archiving" . )
+   mv "$source/../$file.archiving" "$file"
   else
     echo "$file" already archived, skipping
   fi
