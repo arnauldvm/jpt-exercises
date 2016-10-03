@@ -178,6 +178,9 @@ JAVA_HOME_BIS=\"\$root_dir_bis/$java_dir\"
 CURL_HOME=\"\$root_dir/$curl_dir\"
 PATH=\"\$PATH:\$CURL_HOME/winssl\"
 " >> setenv.sh
+JAVAW=javaw
+else
+JAVAW=java
 fi
 
 echo "
@@ -189,13 +192,13 @@ alias jmeter='\"\$JMETER_HOME_BIS/bin/jmeter.sh\"'
 #MAT_HOME=\"\$root_dir/$mat_dir\"
 #PATH=\"\$PATH:\$MAT_HOME\"
 MAT_HOME_BIS=\"\$root_dir_bis/$mat_dir\"
-alias mat='\"\$MAT_HOME_BIS/MemoryAnalyzer\" -data \"\$MAT_HOME_BIS/workspace\" -vm \"\$JAVA_HOME_BIS/bin/javaw.exe\" -vmargs -Xms256m -Xms4g&'
+alias mat='\"\$MAT_HOME_BIS/MemoryAnalyzer\" -data \"\$MAT_HOME_BIS/workspace\" -vm \"\$JAVA_HOME_BIS/bin/'$JAVAW'.exe\" -vmargs -Xms256m -Xms4g&'
 
 GCVIEWER_HOME_BIS=\"\$root_dir_bis/$gcviewer_dir\"
-alias gcviewer='javaw -jar \"\$GCVIEWER_HOME_BIS/$gcviewer_jar\"&'
+alias gcviewer=$JAVAW' -jar \"\$GCVIEWER_HOME_BIS/$gcviewer_jar\"&'
 
 THREADLOGIC_HOME_BIS=\"\$root_dir_bis/$threadlogic_dir\"
-alias threadlogic='javaw -jar \"\$THREADLOGIC_HOME_BIS/$threadlogic_jar\"&'
+alias threadlogic=$JAVAW' -jar \"\$THREADLOGIC_HOME_BIS/$threadlogic_jar\"&'
 
 GATLING_HOME=\"\$root_dir/$gatling_dir\"
 PATH=\"\$GATLING_HOME/bin:\$PATH\"
@@ -203,9 +206,11 @@ PATH=\"\$GATLING_HOME/bin:\$PATH\"
 
 if [ "$uname" \!= "Darwin" ]; then
 echo "
+
 alias perf='typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\% Interrupt Time\" \"\\Processor(_Total)\\% User Time\" \"\\Processor(_Total)\\% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"'
 " >> setenv.sh
 else
+
 echo "
 alias perf=\"top -o wq -n 0 -s 1 -l 0 | perl -pe 's/\n/ - /; s/Processes/\nProcesses/'\"
 " >> setenv.sh
