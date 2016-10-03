@@ -275,32 +275,38 @@ mv ./setenv.sh tmp/apps
 
 mkdir -p solutions
 
+echo Retrieve solution for workshop 1
 mkdir -p solutions/w1/jmeter
 git --git-dir=tmp/.git checkout solutions/w1 --
 cp -rp tmp/solutions/app01 solutions/w1/jmeter/app01
 
+echo Retrieve solution for workshop 2
 mkdir -p solutions/w2/jmeter
 git --git-dir=tmp/.git checkout solutions/w2 --
 cp -rp tmp/solutions/app01 solutions/w2/jmeter/app01
 
+echo Retrieve solution for workshop 3
 mkdir -p solutions/w3/jmeter
 git --git-dir=tmp/.git checkout solutions/w3 --
 cp -rp tmp/solutions/app01 solutions/w3/jmeter/app01
 mkdir -p solutions/w3/apps
 cp -rp tmp/apps/app01 solutions/w3/apps/app01
 
+echo Retrieve solution for workshop 4
 mkdir -p solutions/w4/jmeter
 git --git-dir=tmp/.git checkout solutions/w4 --
 cp -rp tmp/solutions/app01 solutions/w4/jmeter/app01
 mkdir -p solutions/w4/apps
 cp -rp tmp/apps/app01 solutions/w4/apps/app01
 
+echo Retrieve solution for workshop "5 (a)"
 mkdir -p solutions/w5a/jmeter
 git --git-dir=tmp/.git checkout solutions/w5a --
 cp -rp tmp/solutions/app01 solutions/w5a/jmeter/app01
 mkdir -p solutions/w5a/apps
 cp -rp tmp/apps/app01 solutions/w5a/apps/app01
 
+echo Retrieve solution for workshop "5 (b)"
 mkdir -p solutions/w5b/apps
 git --git-dir=tmp/.git checkout solutions/w5b --
 cp -rp tmp/apps/exercise12 solutions/w5b/apps/exercise12
