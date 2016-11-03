@@ -207,7 +207,7 @@ PATH=\"\$GATLING_HOME/bin:\$PATH\"
 if [ "$uname" \!= "Darwin" ]; then
 echo "
 
-alias perf='typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\% Interrupt Time\" \"\\Processor(_Total)\\% User Time\" \"\\Processor(_Total)\\% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"'
+alias perf='typeperf \"\\System\\Processor Queue Length\" \"\\Thread(_Total)\\Context Switches/sec\" \"\\Processor(_Total)\\% Interrupt Time\" \"\\Processor(_Total)\\% User Time\" \"\\Processor(_Total)\\% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"'
 " >> setenv.sh
 else
 
@@ -260,7 +260,7 @@ echo "@START /MIN CMD /C jmeter" > jm.cmd
 echo "@javaw -jar \"%GCVIEWER_HOME%\\$gcviewer_dir.jar\"&" > gcviewer.cmd
 echo "@javaw -jar \"%THREADLOGIC_HOME%\\$threadlogic_dir.jar\"&" > threadlogic.cmd
 echo "@START %MAT_HOME%\\MemoryAnalyzer -data %MAT_HOME%\\workspace -vm %JAVA_HOME%\\bin\\javaw.exe -vmargs -Xms256m -Xms4g" > mat.cmd
-echo "@typeperf \"\\System\\Processor Queue Length\" \"\\Processor(_Total)\\%% Interrupt Time\" \"\\Processor(_Total)\\%% User Time\" \"\\Processor(_Total)\\%% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"" > perf.cmd
+echo "@typeperf \"\\System\\Processor Queue Length\" \"\\Thread(_Total)\\Context Switches/sec\" \"\\Processor(_Total)\\%% Interrupt Time\" \"\\Processor(_Total)\\%% User Time\" \"\\Processor(_Total)\\%% Privileged Time\" \"\\System\\File Read Bytes/sec\" \"\\System\\File Write Bytes/sec\"" > perf.cmd
 unix2dos *.cmd
 popd
 
