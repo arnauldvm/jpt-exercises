@@ -53,6 +53,32 @@ download http://jmeter-plugins.org/downloads/file/JMeterPlugins-Extras-1.3.1.zip
 gcviewer_jar=gcviewer-1.34.1.jar
 download http://sourceforge.net/projects/gcviewer/files/gcviewer-1.34.1.jar/download "$gcviewer_jar"
 
+jmeter3_zip=apache-jmeter-3.0.zip
+download http://www-eu.apache.org/dist//jmeter/binaries/$jmeter3_zip "$jmeter3_zip"
+mkdir -p jmnewplugins
+pushd jmnewplugins
+declare -a jmnewplugins_zips
+jmnewplugins_zips+=(jpgc-dummy-0.1.zip)
+jmnewplugins_zips+=(jpgc-graphs-basic-2.0.zip)
+jmnewplugins_zips+=(jpgc-graphs-additional-2.0.zip)
+jmnewplugins_zips+=(jpgc-graphs-dist-2.0.zip)
+jmnewplugins_zips+=(jpgc-graphs-composite-2.0.zip)
+jmnewplugins_zips+=(jpgc-pde-0.1.zip)
+jmnewplugins_zips+=(jpgc-jmxmon-0.2.zip)
+jmnewplugins_zips+=(jpgc-graphs-vs-2.0.zip)
+jmnewplugins_zips+=(jpgc-casutg-2.1.zip)
+jmnewplugins_zips+=(jpgc-tst-2.0.zip)
+jmnewplugins_zips+=(jpgc-ffw-2.0.zip)
+jmnewplugins_zips+=(jpgc-prmctl-0.3.zip)
+jmnewplugins_zips+=(jpgc-functions-2.0.zip)
+jmnewplugins_zips+=(jpgc-udp-0.2.zip)
+jmnewplugins_zips+=(jpgc-csvars-0.1.zip)
+jmnewplugins_zips+=(jpgc-json-2.3.zip)
+for plugin in ${jmnewplugins_zips[*]}; do
+ download https://jmeter-plugins.org/files/packages/$plugin "$plugin"
+done
+popd
+
 mkdir -p nbm
 pushd nbm
 download https://java.net/downloads/visualvm/release136/com-sun-tools-visualvm-modules-visualgc_1.nbm com-sun-tools-visualvm-modules-visualgc_1.nbm
@@ -124,12 +150,21 @@ function unzip {
 
 set -x
 unzip -q "../../download/$jmeter_zip"
-jmeter_dir="$(echo apache-jmeter-*)"
-pushd apache-jmeter-*
+jmeter_dir="$(echo apache-jmeter-2.*)"
+pushd apache-jmeter-2.*
 unzip -oq "../../../download/$jmpluginstd_zip"
 unzip -oq "../../../download/$jmpluginext_zip"
 popd
 find $jmeter_dir/bin \( -name '*.sh' -o -name 'jmeter' \) -exec chmod +x {} \;
+
+unzip -q "../../download/$jmeter3_zip"
+jmeter3_dir="$(echo apache-jmeter-3.*)"
+pushd apache-jmeter-3.*
+for plugin in ${jmnewplugins_zips[*]}; do
+  unzip -oq "../../../download/jmnewplugins/$plugin"
+done
+popd
+find $jmeter3_dir/bin \( -name '*.sh' -o -name 'jmeter' \) -exec chmod +x {} \;
 
 if [ "$uname" \!= "Darwin" ]; then
   java_dir="$(echo "$javasdk_zip" | perl -pe 's/\.zip$//')"
@@ -213,6 +248,8 @@ echo "
 #PATH=\"\$PATH:\$JMETER_HOME/bin\"
 JMETER_HOME_BIS=\"\$root_dir_bis/$jmeter_dir\"
 alias jmeter='\"\$JMETER_HOME_BIS/bin/jmeter.sh\"'
+JMETER3_HOME_BIS=\"\$root_dir_bis/$jmeter3_dir\"
+alias jmeter3='\"\$JMETER3_HOME_BIS/bin/jmeter.sh\"'
 
 #MAT_HOME=\"\$root_dir/$mat_dir\"
 #PATH=\"\$PATH:\$MAT_HOME\"
@@ -248,7 +285,7 @@ alias perf=\"top -o wq -n 0 -s 1 -l 0 | perl -pe 's/\n/ - /; s/Processes/\nProce
 fi
 
 echo "
-echo 'Following tools installed: java, jmeter, mat, gcviewer, threadlogic, curl, perf, (gatling)'
+echo 'Following tools installed: java, jmeter, jmeter3, mat, gcviewer, threadlogic, curl, perf, (gatling)'
 " >> setenv.sh
 chmod +x setenv.sh
 
@@ -264,6 +301,7 @@ echo "
 
 @SET \"JMETER_HOME=%root_dir%\\$jmeter_dir\"
 @SET \"PATH=%PATH%;%JMETER_HOME%\\bin\"
+@SET \"JMETER3_HOME=%root_dir%\\$jmeter3_dir\"
 
 @SET \"MAT_HOME=%root_dir%\\$mat_dir\"
 ::@SET \"PATH=%PATH%;%MAT_HOME%\"
@@ -281,13 +319,14 @@ echo "
 @SET \"GATLING_HOME=%root_dir%\\$gatling_dir\"
 @SET \"PATH=%GATLING_HOME%\\bin;%PATH%\"
 
-@ECHO "Following tools installed: java, jm, mat, gcviewer, threadlogic, curl, perf, \(gatling\)"
+@ECHO "Following tools installed: java, jm, jm3, mat, gcviewer, threadlogic, curl, perf, \(gatling\)"
 " > setenv.bat
 unix2dos setenv.bat
 
 mkdir -p local/bin
 pushd local/bin
 echo "@START /MIN CMD /C jmeter" > jm.cmd
+echo "@START /MIN CMD /C %JMETER3_HOME%\\bin\\jmeter" > jm3.cmd
 echo "@javaw -jar \"%GCVIEWER_HOME%\\$gcviewer_dir.jar\"&" > gcviewer.cmd
 echo "@javaw -jar \"%THREADLOGIC_HOME%\\$threadlogic_dir.jar\"&" > threadlogic.cmd
 echo "@START %MAT_HOME%\\MemoryAnalyzer -data %MAT_HOME%\\workspace -vm %JAVA_HOME%\\bin\\javaw.exe -vmargs -Xms256m -Xms4g" > mat.cmd
