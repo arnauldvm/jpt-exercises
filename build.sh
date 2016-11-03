@@ -41,7 +41,7 @@ function archive {
 }
 
 jmeter_zip=apache-jmeter-2.13.zip
-download http://www.eu.apache.org/dist//jmeter/binaries/apache-jmeter-2.13.zip "$jmeter_zip"
+download https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-2.13.zip "$jmeter_zip"
 jmpluginstd_zip=JMeterPlugins-Standard-1.3.1.zip
 download http://jmeter-plugins.org/downloads/file/JMeterPlugins-Standard-1.3.1.zip "$jmpluginstd_zip"
 jmpluginext_zip=JMeterPlugins-Extras-1.3.1.zip
