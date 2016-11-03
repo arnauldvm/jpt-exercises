@@ -88,8 +88,10 @@ fi
 threadlogic_jar=ThreadLogic-2.0.217.jar
 download https://java.net/projects/threadlogic/downloads/download/ThreadLogic-2.0.217.jar "$threadlogic_jar"
 
-gatling_zip=gatling-charts-highcharts-bundle-2.1.7-bundle.zip
-gatling_url="https://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts-bundle/2.1.7/$gatling_zip"
+#gatling_zip=gatling-charts-highcharts-bundle-2.1.7-bundle.zip
+#gatling_url="https://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts-bundle/2.1.7/$gatling_zip"
+gatling_zip="gatling-charts-highcharts-bundle-2.2.2-bundle.zip"
+gatling_url="https://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts-bundle/2.2.2/$gatling_zip"
 download "$gatling_url" "$gatling_zip"
 
 popd
