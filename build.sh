@@ -62,9 +62,14 @@ popd
 uname="$(uname)"
 if [ "$uname" \!= "Darwin" ]; then
   os_name="win32-x64"
-  mat_zip=MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip
-  #download "http://www.eclipse.org/downloads/download.php?file=/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip&mirror_id=468" "$mat_zip"
-  download "http://eclipse.mirror.kangaroot.net/mat/1.5/rcp/MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip" "$mat_zip"
+  #mat_zip=MemoryAnalyzer-1.5.0.20150527-win32.win32.x86_64.zip
+  #mat_url="http://www.eclipse.org/downloads/download.php?file=/mat/1.5/rcp/$mat_zip&mirror_id=468"
+  #mat_url="http://eclipse.mirror.kangaroot.net/mat/1.5/rcp/$mat_zip"
+  #mat_url="http://download.eclipse.org/mat/1.5/rcp/$mat_zip"
+  mat_zip=MemoryAnalyzer-1.6.0.20160531-win32.win32.x86_64.zip
+  #mat_url="http://mirror.switch.ch/eclipse/mat/1.6/rcp/$mat_zip"
+  mat_url="http://download.eclipse.org/mat/1.6/rcp/$mat_zip"
+  download "$mat_url" "$mat_zip"
   curl_7z=curl_X64_ssl.7z
   download http://www.paehl.com/open_source/downloads/curl_X64_ssl.7z "$curl_7z"
 
