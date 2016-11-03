@@ -163,6 +163,7 @@ unzip -q "../../download/$gatling_zip"
 gatling_dir="$(echo gatling*)"
 
 cd ..
+pwd
 echo "#!/bin/bash
 
 function msyspath {
@@ -291,6 +292,7 @@ kit_file=jpt-kit-${os_name}.zip
 \rm -f $kit_file
 archive install $kit_file
 
+pwd
 \rm -rf tmp
 git clone https://github.com/arnauldvm/jpt-exercises.git tmp
 apps_file=jpt-apps.zip
