@@ -225,8 +225,13 @@ alias gcviewer=$JAVAW' -jar \"\$GCVIEWER_HOME_BIS/$gcviewer_jar\"&'
 THREADLOGIC_HOME_BIS=\"\$root_dir_bis/$threadlogic_dir\"
 alias threadlogic=$JAVAW' -jar \"\$THREADLOGIC_HOME_BIS/$threadlogic_jar\"&'
 
-GATLING_HOME=\"\$root_dir/$gatling_dir\"
-PATH=\"\$GATLING_HOME/bin:\$PATH\"
+GATLING_HOME_CYGWIN=\"\$root_dir/$gatling_dir\"
+PATH=\"\$GATLING_HOME_CYGWIN/bin:\$PATH\"
+export GATLING_HOME=\"\$root_dir_bis/$gatling_dir\"
+alias recorder=recorder.bat
+alias recorder.sh=recorder.bat
+alias gatling=gatling.bat
+alias gatling.sh=gatling.bat
 " >> setenv.sh
 
 if [ "$uname" \!= "Darwin" ]; then
