@@ -118,6 +118,7 @@ function unzip {
   7z x $options_7z "$zip_file"
 }
 
+set -x
 unzip -q "../../download/$jmeter_zip"
 jmeter_dir="$(echo apache-jmeter-*)"
 pushd apache-jmeter-*
