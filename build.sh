@@ -107,6 +107,17 @@ popd
 mkdir -p install/local
 pushd install/local
 
+function unzip {
+  options_zip=$1
+  zip_file=$2
+  if [ "$options_zip" = "-oq" ]; then
+    options_7z="-bb0 -aoa"
+  else # assume -q
+    options_7z="-bb0"
+  fi
+  7z x $options_7z "$zip_file"
+}
+
 unzip -q "../../download/$jmeter_zip"
 jmeter_dir="$(echo apache-jmeter-*)"
 pushd apache-jmeter-*
