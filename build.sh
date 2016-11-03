@@ -295,6 +295,10 @@ archive install $kit_file
 pwd
 \rm -rf tmp
 git clone https://github.com/arnauldvm/jpt-exercises.git tmp
+if [ \! -d tmp ]; then
+  echo "Failed to clmone repo in tmp" 1>&2
+  exit 1
+fi
 apps_file=jpt-apps.zip
 mv tmp/apps/setenv.sh .
 rm $apps_file
