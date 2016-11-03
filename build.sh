@@ -213,6 +213,7 @@ else
 
 echo "
 alias perf=\"top -o wq -n 0 -s 1 -l 0 | perl -pe 's/\n/ - /; s/Processes/\nProcesses/'\"
+# See also: http://dtrace.org/blogs/brendan/2011/10/10/top-10-dtrace-scripts-for-mac-os-x/
 " >> setenv.sh
 fi
 
