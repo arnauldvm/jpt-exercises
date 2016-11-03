@@ -3,6 +3,10 @@
 tgtdir=./target
 
 mkdir -p "$tgtdir"
+chgrp -R $(id -g) "$tgtdir" # Make sure to use a group known by Cygwin!
+  # See http://stackoverflow.com/a/37692625/318354
+  # make sure to update /etc/passwd and /etc/group before logging in!
+  # See https://sinewalker.wordpress.com/2006/10/27/cygwin-users-and-groups/
 
 cd "$tgtdir"
 
