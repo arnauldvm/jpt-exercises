@@ -105,6 +105,10 @@ if [ "$uname" \!= "Darwin" ]; then
   curl_7z=curl_7_51_0_openssl_nghttp2_x64.7z
   download http://winampplugins.co.uk/curl/$curl_7z "$curl_7z"
   #https://raw.githubusercontent.com/bagder/ca-bundle/master/ca-bundle.crt
+  wget_zip=wget-1.11.4-1-bin.zip
+  download http://downloads.sourceforge.net/gnuwin32/$wget_zip "$wget_zip"
+  wgetdep_zip=wget-1.11.4-1-dep.zip
+  download http://downloads.sourceforge.net/gnuwin32/$wgetdep_zip "$wgetdep_zip"
 
   #This one cannot be easily downloaded under a portable form
   javasdk_zip=java-sdk-1.8.0_112-x64.zip
@@ -202,6 +206,14 @@ if [ "$uname" \!= "Darwin" ]; then
   popd
 fi
 
+wget_dir="$(echo "$wget_zip" | perl -pe 's/\.zip$//')"
+mkdir "$wget_dir"
+pushd "$wget_dir"
+unzip -q "../../../download/$wget_zip"
+unzip -q "../../../download/$wgetdep_zip"
+find . -type f \( -iname '*.exe' -o -iname '*.dll' \) -exec chmod +x {} \;
+popd
+
 unzip -q "../../download/$gatling_zip"
 gatling_dir="$(echo gatling*)"
 
@@ -241,6 +253,8 @@ JAVA_HOME_BIS=\"\$root_dir_bis/$java_dir\"
 
 CURL_HOME=\"\$root_dir/$curl_dir\"
 PATH=\"\$PATH:\$CURL_HOME\"
+WGET_HOME=\"\$root_dir/$wget_dir\"
+PATH=\"\$PATH:\$WGET_HOME/bin\"
 " >> setenv.sh
 #PATH=\"\$PATH:\$CURL_HOME/winssl\"
 JAVAW=javaw
@@ -290,7 +304,7 @@ alias perf=\"top -o wq -n 0 -s 1 -l 0 | perl -pe 's/\n/ - /; s/Processes/\nProce
 fi
 
 echo "
-echo 'Following tools installed: java, jmeter, jmeter3, mat, gcviewer, threadlogic, curl, perf, (gatling)'
+echo 'Following tools installed: java, jmeter, jmeter3, mat, gcviewer, threadlogic, curl, wget, perf, (gatling)'
 " >> setenv.sh
 chmod +x setenv.sh
 
@@ -318,6 +332,8 @@ echo "
 ::@SET \"CURL_HOME=%root_dir%\\$curl_dir\\winssl\"
 @SET \"CURL_HOME=%root_dir%\\$curl_dir\"
 @SET \"PATH=%PATH%;%CURL_HOME%\"
+@SET \"WGET_HOME=%root_dir%\\$wget_dir\"
+@SET \"PATH=%PATH%;%WGET_HOME%\\bin\"
 
 @SET \"CMD_HOME=%root_dir%\\bin\"
 @SET \"PATH=%CMD_HOME%;%PATH%\"
@@ -325,7 +341,7 @@ echo "
 @SET \"GATLING_HOME=%root_dir%\\$gatling_dir\"
 @SET \"PATH=%GATLING_HOME%\\bin;%PATH%\"
 
-@ECHO "Following tools installed: java, jm, jm3, mat, gcviewer, threadlogic, curl, perf, \(gatling\)"
+@ECHO "Following tools installed: java, jm, jm3, mat, gcviewer, threadlogic, curl, wget, perf, \(gatling\)"
 " > setenv.bat
 unix2dos setenv.bat
 
