@@ -100,8 +100,11 @@ if [ "$uname" \!= "Darwin" ]; then
   #mat_url="http://mirror.switch.ch/eclipse/mat/1.6/rcp/$mat_zip"
   mat_url="http://download.eclipse.org/mat/1.6/rcp/$mat_zip"
   download "$mat_url" "$mat_zip"
-  curl_7z=curl_X64_ssl.7z
-  download http://www.paehl.com/open_source/downloads/curl_X64_ssl.7z "$curl_7z"
+  #curl_7z=curl_X64_ssl.7z
+  #download http://www.paehl.com/open_source/downloads/curl_X64_ssl.7z "$curl_7z"
+  curl_7z=curl_7_51_0_openssl_nghttp2_x64.7z
+  download http://winampplugins.co.uk/curl/$curl_7z "$curl_7z"
+  #https://raw.githubusercontent.com/bagder/ca-bundle/master/ca-bundle.crt
 
   #This one cannot be easily downloaded under a portable form
   javasdk_zip=java-sdk-1.8.0_112-x64.zip
@@ -195,6 +198,7 @@ if [ "$uname" \!= "Darwin" ]; then
   mkdir "$curl_dir"
   pushd "$curl_dir"
   7z x "../../../download/$curl_7z"
+  find . -type f \( -iname '*.exe' -o -iname '*.dll' \) -exec chmod +x {} \;
   popd
 fi
 
@@ -236,8 +240,9 @@ PATH=\"\$JAVA_HOME/bin:\$PATH\"
 JAVA_HOME_BIS=\"\$root_dir_bis/$java_dir\"
 
 CURL_HOME=\"\$root_dir/$curl_dir\"
-PATH=\"\$PATH:\$CURL_HOME/winssl\"
+PATH=\"\$PATH:\$CURL_HOME\"
 " >> setenv.sh
+#PATH=\"\$PATH:\$CURL_HOME/winssl\"
 JAVAW=javaw
 else
 JAVAW=java
@@ -310,7 +315,8 @@ echo "
 
 @SET \"THREADLOGIC_HOME=%root_dir%\\$threadlogic_dir\"
 
-@SET \"CURL_HOME=%root_dir%\\$curl_dir\\winssl\"
+::@SET \"CURL_HOME=%root_dir%\\$curl_dir\\winssl\"
+@SET \"CURL_HOME=%root_dir%\\$curl_dir\"
 @SET \"PATH=%PATH%;%CURL_HOME%\"
 
 @SET \"CMD_HOME=%root_dir%\\bin\"
