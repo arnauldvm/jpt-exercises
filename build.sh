@@ -395,13 +395,6 @@ for w in 3 4 5a; do
   cp -rp tmp/apps/app01 solutions/w$w/apps/app01
 done
 
-for w in 5b; do
-  echo Retrieve solution for workshop $w
-  mkdir -p solutions/w$w/apps
-  git --git-dir=tmp/.git --work-tree=tmp checkout solutions/w$w --
-  cp -rp tmp/apps/exercise12 solutions/w$w/apps/exercise12
-done
-
 solutions_file=jpt-solutions.zip
 rm $solutions_file
 archive solutions $solutions_file
