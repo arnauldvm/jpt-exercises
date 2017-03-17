@@ -56,7 +56,6 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
 
-# Unfortunately, this does not work:
   config.vm.synced_folder 'C:\dev\prj\jpt', "/jpt"
  
 
