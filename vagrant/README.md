@@ -4,6 +4,11 @@ Use cygwin.
 
 ```sh
 $ install.sh
+```
+
+# Connecting
+
+```sh
 $ vagrant ssh
 ```
 
