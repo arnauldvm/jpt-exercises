@@ -12,6 +12,12 @@ $ install.sh
 $ vagrant ssh
 ```
 
+# Uninstall
+
+```sh
+$ vagrant destroy
+```
+
 # History
 
 Was initially created as:
