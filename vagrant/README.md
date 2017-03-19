@@ -3,7 +3,7 @@
 Use cygwin.
 
 ```sh
-$ install.sh
+$ ./install.sh
 ```
 
 # Connecting
