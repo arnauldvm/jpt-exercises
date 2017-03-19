@@ -84,5 +84,11 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.provision "shell", inline: <<BOOTSTRAP
+  # update all existing packages 
+  yum update -y
+  # install additional packages
+  yum install -y git
+  yum install -y java-1.8.0-openjdk-devel
+BOOTSTRAP
 end
