@@ -2,6 +2,7 @@
 
 # Use cygwin.
 
+vagrant plugin install vagrant-proxyconf
 vagrant up
 # This will likely fail the first time => run it again
 vagrant plugin install vagrant-vbguest
