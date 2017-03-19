@@ -3,11 +3,7 @@
 Use cygwin.
 
 ```sh
-$ vagrant plugin install vagrant-vbguest
-$ vagrant plugin upgrade vagrant-vbguest
-$ vagrant up
-# This will likely fail the first time => run it again
-$ vagrant up
+$ install.sh
 $ vagrant ssh
 ```
 
