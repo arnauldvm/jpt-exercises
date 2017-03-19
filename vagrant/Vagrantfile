@@ -7,7 +7,7 @@
 # you're doing.
 Vagrant.configure("2") do |config|
 
-  if Vagrant.has_plugin?("vagrant-proxyconf")
+  if Vagrant.has_plugin?("vagrant-proxyconf") # See https://github.com/tmatilai/vagrant-proxyconf
     config.proxy.http     = "http://avm-pc:8888"
     config.proxy.https    = "http://avm-pc:8888"
     config.proxy.no_proxy = "localhost,127.0.0.1"
